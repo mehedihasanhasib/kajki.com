@@ -18,7 +18,6 @@ export default function Nav() {
                         <Link className="text-2xl font-bold text-blue-600">
                             KajKi
                         </Link>
-
                         <div className="flex items-center">
                             <ul id="menu" className="hidden sm:flex space-x-6">
                                 <li>
@@ -57,7 +56,7 @@ export default function Nav() {
                                         সাইন ইন
                                     </Link>
                                 </li>
-                                <li>
+                                {/* <li>
                                     <Link
                                         href="/profile"
                                         id="loginButton"
@@ -69,7 +68,7 @@ export default function Nav() {
                                     >
                                         আমার একাউন্ট
                                     </Link>
-                                </li>
+                                </li> */}
                                 {/* <li>
                                     <Link
                                         href="#"

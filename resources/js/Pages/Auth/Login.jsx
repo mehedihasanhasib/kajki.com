@@ -84,12 +84,12 @@ export default function Login({ status, canResetPassword }) {
                             />
                             Continue with Google
                         </button>
-                        <Link
+                        {/* <Link
                             href={route("register")}
                             className="w-full py-3 bg-gray-100 text-gray-700 font-bold rounded-lg shadow-md flex items-center justify-center mt-4 hover:bg-gray-200 transition"
                         >
                             Sign up with email
-                        </Link>
+                        </Link> */}
                         <div className="mt-6 text-center">
                             <span className="text-gray-600">
                                 Don't have an account?{" "}

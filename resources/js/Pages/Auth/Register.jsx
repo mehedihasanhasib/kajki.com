@@ -1,4 +1,3 @@
-import TextInput from "@/Components/TextInput";
 import AppLayout from "@/Layouts/AppLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
 
@@ -12,8 +11,8 @@ export default function Register() {
 
     const submit = (e) => {
         e.preventDefault();
-
-        post(route("register"), {
+        console.log(data)
+        post(route("register.store"), {
             onFinish: () => reset("password", "password_confirmation"),
         });
     };
@@ -36,7 +35,7 @@ export default function Register() {
                             >
                                 Full Name
                             </label>
-                            <TextInput
+                            <input
                                 type="text"
                                 name="name"
                                 id="name"
@@ -58,7 +57,7 @@ export default function Register() {
                             >
                                 Email Address
                             </label>
-                            <TextInput
+                            <input
                                 type="email"
                                 name="email"
                                 id="email"
@@ -80,7 +79,7 @@ export default function Register() {
                             >
                                 Password
                             </label>
-                            <TextInput
+                            <input
                                 type="password"
                                 name="password"
                                 id="password"
@@ -102,7 +101,7 @@ export default function Register() {
                             >
                                 Confirm Password
                             </label>
-                            <TextInput
+                            <input
                                 type="password"
                                 name="password_confirmation"
                                 id="password_confirmation"
