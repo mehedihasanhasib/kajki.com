@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 
 class TasksController extends Controller
 {
@@ -13,7 +12,7 @@ class TasksController extends Controller
      */
     public function index()
     {
-        return inertia('Frontend/Tasks');
+        return inertia("Frontend/Tasks");
     }
 
     /**
@@ -37,7 +36,7 @@ class TasksController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return inertia("Frontend/TaskDetails");
     }
 
     /**

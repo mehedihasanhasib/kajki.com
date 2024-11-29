@@ -7,13 +7,15 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 /* ======= Home =======*/
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 /* ======= Tasks =======*/
 Route::get('/tasks', [TasksController::class, 'index'])->name('tasks');
+Route::get('/task/{slug}', [TasksController::class, 'show'])->name('task.show');
 
 /* ======= Profile =======*/
-Route::get('/profile', function(){
+Route::get('/profile', function () {
     return inertia('Frontend/Profile');
 })->name('profile');
 
@@ -28,4 +30,4 @@ Route::get('/dashboard', function () {
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

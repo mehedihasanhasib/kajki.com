@@ -10,7 +10,7 @@ export default function Profile() {
             </Head>
            <section>
              {/* // <!-- Profile Page Container --> */}
-             <div className="min-h-screen py-8 px-4 grow">
+             <div className="py-8 px-4 grow">
                 {/* <!-- Main Content --> */}
                 <div className="max-w-3xl mx-auto">
                     {/* <!-- Header --> */}

@@ -24,11 +24,10 @@ export default function Nav() {
                                 <li>
                                     <Link
                                         href={route('home')}
-                                        className={`block rounded py-2 ${
-                                            url === "/"
+                                        className={`block rounded py-2 ${url === "/"
                                                 ? "text-blue-600 underline underline-offset-8"
                                                 : "text-gray-700 hover:text-blue-600 hover:underline hover:underline-offset-8"
-                                        }`}
+                                            }`}
                                     >
                                         হোম
                                     </Link>
@@ -36,11 +35,10 @@ export default function Nav() {
                                 <li>
                                     <Link
                                         href={route('tasks')}
-                                        className={`block rounded py-2 ${
-                                            url === "/tasks"
+                                        className={`block rounded py-2 ${url === "/tasks"
                                                 ? "text-blue-600 underline underline-offset-8"
                                                 : "text-gray-700 hover:text-blue-600 hover:underline hover:underline-offset-8"
-                                        }`}
+                                            }`}
                                     >
                                         সকল কাজ
                                     </Link>
@@ -49,11 +47,12 @@ export default function Nav() {
                                     <Link
                                         href={route('login')}
                                         id="loginButton"
-                                        className={`block rounded py-2 ${
+                                        /*className={`block rounded py-2 ${
                                             url === "/login"
                                                 ? "text-blue-600 underline underline-offset-8"
                                                 : "text-gray-700 hover:text-blue-600 hover:underline hover:underline-offset-8"
-                                        }`}
+                                        }`}*/
+                                        className="block p-2 rounded-md text-white bg-blue-600 hover:bg-blue-700"
                                     >
                                         সাইন ইন
                                     </Link>
@@ -62,16 +61,16 @@ export default function Nav() {
                                     <Link
                                         href="/profile"
                                         id="loginButton"
-                                        className={`block rounded py-2 ${
-                                            url === "/login"
+                                        className={`block rounded py-2 ${url === "/login"
                                                 ? "text-blue-600 underline underline-offset-8"
                                                 : "text-gray-700 hover:text-blue-600 hover:underline hover:underline-offset-8"
-                                        }`}
+                                            }`}
+
                                     >
                                         আমার একাউন্ট
                                     </Link>
                                 </li>
-                                <li>
+                                {/* <li>
                                     <Link
                                         href="#"
                                         id=""
@@ -79,7 +78,7 @@ export default function Nav() {
                                     >
                                         কাজ পোস্ট করুন
                                     </Link>
-                                </li>
+                                </li> */}
                             </ul>
 
                             <button
