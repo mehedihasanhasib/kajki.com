@@ -4,6 +4,8 @@ import MobileMenu from "./MobileMenu";
 
 export default function Nav() {
     const { url } = usePage();
+    const { auth } = usePage().props;
+    const isAuthenticated = auth.user !== null;
     const [mobileMenu, setMobileMenu] = useState(false);
 
     const toggleMobileMenu = () => {
@@ -22,53 +24,58 @@ export default function Nav() {
                             <ul id="menu" className="hidden sm:flex space-x-6">
                                 <li>
                                     <Link
-                                        href={route('home')}
-                                        className={`block rounded py-2 ${url === "/"
+                                        href={route("home")}
+                                        className={`block rounded py-2 ${
+                                            url === "/"
                                                 ? "text-blue-600 underline underline-offset-8"
                                                 : "text-gray-700 hover:text-blue-600 hover:underline hover:underline-offset-8"
-                                            }`}
+                                        }`}
                                     >
                                         হোম
                                     </Link>
                                 </li>
                                 <li>
                                     <Link
-                                        href={route('tasks')}
-                                        className={`block rounded py-2 ${url === "/tasks"
+                                        href={route("tasks")}
+                                        className={`block rounded py-2 ${
+                                            url === "/tasks"
                                                 ? "text-blue-600 underline underline-offset-8"
                                                 : "text-gray-700 hover:text-blue-600 hover:underline hover:underline-offset-8"
-                                            }`}
+                                        }`}
                                     >
                                         সকল কাজ
                                     </Link>
                                 </li>
-                                <li>
-                                    <Link
-                                        href={route('login')}
-                                        id="loginButton"
-                                        /*className={`block rounded py-2 ${
+                                {isAuthenticated ? (
+                                    <li>
+                                        <Link
+                                            href="/profile"
+                                            id="loginButton"
+                                            className={`block rounded py-2 ${
+                                                url === "/profile"
+                                                    ? "text-blue-600 underline underline-offset-8"
+                                                    : "text-gray-700 hover:text-blue-600 hover:underline hover:underline-offset-8"
+                                            }`}
+                                        >
+                                            আমার একাউন্ট
+                                        </Link>
+                                    </li>
+                                ) : (
+                                    <li>
+                                        <Link
+                                            href={route("login")}
+                                            id="loginButton"
+                                            /*className={`block rounded py-2 ${
                                             url === "/login"
                                                 ? "text-blue-600 underline underline-offset-8"
                                                 : "text-gray-700 hover:text-blue-600 hover:underline hover:underline-offset-8"
                                         }`}*/
-                                        className="block p-2 rounded-md text-white bg-blue-600 hover:bg-blue-700"
-                                    >
-                                        সাইন ইন
-                                    </Link>
-                                </li>
-                                {/* <li>
-                                    <Link
-                                        href="/profile"
-                                        id="loginButton"
-                                        className={`block rounded py-2 ${url === "/login"
-                                                ? "text-blue-600 underline underline-offset-8"
-                                                : "text-gray-700 hover:text-blue-600 hover:underline hover:underline-offset-8"
-                                            }`}
-
-                                    >
-                                        আমার একাউন্ট
-                                    </Link>
-                                </li> */}
+                                            className="block p-2 rounded-md text-white bg-blue-600 hover:bg-blue-700"
+                                        >
+                                            সাইন ইন
+                                        </Link>
+                                    </li>
+                                )}
                                 {/* <li>
                                     <Link
                                         href="#"

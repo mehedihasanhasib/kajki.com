@@ -11,7 +11,7 @@ export default function Login({ status, canResetPassword }) {
 
     const submit = (e) => {
         e.preventDefault();
-
+        console.log(data);
         post(route("login"), {
             onFinish: () => reset("password"),
         });
@@ -30,14 +30,21 @@ export default function Login({ status, canResetPassword }) {
                         </h2>
                         <form onSubmit={submit} className="space-y-6">
                             <div>
-                                <label htmlFor="email" className="block text-sm font-medium text-gray-600">
+                                <label
+                                    htmlFor="email"
+                                    className="block text-sm font-medium text-gray-600"
+                                >
                                     Email Address
                                 </label>
-                                <TextInput
+                                <input
                                     type="email"
                                     name="email"
                                     id="email"
                                     placeholder="Enter your email"
+                                    value={data.email}
+                                    onChange={(e) =>
+                                        setData("email", e.target.value)
+                                    }
                                     className="mt-2 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                                 />
                                 {errors.email && (
@@ -47,14 +54,21 @@ export default function Login({ status, canResetPassword }) {
                                 )}
                             </div>
                             <div>
-                                <label htmlFor="password" className="block text-sm font-medium text-gray-600">
+                                <label
+                                    htmlFor="password"
+                                    className="block text-sm font-medium text-gray-600"
+                                >
                                     Password
                                 </label>
-                                <TextInput
+                                <input
                                     type="password"
                                     name="password"
                                     id="password"
                                     placeholder="Enter your password"
+                                    value={data.password}
+                                    onChange={(e) =>
+                                        setData("password", e.target.value)
+                                    }
                                     className="mt-2 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
                                 />
                                 {errors.password && (
