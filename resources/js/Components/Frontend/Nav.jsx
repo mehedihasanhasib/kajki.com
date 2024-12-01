@@ -4,116 +4,164 @@ import MobileMenu from "./MobileMenu";
 
 export default function Nav() {
     const { url } = usePage();
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const { auth } = usePage().props;
     const isAuthenticated = auth.user !== null;
-    const [mobileMenu, setMobileMenu] = useState(false);
-
-    const toggleMobileMenu = () => {
-        setMobileMenu(!mobileMenu);
-    };
 
     return (
-        <>
-            <nav className="bg-white shadow-md">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-4">
-                    <div className="flex justify-between items-center h-16">
-                        <Link className="text-2xl font-bold text-blue-600">
-                            KajKi
-                        </Link>
-                        <div className="flex items-center">
-                            <ul id="menu" className="hidden sm:flex space-x-6">
-                                <li>
-                                    <Link
-                                        href={route("home")}
-                                        className={`block rounded py-2 ${
-                                            url === "/"
-                                                ? "text-blue-600 underline underline-offset-8"
-                                                : "text-gray-700 hover:text-blue-600 hover:underline hover:underline-offset-8"
-                                        }`}
-                                    >
-                                        হোম
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        href={route("tasks")}
-                                        className={`block rounded py-2 ${
-                                            url === "/tasks"
-                                                ? "text-blue-600 underline underline-offset-8"
-                                                : "text-gray-700 hover:text-blue-600 hover:underline hover:underline-offset-8"
-                                        }`}
-                                    >
-                                        সকল কাজ
-                                    </Link>
-                                </li>
-                                {isAuthenticated ? (
-                                    <li>
-                                        <Link
-                                            href="/profile"
-                                            id="loginButton"
-                                            className={`block rounded py-2 ${
-                                                url === "/profile"
-                                                    ? "text-blue-600 underline underline-offset-8"
-                                                    : "text-gray-700 hover:text-blue-600 hover:underline hover:underline-offset-8"
-                                            }`}
-                                        >
-                                            আমার একাউন্ট
-                                        </Link>
-                                    </li>
-                                ) : (
-                                    <li>
-                                        <Link
-                                            href={route("login")}
-                                            id="loginButton"
-                                            /*className={`block rounded py-2 ${
-                                            url === "/login"
-                                                ? "text-blue-600 underline underline-offset-8"
-                                                : "text-gray-700 hover:text-blue-600 hover:underline hover:underline-offset-8"
-                                        }`}*/
-                                            className="block p-2 rounded-md text-white bg-blue-600 hover:bg-blue-700"
-                                        >
-                                            সাইন ইন
-                                        </Link>
-                                    </li>
-                                )}
-                                {/* <li>
-                                    <Link
-                                        href="#"
-                                        id=""
-                                        className="block p-2 rounded-md text-white bg-blue-600 hover:bg-blue-700"
-                                    >
-                                        কাজ পোস্ট করুন
-                                    </Link>
-                                </li> */}
-                            </ul>
-
-                            <button
-                                id="menu-toggle"
-                                onClick={toggleMobileMenu}
-                                className="sm:hidden text-gray-500 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600 ml-4"
-                                aria-expanded="false"
-                            >
-                                <svg
-                                    className="w-6 h-6"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M4 6h16M4 12h16M4 18h16"
-                                    ></path>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
+        <nav className="bg-white shadow-md w-full z-200">
+            <div className="container px-4 lg:px-8 flex justify-between items-center py-4">
+                {/* Logo */}
+                <div className="flex items-center">
+                    <span className="text-2xl font-extrabold text-gray-800 tracking-wide hover:text-blue-500 transition duration-200">
+                        KajKi.com
+                    </span>
                 </div>
 
-                {mobileMenu && <MobileMenu />}
-            </nav>
-        </>
+                {/* Desktop Menu */}
+                <div className="hidden md:flex space-x-8 items-center">
+                    <Link
+                        href={route("home")}
+                        className={
+                            url === "/"
+                                ? "text-blue-600 underline underline-offset-8"
+                                : "text-gray-700 hover:text-blue-600 hover:underline hover:underline-offset-8"
+                        }
+                    >
+                        হোম
+                    </Link>
+                    <Link
+                        href={route("tasks")}
+                        className={
+                            url === "/tasks"
+                                ? "text-blue-600 underline underline-offset-8"
+                                : "text-gray-700 hover:text-blue-600 hover:underline hover:underline-offset-8"
+                        }
+                    >
+                        সকল কাজ
+                    </Link>
+
+                    {/* Dropdown Menu */}
+                    {isAuthenticated ? (
+                        <Link
+                            href={route("profile")}
+                            className={
+                                url === "/profile"
+                                    ? "text-blue-600 underline underline-offset-8"
+                                    : "text-gray-700 hover:text-blue-600 hover:underline hover:underline-offset-8"
+                            }
+                        >
+                            একাউন্ট
+                        </Link>
+                    ) : (
+                        <Link
+                            href={route("login")}
+                            className="bg-blue-500 text-white px-5 py-2 rounded-lg font-medium hover:bg-blue-600 transition duration-200 shadow-lg"
+                        >
+                            সাইন ইন
+                        </Link>
+                    )}
+                </div>
+
+                {/* Mobile Menu Button */}
+                <button
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    className="md:hidden text-gray-600 hover:text-indigo-600"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-6 w-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M4 6h16M4 12h16M4 18h16"
+                        />
+                    </svg>
+                </button>
+            </div>
+
+            {/* Mobile Dropdown Menu */}
+            {isMenuOpen && (
+                <div className="md:hidden bg-white shadow-lg">
+                    <div className="flex flex-col space-y-4 py-4 px-6">
+                        <a
+                            href="#"
+                            className="text-gray-600 hover:text-blue-500 font-medium transition duration-200"
+                        >
+                            Home
+                        </a>
+                        <a
+                            href="#"
+                            className="text-gray-600 hover:text-blue-500 font-medium transition duration-200"
+                        >
+                            About
+                        </a>
+
+                        {/* Mobile Services Dropdown */}
+                        <div className="relative">
+                            <button
+                                onClick={() =>
+                                    setIsDropdownOpen(!isDropdownOpen)
+                                }
+                                className="text-gray-600 hover:text-blue-500 font-medium transition duration-200 flex items-center"
+                            >
+                                Services
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className={`h-4 w-4 ml-2 transform transition-all duration-200 ${
+                                        isDropdownOpen ? "rotate-180" : ""
+                                    }`}
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M19 9l-7 7-7-7"
+                                    />
+                                </svg>
+                            </button>
+                            {isDropdownOpen && (
+                                <div className="">
+                                    <a
+                                        href="#"
+                                        className="block px-4 py-2 text-gray-600 hover:bg-blue-100"
+                                    >
+                                        Service 1
+                                    </a>
+                                    <a
+                                        href="#"
+                                        className="block px-4 py-2 text-gray-600 hover:bg-blue-100"
+                                    >
+                                        Service 2
+                                    </a>
+                                </div>
+                            )}
+                        </div>
+
+                        <a
+                            href="#"
+                            className="text-gray-600 hover:text-blue-500 font-medium transition duration-200"
+                        >
+                            Contact
+                        </a>
+                        <a
+                            href="#"
+                            className="bg-blue-500 text-white text-center px-4 py-2 rounded-lg font-medium hover:bg-blue-600 transition duration-200 shadow-lg"
+                        >
+                            Sign Up
+                        </a>
+                    </div>
+                </div>
+            )}
+        </nav>
     );
 }

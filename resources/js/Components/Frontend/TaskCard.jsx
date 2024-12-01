@@ -76,7 +76,7 @@ export default function TaskCard() {
                     </a>
                 </div>
             </div> */}
-            <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow p-6 m-2 md:m-3 lg:m-4 2xl:m-0">
+            <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow p-6 m-2">
                 <div className="flex justify-between items-start mb-2 md:mb-4">
                     <div>
                         <h3 className="md:text-lg font-semibold mb-2">

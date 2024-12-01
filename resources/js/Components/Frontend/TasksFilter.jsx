@@ -2,7 +2,7 @@ import React from "react";
 
 export default function TasksFilter() {
     return (
-        <div className="bg-white rounded-xl shadow-md p-6 mb-8">
+        <div className="bg-white shadow-md rounded-md py-4 mx-2 px-2">
             <div className="flex flex-col md:flex-row md:items-center md:space-x-4 space-y-4 md:space-y-0">
                 <div className="flex-1">
                     <input

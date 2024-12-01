@@ -1,5 +1,6 @@
+import ProfileSideBar from "@/Components/Frontend/ProfileSideBar";
 import AppLayout from "@/Layouts/AppLayout";
-import { Head } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 import React from "react";
 
 export default function Profile() {
@@ -8,20 +9,11 @@ export default function Profile() {
             <Head>
                 <title>Profile</title>
             </Head>
-           <section>
-             {/* // <!-- Profile Page Container --> */}
-             <div className="py-8 px-4 grow">
-                {/* <!-- Main Content --> */}
-                <div className="max-w-3xl mx-auto">
-                    {/* <!-- Header --> */}
-                    <div className="mb-8">
-                        <h1 className="text-2xl md:text-3xl font-bold text-center text-gray-800">
-                            প্রোফাইল সেটিংস
-                        </h1>
-                    </div>
+            <section className="py-2 xl:flex w-full">
+                <ProfileSideBar />
 
-                    {/* <!-- Profile Form Card --> */}
-                    <div className="bg-white rounded-lg shadow-md p-6 md:p-8">
+                <div className="flex-1">
+                    <div className="bg-white shadow-md p-6 md:p-8">
                         <form className="space-y-6">
                             {/* <!-- Name Field --> */}
                             <div className="space-y-2">
@@ -191,8 +183,7 @@ export default function Profile() {
                         </form>
                     </div>
                 </div>
-            </div>
-           </section>
+            </section>
         </AppLayout>
     );
 }
