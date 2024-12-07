@@ -12,9 +12,13 @@ export default function ProfileSideBar() {
                 >
                     <Link href={route("profile")}>প্রোফাইল</Link>
                 </li>
-                <li className={`py-3 px-2 m-1 ${
-                        url === "" ? "bg-gray-100" : ""
-                    }`}>আমার কাজ</li>
+                <li
+                    className={`py-3 px-2 m-1 ${
+                        url === "/profile/my-tasks" ? "bg-gray-100" : ""
+                    }`}
+                >
+                    <Link href={route("mytasks")}>আমার কাজ</Link>
+                </li>
             </ul>
         </div>
     );
