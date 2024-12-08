@@ -20,7 +20,7 @@ class TasksController extends Controller
      */
     public function create()
     {
-        //
+        return inertia('Frontend/TaskPost');
     }
 
     /**

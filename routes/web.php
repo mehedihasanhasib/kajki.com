@@ -13,7 +13,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-/* ======= Tasks =======*/
+/* ======= Tasks Show =======*/
 Route::get('/tasks', [TasksController::class, 'index'])->name('tasks');
 Route::get('/task/{slug}', [TasksController::class, 'show'])->name('task.show');
 
@@ -25,10 +25,12 @@ Route::middleware('auth')->group(function () {
         Route::patch('/', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-        /* ======= User Tasks =======*/
+        /* ======= Profile Tasks =======*/
         Route::get('/my-tasks', [TasksProfileController::class, 'index'])->name('mytasks');
     });
 
+    /* ======= Tasks Create =======*/
+    Route::get('create-task', [TasksController::class, 'create'])->name('task.create');
 });
 
 

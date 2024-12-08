@@ -1,6 +1,5 @@
 import { Link, usePage } from "@inertiajs/react";
 import React, { useState } from "react";
-import MobileMenu from "./MobileMenu";
 
 export default function Nav() {
     const { url } = usePage();
@@ -44,6 +43,7 @@ export default function Nav() {
 
                     {/* Dropdown Menu */}
                     {isAuthenticated ? (
+                        <>
                         <Link
                             href={route("profile")}
                             className={
@@ -54,6 +54,13 @@ export default function Nav() {
                         >
                             একাউন্ট
                         </Link>
+                        <Link
+                            href={route("task.create")}
+                            className="bg-blue-500 text-white px-5 py-2 rounded-lg font-medium hover:bg-blue-600 transition duration-200 shadow-lg"
+                        >
+                            Post Task
+                        </Link>
+                        </>
                     ) : (
                         <Link
                             href={route("login")}
