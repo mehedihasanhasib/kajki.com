@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Hero() {
     return (
-        <section className="bg-blue-600 text-white py-4 md:py-12">
+        <section className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-4 md:py-12">
             <div className="max-w-6xl mx-auto px-4 flex flex-col items-center text-center">
                 <h1 className="text-3xl md:text-5xl font-bold mb-4">
                     আপনার কাজের জন্য দক্ষ লোক সন্ধান করুন

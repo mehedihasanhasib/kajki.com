@@ -13,12 +13,12 @@ export default function Tasks() {
             </Head>
             <AppLayout>
                 {/* Main Content */}
-                <section className="py-2">
+                <section className="py-2 px-6">
                     <TasksFilter />
 
                     <TasksTags />
                     {/* Tasks Grid */}
-                    <div className="grid md:grid-cols-2">
+                    <div className="grid md:grid-cols-2 xl:grid-cols-3">
                         <TaskCard />
                         <TaskCard />
                         <TaskCard />
