@@ -19,6 +19,11 @@ export default function ProfileSideBar() {
                 >
                     <Link href={route("mytasks")}>আমার কাজ</Link>
                 </li>
+                <li className={`py-3 px-2 m-1`}>
+                    <Link href={route("logout")} method="post" as="button">
+                        লগ আউট
+                    </Link>
+                </li>
             </ul>
         </div>
     );

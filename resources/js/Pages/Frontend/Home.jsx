@@ -17,7 +17,7 @@ export default function Home() {
                         <h2 className="text-2xl md:text-3xl font-bold text-center mb-4">
                             সাম্প্রতিক কাজসমূহ
                         </h2>
-                        <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+                        <div className="grid md:grid-cols-2">
                             <TaskCard />
                             <TaskCard />
                             <TaskCard />
