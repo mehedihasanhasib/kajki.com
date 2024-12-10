@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Division;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Http;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,11 +15,22 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $response = Http::get('https://bdapis.com/api/v1.2/divisions');
+        if ($response->successful()) {
+            $divisions = $response->json();
+            foreach ($divisions['data'] as $division) {
+                Division::Create([
+                    'division' =>  $division['division'],
+                    'division_bn' =>  $division['divisionbn'],
+                ]);
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+                
+            }
+
+
+            $this->command->info('Division stored successfully!');
+        } else {
+            $this->command->error('Failed to fetch divisions from the API.');
+        }
     }
 }

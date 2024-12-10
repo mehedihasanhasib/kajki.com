@@ -12,7 +12,7 @@ export default function Home() {
             </Head>
             <AppLayout>
                 <Hero />
-                <section className="mt-4 px-6">
+                <section className="mt-4 md:px-6">
                     <div className="">
                         <h2 className="text-2xl md:text-3xl font-bold text-center mb-4 mt-2">
                             সাম্প্রতিক কাজসমূহ

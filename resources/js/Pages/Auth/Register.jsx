@@ -24,8 +24,8 @@ export default function Register() {
             </Head>
             <section className="flex justify-center items-center p-4">
                 <div className="bg-white rounded-xl shadow-md p-8 w-full max-w-lg">
-                    <h2 className="text-3xl text-center font-extrabold text-gray-800 mb-6">
-                        Create Your Account
+                    <h2 className="text-xl text-center font-extrabold text-gray-800 mb-6">
+                        আপনার একাউন্ট রেজিস্টার করুন
                     </h2>
                     <form onSubmit={submit} className="space-y-6">
                         <div>
@@ -33,13 +33,13 @@ export default function Register() {
                                 htmlFor="name"
                                 className="block text-sm font-medium text-gray-600"
                             >
-                                Full Name
+                                নাম
                             </label>
                             <input
                                 type="text"
                                 name="name"
                                 id="name"
-                                placeholder="Enter your full name"
+                                placeholder="আপনার সম্পূর্ণ নাম লিখুন"
                                 value={data.name}
                                 onChange={(e) => setData("name", e.target.value)}
                                 className="mt-2 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
@@ -55,13 +55,13 @@ export default function Register() {
                                 htmlFor="email"
                                 className="block text-sm font-medium text-gray-600"
                             >
-                                Email Address
+                                ইমেইল
                             </label>
                             <input
                                 type="email"
                                 name="email"
                                 id="email"
-                                placeholder="Enter your email"
+                                placeholder="আপনার ইমেইল লিখুন"
                                 value={data.email}
                                 onChange={(e) => setData("email", e.target.value)}
                                 className="mt-2 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
@@ -77,13 +77,13 @@ export default function Register() {
                                 htmlFor="password"
                                 className="block text-sm font-medium text-gray-600"
                             >
-                                Password
+                                পাসওয়ার্ড
                             </label>
                             <input
                                 type="password"
                                 name="password"
                                 id="password"
-                                placeholder="Enter your password"
+                                placeholder="পাসওয়ার্ড লিখুন"
                                 value={data.password}
                                 onChange={(e) => setData("password", e.target.value)}
                                 className="mt-2 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
@@ -99,13 +99,13 @@ export default function Register() {
                                 htmlFor="password_confirmation"
                                 className="block text-sm font-medium text-gray-600"
                             >
-                                Confirm Password
+                                কনফার্ম পাসওয়ার্ড
                             </label>
                             <input
                                 type="password"
                                 name="password_confirmation"
                                 id="password_confirmation"
-                                placeholder="Confirm your password"
+                                placeholder="পুনরায় পাসওয়ার্ড লিখুন"
                                 value={data.password_confirmation}
                                 onChange={(e) =>
                                     setData("password_confirmation", e.target.value)
@@ -123,7 +123,7 @@ export default function Register() {
                             disabled={processing}
                             className="w-full py-3 bg-blue-600 text-white font-bold text-lg rounded-lg shadow-md hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 transition"
                         >
-                            {processing ? "Registering..." : "Register"}
+                            {processing ? "রেজিস্ট্রেশন হচ্ছে ..." : "রেজিস্টার"}
                         </button>
                     </form>
                     <div className="flex items-center my-6">
@@ -133,13 +133,13 @@ export default function Register() {
                     </div>
                     <div className="text-center">
                         <span className="text-gray-600">
-                            Already have an account?{" "}
+                            একাউন্ট আছে?{" "}
                         </span>
                         <Link
                             href={route("login")}
                             className="text-blue-600 font-semibold hover:underline"
                         >
-                            Log In
+                            প্রবেশ করুন
                         </Link>
                     </div>
                 </div>

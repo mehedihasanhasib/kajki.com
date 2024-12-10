@@ -10,17 +10,20 @@ use App\Http\Controllers\Frontend\TasksProfileController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 /* ======= Home =======*/
-
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+
 
 /* ======= Tasks Show =======*/
 Route::get('/tasks', [TasksController::class, 'index'])->name('tasks');
 Route::get('/task/{slug}', [TasksController::class, 'show'])->name('task.show');
 
+
+
 /* ======= Account =======*/
 Route::middleware('auth')->group(function () {
     Route::prefix('/profile')->group(function(){
-        /* ======= Profile =======*/
+        /* ======= Profile Info =======*/
         Route::get('/', [ProfileController::class, 'edit'])->name('profile');
         Route::patch('/', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/', [ProfileController::class, 'destroy'])->name('profile.destroy');

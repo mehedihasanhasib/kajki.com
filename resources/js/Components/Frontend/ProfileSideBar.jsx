@@ -10,14 +10,14 @@ export default function ProfileSideBar() {
                         url === "/profile" ? "bg-gray-200" : ""
                     }`}
                 >
-                    <Link href={route("profile")}>প্রোফাইল</Link>
+                    <Link href={route("profile")}>আমার প্রোফাইল</Link>
                 </li>
                 <li
                     className={`py-3 px-2 m-1 ${
                         url === "/profile/my-tasks" ? "bg-gray-100" : ""
                     }`}
                 >
-                    <Link href={route("mytasks")}>আমার কাজ</Link>
+                    <Link href={route("mytasks")}>আমার কাজগুলো</Link>
                 </li>
                 <li className={`py-3 px-2 m-1`}>
                     <Link href={route("logout")} method="post" as="button">

@@ -11,7 +11,6 @@ export default function Login({ status, canResetPassword }) {
 
     const submit = (e) => {
         e.preventDefault();
-        console.log(data);
         post(route("login"), {
             onFinish: () => reset("password"),
         });
@@ -26,7 +25,7 @@ export default function Login({ status, canResetPassword }) {
                 <section className="flex justify-center p-4 items-center">
                     <div className="bg-white rounded-xl shadow-md p-8 w-full max-w-lg">
                         <h2 className="text-3xl text-center font-extrabold text-gray-800 mb-6">
-                            Welcome Back
+                            আপনার প্রফাইলে প্রবেশ করুন
                         </h2>
                         <form onSubmit={submit} className="space-y-6">
                             <div>
@@ -34,13 +33,13 @@ export default function Login({ status, canResetPassword }) {
                                     htmlFor="email"
                                     className="block text-sm font-medium text-gray-600"
                                 >
-                                    Email Address
+                                    ইমেইল
                                 </label>
                                 <input
                                     type="email"
                                     name="email"
                                     id="email"
-                                    placeholder="Enter your email"
+                                    placeholder="আপনার ইমেইল লিখুন"
                                     value={data.email}
                                     onChange={(e) =>
                                         setData("email", e.target.value)
@@ -58,13 +57,13 @@ export default function Login({ status, canResetPassword }) {
                                     htmlFor="password"
                                     className="block text-sm font-medium text-gray-600"
                                 >
-                                    Password
+                                   পাসওয়ার্ড
                                 </label>
                                 <input
                                     type="password"
                                     name="password"
                                     id="password"
-                                    placeholder="Enter your password"
+                                    placeholder="আপনার পাসওয়ার্ড লিখুন"
                                     value={data.password}
                                     onChange={(e) =>
                                         setData("password", e.target.value)
@@ -82,7 +81,7 @@ export default function Login({ status, canResetPassword }) {
                                 disabled={processing}
                                 className="w-full py-3 bg-blue-600 text-white font-bold text-lg rounded-lg shadow-md hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 transition"
                             >
-                                {processing ? "Logging in..." : "Login"}
+                                {processing ? "প্রবেশ হচ্ছে ..." : "প্রবেশ করুন"}
                             </button>
                         </form>
                         <div className="flex items-center my-6">
@@ -96,7 +95,7 @@ export default function Login({ status, canResetPassword }) {
                                 alt="Google Logo"
                                 className="h-6 mr-3"
                             />
-                            Continue with Google
+                            গুগল দিয়ে প্রবেশ করুন
                         </button>
                         {/* <Link
                             href={route("register")}
@@ -106,13 +105,13 @@ export default function Login({ status, canResetPassword }) {
                         </Link> */}
                         <div className="mt-6 text-center">
                             <span className="text-gray-600">
-                                Don't have an account?{" "}
+                                কোনো একাউন্ট নেই?{" "}
                             </span>
                             <Link
                                 href={route("register")}
                                 className="text-blue-600 font-semibold hover:underline"
                             >
-                                Sign Up
+                            রেজিস্ট্রেশন করুন
                             </Link>
                         </div>
                     </div>
