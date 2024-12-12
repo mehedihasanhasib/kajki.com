@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\PasswordController;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,8 +29,12 @@ Route::middleware('auth')->group(function () {
         Route::patch('/', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+        /* ======= Update Password =======*/
+        Route::get('/update-password', [PasswordController::class, 'edit'])->name('profile.update.password');
+
         /* ======= Profile Tasks =======*/
-        Route::get('/my-tasks', [TasksProfileController::class, 'index'])->name('mytasks');
+        Route::get('/my-tasks', [TasksProfileController::class, 'index'])->name('profile.mytasks');
+
     });
 
     /* ======= Tasks Create =======*/
