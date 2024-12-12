@@ -12,7 +12,7 @@ class TasksController extends Controller
      */
     public function index()
     {
-        return inertia("Frontend/Tasks");
+        return inertia("Frontend/Tasks/Index");
     }
 
     /**
@@ -20,7 +20,7 @@ class TasksController extends Controller
      */
     public function create()
     {
-        return inertia('Frontend/TaskPost');
+        return inertia('Frontend/Tasks/Create');
     }
 
     /**
@@ -36,7 +36,7 @@ class TasksController extends Controller
      */
     public function show(string $id)
     {
-        return inertia("Frontend/TaskDetails");
+        return inertia("Frontend/Tasks/Show");
     }
 
     /**

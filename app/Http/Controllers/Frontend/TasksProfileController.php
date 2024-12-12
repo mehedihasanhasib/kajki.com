@@ -8,6 +8,6 @@ use Illuminate\Http\Request;
 class TasksProfileController extends Controller
 {
     public function index(){
-        return inertia('Frontend/ProfileMyTasks');
+        return inertia('Frontend/Profile/ProfileMyTasks');
     }
 }

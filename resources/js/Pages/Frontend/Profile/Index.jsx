@@ -22,7 +22,7 @@ export default function Profile({ auth }) {
     return (
         <AppLayout>
             <Head>
-                <title>Profile</title>
+                <title>My Profile</title>
             </Head>
             <section className="py-2 xl:flex w-full">
                 <ProfileSideBar />

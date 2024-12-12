@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function () {
 
         /* ======= Update Password =======*/
         Route::get('/update-password', [PasswordController::class, 'edit'])->name('profile.update.password');
+        Route::put('password', [PasswordController::class, 'update'])->name('password.update');
 
         /* ======= Profile Tasks =======*/
         Route::get('/my-tasks', [TasksProfileController::class, 'index'])->name('profile.mytasks');

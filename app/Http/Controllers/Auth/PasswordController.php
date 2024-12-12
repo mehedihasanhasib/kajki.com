@@ -12,7 +12,7 @@ class PasswordController extends Controller
 {
     public function edit()
     {
-        return inertia('Frontend/ProfileUpdatePassword');
+        return inertia('Frontend/Profile/ProfileUpdatePassword');
     }
     /**
      * Update the user's password.
