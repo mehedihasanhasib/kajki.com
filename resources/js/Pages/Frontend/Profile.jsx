@@ -32,7 +32,7 @@ export default function Profile({ auth }) {
                         <form
                             className="space-y-6"
                             onSubmit={handleSubmit}
-                            enctype="multipart/form-data"
+                            encType="multipart/form-data"
                         >
                             {/* <!-- Email Field --> */}
                             <div className="space-y-2">
