@@ -15,6 +15,7 @@ export default function Profile({ auth }) {
         event.preventDefault();
         patch(route("profile.update"), {
             onSuccess: () => toast.success("Profile Updated Successfully"),
+            onError: () => toast.error("Error Updating Profile"),
         });
     };
 
@@ -43,9 +44,10 @@ export default function Profile({ auth }) {
                                     for="email"
                                     className="block text-sm font-medium text-gray-700"
                                 >
-                                    ইমেইল
+                                    <strong>ইমেইল: </strong>
+                                    <span className="text-lg">{user.email}</span>
                                 </label>
-                                <input
+                                {/* <input
                                     type="email"
                                     id="email"
                                     name="email"
@@ -53,7 +55,7 @@ export default function Profile({ auth }) {
                                     placeholder="আপনার ইমেইল লিখুন"
                                     value={user.email}
                                     disabled={true}
-                                />
+                                /> */}
                             </div>
 
                             {/* <!-- Name Field --> */}
