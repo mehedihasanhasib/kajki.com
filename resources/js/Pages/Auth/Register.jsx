@@ -23,8 +23,8 @@ export default function Register() {
                 <title>Register</title>
             </Head>
             <section className="flex justify-center items-center p-4">
-                <div className="bg-white rounded-xl shadow-md p-8 w-full max-w-lg">
-                    <h2 className="text-xl text-center font-extrabold text-gray-800 mb-6">
+                <div className="bg-white rounded-xl shadow-md p-4 lg:p-6 xl:p-8 w-full max-w-lg">
+                    <h2 className="text-xl lg:text-2xl text-center font-extrabold text-gray-800 mb-6">
                         আপনার একাউন্ট রেজিস্টার করুন
                     </h2>
                     <form onSubmit={submit} className="space-y-6">

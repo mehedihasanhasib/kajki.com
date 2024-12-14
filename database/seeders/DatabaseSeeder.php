@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $response = Http::get('https://bdapis.com/api/v1.2/divisions');
         if ($response->successful()) {
             $divisions = $response->json();
+
             foreach ($divisions['data'] as $division) {
                 $division_en = $division['division'];
                 $division_bn = $division['divisionbn'];
@@ -29,20 +30,29 @@ class DatabaseSeeder extends Seeder
                 $district_response = Http::get("https://bdapis.com/api/v1.2/division/$division_en");
                 if ($district_response->successful()) {
                     $districts = $district_response->json();
-
+                    $insertValue = [];
                     foreach ($districts['data'] as $district) {
                         $district_en = $district['district'];
                         $district_bn = $district['districtbn'];
-                        $division->district()->create([
+
+                        $insertValue[] = [
+                            'division_id' => $division->id,
                             'district' => $district_en,
                             'districtbn' => $district_bn,
-                        ]);
+                            'created_at' => now(),
+                            'updated_at' => now(),
+                        ];
                     }
+
+                    // print_r($insertValue);
+
+                    $division->district()->insert($insertValue);
+                } else {
+                    $this->command->error('Failed to fetch district from the API.');
                 }
             }
 
-
-            $this->command->info('Division stored successfully!');
+            $this->command->info('Divisions and Districts stored successfully!');
         } else {
             $this->command->error('Failed to fetch divisions from the API.');
         }
