@@ -8,8 +8,8 @@ export default function TaskDetails() {
             <Head>
                 <title>Task Details</title>
             </Head>
-            <section className='py-6'>
-                <div className="bg-white shadow-md rounded-lg p-6">
+            <section className='py-6 bg-white'>
+                <div className="p-6">
                     <div className="flex justify-between items-center border-b pb-4">
                         <div>
                             <h1 className="text-2xl font-bold text-gray-800">Fix Leaking Kitchen Faucet</h1>

@@ -19,12 +19,26 @@ class DatabaseSeeder extends Seeder
         if ($response->successful()) {
             $divisions = $response->json();
             foreach ($divisions['data'] as $division) {
-                Division::Create([
-                    'division' =>  $division['division'],
-                    'division_bn' =>  $division['divisionbn'],
+                $division_en = $division['division'];
+                $division_bn = $division['divisionbn'];
+                $division = Division::Create([
+                    'division' =>  $division_en,
+                    'division_bn' => $division_bn,
                 ]);
 
-                
+                $district_response = Http::get("https://bdapis.com/api/v1.2/division/$division_en");
+                if ($district_response->successful()) {
+                    $districts = $district_response->json();
+
+                    foreach ($districts['data'] as $district) {
+                        $district_en = $district['district'];
+                        $district_bn = $district['districtbn'];
+                        $division->district()->create([
+                            'district' => $district_en,
+                            'districtbn' => $district_bn,
+                        ]);
+                    }
+                }
             }
 
 

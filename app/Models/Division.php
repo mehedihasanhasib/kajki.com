@@ -10,4 +10,9 @@ class Division extends Model
         'division',
         'division_bn',
     ];
+
+    public function district()
+    {
+        return $this->hasMany(District::class);
+    }
 }
