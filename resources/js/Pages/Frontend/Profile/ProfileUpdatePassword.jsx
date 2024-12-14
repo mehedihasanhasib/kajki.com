@@ -2,6 +2,7 @@ import ProfileSideBar from "@/Components/Frontend/ProfileSideBar";
 import AppLayout from "@/Layouts/AppLayout";
 import { Head, useForm } from "@inertiajs/react";
 import { useRef } from "react";
+import { toast } from "react-toastify";
 
 export default function ProfileUpdatePassword() {
     const passwordInput = useRef();
@@ -26,17 +27,21 @@ export default function ProfileUpdatePassword() {
 
         put(route("password.update"), {
             preserveScroll: true,
-            onSuccess: () => reset(),
+            onSuccess: () => {
+                reset();
+                toast.success("Password Updated Successfully");
+            },
             onError: (errors) => {
+                console.log(errors);
                 if (errors.password) {
                     reset("password", "password_confirmation");
-                    passwordInput.current.focus();
                 }
 
                 if (errors.current_password) {
                     reset("current_password");
-                    currentPasswordInput.current.focus();
                 }
+
+                toast.error("Something went worng");
             },
         });
     };

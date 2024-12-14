@@ -1,6 +1,9 @@
 import Footer from "@/Components/Frontend/Footer";
 import Nav from "@/Components/Frontend/Nav";
-import React from "react";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+//import 'react-toastify/dist/ReactToastify.min.css';
+
 
 export default function AppLayout({ children }) {
     return (
@@ -8,7 +11,10 @@ export default function AppLayout({ children }) {
             <header className="sticky top-0 z-200">
                 <Nav />
             </header>
-            <main className="bg-[#f8f9fa]">{children}</main>
+            <main className="bg-[#f8f9fa]">
+                <ToastContainer />
+                {children}
+            </main>
             <footer className="bg-gray-800 text-white py-8">
                 <Footer />
             </footer>

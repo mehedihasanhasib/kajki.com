@@ -2,6 +2,7 @@ import ProfileSideBar from "@/Components/Frontend/ProfileSideBar";
 import AppLayout from "@/Layouts/AppLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function Profile({ auth }) {
     const [user, setUser] = useState(auth.user);
@@ -12,7 +13,9 @@ export default function Profile({ auth }) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        patch(route('profile.update'));
+        patch(route("profile.update"), {
+            onSuccess: () => toast.success("Profile Updated Successfully"),
+        });
     };
 
     const handleChange = (event) => {
