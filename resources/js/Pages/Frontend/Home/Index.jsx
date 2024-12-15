@@ -15,7 +15,7 @@ export default function Home() {
                 <section className="mt-4 md:px-6">
                     <div className="">
                         <h2 className="text-2xl md:text-3xl font-bold text-center mb-4 mt-2">
-                            সাম্প্রতিক কাজসমূহ
+                            Recent Tasks
                         </h2>
                         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3">
                             <TaskCard />
@@ -30,7 +30,7 @@ export default function Home() {
                 <section className="mt-4 2xl:mt-8 pb-8 px-6">
                     <div className="">
                         <h2 className="text-2xl md:text-3xl font-bold text-center mb-2 2xl:mb-6">
-                            জনপ্রিয় ক্যাটাগরি
+                            Popular Categories
                         </h2>
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
                             <PopularCategories />

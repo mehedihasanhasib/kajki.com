@@ -5,11 +5,10 @@ export default function Hero() {
         <section className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-4 md:py-12">
             <div className="max-w-6xl mx-auto px-4 flex flex-col items-center text-center">
                 <h1 className="text-3xl md:text-5xl font-bold mb-4">
-                    আপনার কাজের জন্য দক্ষ লোক সন্ধান করুন
+                    Find Skilled People for Your Tasks
                 </h1>
                 <p className="md:text-lg mb-8">
-                    আপনার প্রয়োজনীয় যে কোনও কাজের জন্য দক্ষ পেশাদারদের সাথে
-                    যোগাযোগ স্থাপন করুন।
+                    Connect with skilled professionals for any task you need.
                 </p>
 
                 <div className="flex flex-col md:flex-row md:justify-center w-full md:space-x-4 mb-8">
