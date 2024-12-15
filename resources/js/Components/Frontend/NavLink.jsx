@@ -8,8 +8,8 @@ export default function NavLink({route, children, activePath}) {
             href={route}
             className={
                 url === activePath
-                    ? "text-blue-600 underline underline-offset-8"
-                    : "text-gray-700 hover:text-blue-600 hover:underline hover:underline-offset-8"
+                    ? "text-blue-600 font-bold"
+                    : "text-gray-700 hover:text-blue-600"
             }
         >
             {children}
