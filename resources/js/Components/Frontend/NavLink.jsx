@@ -6,11 +6,7 @@ export default function NavLink({route, children, activePath}) {
     return (
         <Link
             href={route}
-            className={
-                url === activePath
-                    ? "text-blue-600 font-bold"
-                    : "text-gray-700 hover:text-blue-600"
-            }
+            className={`font-bold ${url === activePath ? "text-blue-600" : "text-gray-700 hover:text-blue-600"}`}
         >
             {children}
         </Link>

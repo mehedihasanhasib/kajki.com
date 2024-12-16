@@ -88,7 +88,7 @@ export default function Register() {
                                 type="password"
                                 name="password_confirmation"
                                 id="password_confirmation"
-                                placeholder="পুনরায় পাসওয়ার্ড লিখুন"
+                                placeholder="Confirm Password"
                                 value={data.password_confirmation}
                                 handleChange={handleChange}
                             />

@@ -1,27 +1,44 @@
+import FormInputError from "@/Components/Frontend/FormInputError";
+import FormLabel from "@/Components/Frontend/FormLabel";
+import FormSubmitButton from "@/Components/Frontend/FormSubmitButton";
+import FormTextInput from "@/Components/Frontend/FormTextInput";
 import ProfileSideBar from "@/Components/Frontend/ProfileSideBar";
 import AppLayout from "@/Layouts/AppLayout";
-import { Head, Link, useForm } from "@inertiajs/react";
+import { Head, Link, router, useForm } from "@inertiajs/react";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 
 export default function Profile({ auth }) {
     const [user, setUser] = useState(auth.user);
     const { data, setData, patch, processing, errors, reset } = useForm({
+        _method: 'PATCH',
         name: user.name,
-        phone: user.phone,
+        profile_picture: null,
     });
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        patch(route("profile.update"), {
+        console.log(data);
+        router.post(route("profile.update"), data, {
+            forceFormData: true,
             onSuccess: () => toast.success("Profile Updated Successfully"),
             onError: () => toast.error("Error Updating Profile"),
         });
     };
 
     const handleChange = (event) => {
-        setUser({ ...user, [event.target.name]: event.target.value });
-        setData(event.target.name, event.target.value);
+        const { name, type, value, files } = event.target;
+        // Update local user state for non-file inputs
+        if (type !== "file") {
+            setUser((prevUser) => ({
+                ...prevUser,
+                [name]: value,
+            }));
+        }
+
+        // Handle file and non-file inputs for Inertia form
+        setData(name, value);
+        
     };
     return (
         <AppLayout>
@@ -40,148 +57,35 @@ export default function Profile({ auth }) {
                         >
                             {/* <!-- Email Field --> */}
                             <div className="space-y-2">
-                                <label
-                                    for="email"
-                                    className="block text-sm font-medium text-gray-700"
-                                >
-                                    <strong>ইমেইল: </strong>
-                                    <span className="text-lg">{user.email}</span>
-                                </label>
-                                {/* <input
-                                    type="email"
-                                    id="email"
-                                    name="email"
-                                    className="w-full px-4 py-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
-                                    placeholder="আপনার ইমেইল লিখুন"
-                                    value={user.email}
-                                    disabled={true}
-                                /> */}
+                                <strong>Email: </strong>
+                                <span>{user.email}</span>
                             </div>
 
                             {/* <!-- Name Field --> */}
                             <div className="space-y-2">
-                                <label
-                                    for="name"
-                                    className="block text-sm font-medium text-gray-700"
-                                >
-                                    নাম
-                                </label>
-                                <input
+                                <FormLabel htmlFor="name">Name:</FormLabel>
+
+                                <FormTextInput
                                     type="text"
                                     id="name"
                                     name="name"
-                                    className="w-full px-4 py-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
-                                    placeholder="আপনার নাম লিখুন"
+                                    className="py-3"
+                                    placeholder="Enter your name"
                                     value={user.name}
-                                    onChange={handleChange}
+                                    handleChange={handleChange}
                                 />
                                 {errors.name && (
-                                    <span className="text-red-600 text-sm mt-1">
+                                    <FormInputError>
                                         {errors.name}
-                                    </span>
+                                    </FormInputError>
                                 )}
                             </div>
 
-                            {/* <!-- Phone Field --> */}
-                            {/* <div className="space-y-2">
-                                <label
-                                    for="phone"
-                                    className="block text-sm font-medium text-gray-700"
-                                >
-                                    ফোন নম্বর
-                                </label>
-                                <input
-                                    type="tel"
-                                    id="phone"
-                                    name="phone"
-                                    className="w-full px-4 py-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
-                                    placeholder="আপনার ফোন নম্বর লিখুন"
-                                    value={user.phone ?? ""}
-                                    onChange={handleChange}
-                                />
-                            </div> */}
-                            {/* <!-- Location Field --> */}
-                            {/* <div className="space-y-2">
-                                <label
-                                    for="location"
-                                    className="block text-sm font-medium text-gray-700"
-                                >
-                                    লোকেশন
-                                </label>
-                                <div className="relative">
-                                    <input
-                                        type="text"
-                                        id="location"
-                                        className="w-full px-4 py-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
-                                        placeholder="আপনার লোকেশন লিখুন"
-                                    />
-                                    <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-                                        <svg
-                                            className="h-5 w-5 text-gray-400"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            viewBox="0 0 24 24"
-                                        >
-                                            <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                                            />
-                                            <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                                            />
-                                        </svg>
-                                    </div>
-                                </div>
-                            </div> */}
-                            {/* <!-- Password Field --> */}
-                            {/* <div className="space-y-2">
-                                <label
-                                    for="password"
-                                    className="block text-sm font-medium text-gray-700"
-                                >
-                                    পাসওয়ার্ড
-                                </label>
-                                <div className="relative">
-                                    <input
-                                        type="password"
-                                        id="password"
-                                        className="w-full px-4 py-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
-                                        placeholder="পাসওয়ার্ড লিখুন"
-                                    />
-                                    <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-                                        <svg
-                                            className="h-5 w-5 text-gray-400"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            viewBox="0 0 24 24"
-                                        >
-                                            <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                                            />
-                                            <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                                            />
-                                        </svg>
-                                    </div>
-                                </div>
-                            </div> */}
-
                             {/* <!-- Profile Picture Upload --> */}
                             <div className="space-y-2">
-                                <label className="block text-sm font-medium text-gray-700">
-                                    প্রোফাইল ছবি
-                                </label>
+                                <FormLabel htmlFor="image">
+                                    Profile Picture:
+                                </FormLabel>
                                 <div className="flex items-center space-x-4">
                                     <div className="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center">
                                         <svg
@@ -199,27 +103,35 @@ export default function Profile({ auth }) {
                                         </svg>
                                     </div>
                                     <label
-                                        htmlFor="image"
+                                        htmlFor="profile_picture"
                                         className="px-4 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-md hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     >
-                                        ছবি আপলোড করুন
+                                        Choose Image
                                     </label>
                                     <input
                                         type="file"
+                                        name="profile_picture"
                                         className="hidden"
-                                        id="image"
+                                        id="profile_picture"
+                                        onChange={(e) => setData('profile_picture', e.target.files[0])}
                                     />
                                 </div>
                             </div>
 
                             {/* <!-- Save Button --> */}
                             <div className="pt-4">
-                                <button
+                                <FormSubmitButton
+                                    processing={processing}
+                                    processingText="Updating"
+                                >
+                                    Update
+                                </FormSubmitButton>
+                                {/* <button
                                     type="submit"
                                     className="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors font-medium"
                                 >
-                                    সংরক্ষণ করুন
-                                </button>
+                                    Update
+                                </button> */}
                             </div>
                         </form>
                     </div>
