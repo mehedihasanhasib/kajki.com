@@ -2,7 +2,6 @@ import FormInputError from "@/Components/Frontend/FormInputError";
 import FormLabel from "@/Components/Frontend/FormLabel";
 import FormSubmitButton from "@/Components/Frontend/FormSubmitButton";
 import FormTextInput from "@/Components/Frontend/FormTextInput";
-import TextInput from "@/Components/TextInput";
 import AppLayout from "@/Layouts/AppLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
 
@@ -47,7 +46,9 @@ export default function Login({ status, canResetPassword }) {
                                     handleChange={handleChange}
                                 />
                                 {errors.email && (
-                                    <FormInputError error={errors.email} />
+                                    <FormInputError>
+                                        {errors.email}
+                                    </FormInputError>
                                 )}
                             </div>
                             <div>
@@ -61,7 +62,9 @@ export default function Login({ status, canResetPassword }) {
                                     handleChange={handleChange}
                                 />
                                 {errors.password && (
-                                    <FormInputError error={errors.password} />
+                                    <FormInputError>
+                                        {errors.password}
+                                    </FormInputError>
                                 )}
                             </div>
                             <FormSubmitButton

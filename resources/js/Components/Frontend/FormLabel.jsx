@@ -1,7 +1,7 @@
 import React from 'react'
 
-export default function FormLabel({children}) {
+export default function FormLabel({children, htmlFor=""}) {
   return (
-    <label htmlFor="email" className="block text-sm font-medium text-gray-600">{children}</label>
+    <label htmlFor={htmlFor} className="block text-sm font-medium text-gray-600">{children}</label>
   )
 }

@@ -2,8 +2,8 @@ import React from "react";
 
 export default function FormSubmitButton({
     processing,
-    children,
     processingText,
+    children,
 }) {
     return (
         <button
