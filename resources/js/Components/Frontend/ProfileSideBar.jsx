@@ -1,8 +1,6 @@
-import { Link, usePage } from "@inertiajs/react";
 import ProfileSideBarLink from "./ProfileSideBarLink";
 
 export default function ProfileSideBar() {
-    const { url } = usePage();
     return (
         <div className="bg-white xl:w-[20vw] 2xl:w-[16vw]">
             <ul className="p-4">
@@ -15,7 +13,7 @@ export default function ProfileSideBar() {
                 <ProfileSideBarLink route={route("profile.mytasks")} activePath="/profile/my-tasks">
                     My Tasks
                 </ProfileSideBarLink>
-                <ProfileSideBarLink route={route("logout")} method="post">
+                <ProfileSideBarLink route={route("logout")} method="post" as="button">
                     Sign out
                 </ProfileSideBarLink>
             </ul>

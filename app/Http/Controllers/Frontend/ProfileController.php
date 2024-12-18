@@ -20,6 +20,7 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): Response
     {
+        // $auth_user = Auth::user();
         return Inertia::render('Frontend/Profile/Index', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status')
@@ -32,20 +33,17 @@ class ProfileController extends Controller
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $validated_data = $request->validated();
+        $user = User::find(Auth::id());
+        $user->name = $validated_data['name'];
         if ($request->hasFile('profile_picture')) {
             $file = $request->file('profile_picture');
-            $validated_data['profile_picture'] = $file->store('users_profile_picture', 'public');
+            $path = $file->store('users_profile_picture', 'public');
+            $user->profile_picture = $path;
         }
-        
-        $request->user()->fill($validated_data);
-
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
-
-        $request->user()->save();
-
-        return Redirect::route('profile');
+        $user->save();
+        return Redirect::back()->with([
+            'path' => "hello"
+        ]);
     }
 
     /**
