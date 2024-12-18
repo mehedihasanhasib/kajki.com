@@ -1,3 +1,6 @@
+import FormInputError from "@/Components/Frontend/FormInputError";
+import FormLabel from "@/Components/Frontend/FormLabel";
+import FormTextInput from "@/Components/Frontend/FormTextInput";
 import ProfileSideBar from "@/Components/Frontend/ProfileSideBar";
 import AppLayout from "@/Layouts/AppLayout";
 import { Head, useForm } from "@inertiajs/react";
@@ -22,6 +25,12 @@ export default function ProfileUpdatePassword() {
         password_confirmation: "",
     });
 
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        event.preventDefault();
+        setData(name, value);
+    };
+
     const updatePassword = (e) => {
         e.preventDefault();
 
@@ -32,7 +41,6 @@ export default function ProfileUpdatePassword() {
                 toast.success("Password Updated Successfully");
             },
             onError: (errors) => {
-                console.log(errors);
                 if (errors.password) {
                     reset("password", "password_confirmation");
                 }
@@ -62,84 +70,48 @@ export default function ProfileUpdatePassword() {
                         >
                             {/* <!-- Current Password --> */}
                             <div className="space-y-2">
-                                <label
-                                    for="current_password"
-                                    className="block text-sm font-medium text-gray-700"
-                                >
-                                    বর্তমান পাসওয়ার্ড
-                                </label>
-                                <input
+                                <FormLabel>Current Password</FormLabel>
+                                <FormTextInput
                                     id="current_password"
                                     name="current_password"
                                     type="password"
-                                    className="w-full px-4 py-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
-                                    placeholder="আপনার বর্তমান পাসওয়ার্ড লিখুন"
+                                    placeholder="Enter current password"
                                     value={data.current_password}
-                                    onChange={(e) =>
-                                        setData(
-                                            "current_password",
-                                            e.target.value
-                                        )
-                                    }
+                                    handleChange={handleChange}
                                 />
-                                {errors.current_password && (
-                                    <span className="text-red-600 text-sm mt-1">
-                                        {errors.current_password}
-                                    </span>
-                                )}
+                                <FormInputError>
+                                    {errors.current_password}
+                                </FormInputError>
                             </div>
                             {/* <!-- New Password --> */}
                             <div className="space-y-2">
-                                <label
-                                    for="password"
-                                    className="block text-sm font-medium text-gray-700"
-                                >
-                                    নতুন পাসওয়ার্ড
-                                </label>
-                                <input
+                                <FormLabel>New Password</FormLabel>
+                                <FormTextInput
                                     id="password"
                                     name="password"
                                     type="password"
-                                    className="w-full px-4 py-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
-                                    placeholder="নতুন পাসওয়ার্ড লিখুন"
+                                    placeholder="Enter new password"
                                     value={data.password}
-                                    onChange={(e) =>
-                                        setData("password", e.target.value)
-                                    }
+                                    handleChange={handleChange}
                                 />
-                                {errors.password && (
-                                    <span className="text-red-600 text-sm mt-1">
-                                        {errors.password}
-                                    </span>
-                                )}
+                                <FormInputError>
+                                    {errors.password}
+                                </FormInputError>
                             </div>
                             {/* <!-- Confirm New Password --> */}
                             <div className="space-y-2">
-                                <label
-                                    for="password_confirmation"
-                                    className="block text-sm font-medium text-gray-700"
-                                >
-                                    কনফার্ম নতুন পাসওয়ার্ড
-                                </label>
-                                <input
+                                <FormLabel>Confirm New Password</FormLabel>
+                                <FormTextInput
                                     id="password_confirmation"
                                     name="password_confirmation"
                                     type="password"
-                                    className="w-full px-4 py-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
-                                    placeholder="পুনরায় নতুন পাসওয়ার্ড লিখুন"
+                                    placeholder="Confirm new password"
                                     value={data.password_confirmation}
-                                    onChange={(e) =>
-                                        setData(
-                                            "password_confirmation",
-                                            e.target.value
-                                        )
-                                    }
+                                    handleChange={handleChange}
                                 />
-                                {errors.password_confirmation && (
-                                    <span className="text-red-600 text-sm mt-1">
-                                        {errors.password_confirmation}
-                                    </span>
-                                )}
+                                <FormInputError>
+                                    {errors.password_confirmation}
+                                </FormInputError>
                             </div>
 
                             {/* <!-- Save Button --> */}
@@ -148,7 +120,7 @@ export default function ProfileUpdatePassword() {
                                     type="submit"
                                     className="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors font-medium"
                                 >
-                                    সংরক্ষণ করুন
+                                    Update
                                 </button>
                             </div>
                         </form>
