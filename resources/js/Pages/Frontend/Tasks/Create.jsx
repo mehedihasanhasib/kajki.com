@@ -1,16 +1,28 @@
-import FormInputNumber from "@/Components/Frontend/FormInputNumber";
 import FormInputSelect from "@/Components/Frontend/FormInputSelect";
 import FormInputTextArea from "@/Components/Frontend/FormInputTextArea";
 import FormLabel from "@/Components/Frontend/FormLabel";
 import FormSubmitButton from "@/Components/Frontend/FormSubmitButton";
 import FormTextInput from "@/Components/Frontend/FormTextInput";
 import AppLayout from "@/Layouts/AppLayout";
-import { Head } from "@inertiajs/react";
-import React from "react";
+import { Head, useForm } from "@inertiajs/react";
+import React, { useState } from "react";
 
-export default function TaskPost() {
+export default function TaskPost({ categories, divisions }) {
+    const [districts, setDistricts] = useState([]);
+    const { data, setData, post, processing, errors } = useForm();
+
     const handleChange = (event) => {
         const { name, value } = event.target;
+    };
+
+    const handleDivisionChange = (event) => {
+        const id = event.target.value;
+
+        divisions.filter((division) => {
+            if (id == division.id) {
+                setDistricts(division.district);
+            }
+        });
     };
     return (
         <AppLayout>
@@ -43,14 +55,16 @@ export default function TaskPost() {
                         {/* <!-- Category --> */}
                         <div className="mb-4">
                             <FormLabel htmlFor="category">Category</FormLabel>
-                            <FormInputSelect id="category" name="category" />
+                            <FormInputSelect
+                                id="category"
+                                name="category"
+                                options={categories}
+                            />
                         </div>
 
                         {/* <!-- Description --> */}
                         <div className="mb-4">
-                            <FormLabel htmlFor="details">
-                                Details
-                            </FormLabel>
+                            <FormLabel htmlFor="details">Details</FormLabel>
                             <FormInputTextArea
                                 id="details"
                                 name="details"
@@ -63,13 +77,46 @@ export default function TaskPost() {
                         {/* <!-- Division --> */}
                         <div className="mb-4">
                             <FormLabel htmlFor="division">Division</FormLabel>
-                            <FormInputSelect id="division" name="division" />
+                            <select
+                                id="division"
+                                name="division"
+                                className="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:ring-gray-300 focus:border-gray-300"
+                                onChange={(e) => handleDivisionChange(e)}
+                            >
+                                <option value="">Select Division</option>
+                                {divisions.map((option) => {
+                                    return (
+                                        <option
+                                            key={option.id}
+                                            value={option.id}
+                                        >
+                                            {option.division}
+                                        </option>
+                                    );
+                                })}
+                            </select>
                         </div>
 
                         {/* <!-- District --> */}
                         <div className="mb-4">
                             <FormLabel htmlFor="district">District</FormLabel>
-                            <FormInputSelect id="district" name="district" />
+                            <select
+                                name="district"
+                                id="district"
+                                className="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:ring-gray-300 focus:border-gray-300"
+                            >
+                                <option value="">Select District</option>
+                                {districts.map((option) => {
+                                    return (
+                                        <option
+                                            key={option.id}
+                                            value={option.id}
+                                        >
+                                            {option.district}
+                                        </option>
+                                    );
+                                })}
+                            </select>
                         </div>
 
                         {/* <!-- Address --> */}

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Frontend\Category;
+use App\Models\Frontend\Division;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class TasksController extends Controller
 {
@@ -20,7 +23,18 @@ class TasksController extends Controller
      */
     public function create()
     {
-        return inertia('Frontend/Tasks/Create');
+        $categories = Cache::remember('categories', now()->addMinutes(10), function () {
+            return Category::select('id', 'name')->get();
+        });
+        
+        $divisions = Cache::remember('divisions', now()->addMinutes(10), function () {
+            return Division::with(['district:id,division_id,district'])->select('id', 'division')->get();
+        });
+
+        return inertia('Frontend/Tasks/Create', [
+            'categories' => $categories,
+            'divisions' => $divisions,
+        ]);
     }
 
     /**

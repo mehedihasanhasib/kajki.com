@@ -1,9 +1,4 @@
-import React from "react";
-
-export default function FormInputSelect({
-    id,
-    name,
-}) {
+export default function FormInputSelect({ id, name, options = [] }) {
     return (
         <select
             id={id}
@@ -11,13 +6,13 @@ export default function FormInputSelect({
             className="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:ring-gray-300 focus:border-gray-300"
         >
             <option value="">Select a category</option>
-            {/* {options.map((option) => {
-                <option value="option">{option}</option>;
-            })} */}
-            <option value="plumbing">Plumbing</option>;
-            <option value="carpentry">Carpentry</option>
-            <option value="electrical">Electrical</option>
-            <option value="cleaning">Cleaning</option>
+            {options.map((option) => {
+                return (
+                    <option key={option.id} value={option.id}>
+                        {option.name}
+                    </option>
+                );
+            })}
         </select>
     );
 }
