@@ -37,7 +37,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/my-tasks', [TasksProfileController::class, 'index'])->name('profile.mytasks');
 
     });
-
     /* ======= Tasks Create =======*/
     Route::get('create-task', [TasksController::class, 'create'])->name('task.create');
 });

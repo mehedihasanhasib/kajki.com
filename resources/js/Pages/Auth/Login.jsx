@@ -36,7 +36,7 @@ export default function Login({ status, canResetPassword }) {
                         </h2>
                         <form onSubmit={submit} className="space-y-6">
                             <div>
-                                <FormLabel>Email:</FormLabel>
+                                <FormLabel htmlFor="email">Email:</FormLabel>
                                 <FormTextInput
                                     type="email"
                                     name="email"
@@ -52,7 +52,7 @@ export default function Login({ status, canResetPassword }) {
                                 )}
                             </div>
                             <div>
-                                <FormLabel>Password:</FormLabel>
+                                <FormLabel htmlFor="password">Password:</FormLabel>
                                 <FormTextInput
                                     type="password"
                                     name="password"

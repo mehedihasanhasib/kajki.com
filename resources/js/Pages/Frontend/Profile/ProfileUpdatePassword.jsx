@@ -70,7 +70,7 @@ export default function ProfileUpdatePassword() {
                         >
                             {/* <!-- Current Password --> */}
                             <div className="space-y-2">
-                                <FormLabel>Current Password</FormLabel>
+                                <FormLabel htmlFor="current_password">Current Password</FormLabel>
                                 <FormTextInput
                                     id="current_password"
                                     name="current_password"
@@ -85,7 +85,7 @@ export default function ProfileUpdatePassword() {
                             </div>
                             {/* <!-- New Password --> */}
                             <div className="space-y-2">
-                                <FormLabel>New Password</FormLabel>
+                                <FormLabel htmlFor="password">New Password</FormLabel>
                                 <FormTextInput
                                     id="password"
                                     name="password"
@@ -100,7 +100,7 @@ export default function ProfileUpdatePassword() {
                             </div>
                             {/* <!-- Confirm New Password --> */}
                             <div className="space-y-2">
-                                <FormLabel>Confirm New Password</FormLabel>
+                                <FormLabel htmlFor="password_confirmation">Confirm New Password</FormLabel>
                                 <FormTextInput
                                     id="password_confirmation"
                                     name="password_confirmation"
