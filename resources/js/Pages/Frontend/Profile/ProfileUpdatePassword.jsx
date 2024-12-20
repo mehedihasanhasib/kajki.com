@@ -1,15 +1,13 @@
 import FormInputError from "@/Components/Frontend/FormInputError";
 import FormLabel from "@/Components/Frontend/FormLabel";
+import FormSubmitButton from "@/Components/Frontend/FormSubmitButton";
 import FormTextInput from "@/Components/Frontend/FormTextInput";
 import ProfileSideBar from "@/Components/Frontend/ProfileSideBar";
 import AppLayout from "@/Layouts/AppLayout";
 import { Head, useForm } from "@inertiajs/react";
-import { useRef } from "react";
 import { toast } from "react-toastify";
 
 export default function ProfileUpdatePassword() {
-    const passwordInput = useRef();
-    const currentPasswordInput = useRef();
 
     const {
         data,
@@ -18,7 +16,6 @@ export default function ProfileUpdatePassword() {
         put,
         reset,
         processing,
-        recentlySuccessful,
     } = useForm({
         current_password: "",
         password: "",
@@ -116,12 +113,9 @@ export default function ProfileUpdatePassword() {
 
                             {/* <!-- Save Button --> */}
                             <div className="pt-4">
-                                <button
-                                    type="submit"
-                                    className="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors font-medium"
-                                >
+                                <FormSubmitButton processing={processing} processingText="Updating">
                                     Update
-                                </button>
+                                </FormSubmitButton>
                             </div>
                         </form>
                     </div>
