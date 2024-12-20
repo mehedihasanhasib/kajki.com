@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Frontend\Category;
 use App\Models\Frontend\Division;
+use App\Models\Frontend\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
@@ -42,7 +43,12 @@ class TasksController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated_data = $request->all();
+
+        $request->user()->task()->create($validated_data);
+
+        session()->flash('message', 'Task created successfully!');
+        return redirect()->route('profile.mytasks');
     }
 
     /**

@@ -11,19 +11,20 @@ use App\Http\Controllers\Frontend\TasksProfileController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 /* ======= Home =======*/
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 
 
 /* ======= Tasks Show =======*/
 Route::get('/tasks', [TasksController::class, 'index'])->name('tasks');
-Route::get('/task/{slug}', [TasksController::class, 'show'])->name('task.show');
+Route::get('/tasks/{slug}', [TasksController::class, 'show'])->name('task.show');
 
 
 
 /* ======= Account =======*/
 Route::middleware('auth')->group(function () {
-    Route::prefix('/profile')->group(function(){
+    Route::prefix('/profile')->group(function () {
         /* ======= Profile Info =======*/
         Route::get('/', [ProfileController::class, 'edit'])->name('profile');
         Route::patch('/', [ProfileController::class, 'update'])->name('profile.update');
@@ -35,10 +36,10 @@ Route::middleware('auth')->group(function () {
 
         /* ======= Profile Tasks =======*/
         Route::get('/my-tasks', [TasksProfileController::class, 'index'])->name('profile.mytasks');
-
     });
-    /* ======= Tasks Create =======*/
-    Route::get('create-task', [TasksController::class, 'create'])->name('task.create');
+    /* ======= Tasks =======*/
+    Route::get('task/create', [TasksController::class, 'create'])->name('task.create');
+    Route::post('task/store', [TasksController::class, 'store'])->name('task.store');
 });
 
 

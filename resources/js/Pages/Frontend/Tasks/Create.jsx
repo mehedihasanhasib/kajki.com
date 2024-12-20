@@ -9,20 +9,36 @@ import React, { useState } from "react";
 
 export default function TaskPost({ categories, divisions }) {
     const [districts, setDistricts] = useState([]);
-    const { data, setData, post, processing, errors } = useForm();
+    const { data, setData, post, processing, errors } = useForm({
+        title: "",
+        category_id: "",
+        details: "",
+        division_id: "",
+        district_id: "",
+        address: "",
+        budget: "",
+        contact_number: "",
+    });
 
     const handleChange = (event) => {
         const { name, value } = event.target;
+
+        setData(name, value);
     };
 
-    const handleDivisionChange = (event) => {
-        const id = event.target.value;
-
-        divisions.filter((division) => {
-            if (id == division.id) {
+    const handleSelectChange = (event) => {
+        const { name, value } = event.target;
+        divisions.forEach((division) => {
+            if (value == division.id) {
                 setDistricts(division.district);
             }
         });
+        setData(name, value);
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        post(route("task.store"));
     };
     return (
         <AppLayout>
@@ -34,7 +50,7 @@ export default function TaskPost({ categories, divisions }) {
                     <h2 className="lg:text-2xl mb-4 text-center text-blue-600 font-semibold">
                         Fill this form to post your task
                     </h2>
-                    <form action="#" method="POST">
+                    <form onSubmit={handleSubmit}>
                         {/* <!-- Task Title --> */}
                         <div className="mb-4">
                             <FormLabel
@@ -57,8 +73,9 @@ export default function TaskPost({ categories, divisions }) {
                             <FormLabel htmlFor="category">Category</FormLabel>
                             <FormInputSelect
                                 id="category"
-                                name="category"
+                                name="category_id"
                                 options={categories}
+                                handleChange={handleSelectChange}
                             />
                         </div>
 
@@ -79,11 +96,13 @@ export default function TaskPost({ categories, divisions }) {
                             <FormLabel htmlFor="division">Division</FormLabel>
                             <select
                                 id="division"
-                                name="division"
+                                name="division_id"
                                 className="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:ring-gray-300 focus:border-gray-300"
-                                onChange={(e) => handleDivisionChange(e)}
+                                onChange={(e) => handleSelectChange(e)}
                             >
-                                <option value="">Select Division</option>
+                                <option value="" disabled={true}>
+                                    Select Division
+                                </option>
                                 {divisions.map((option) => {
                                     return (
                                         <option
@@ -101,11 +120,14 @@ export default function TaskPost({ categories, divisions }) {
                         <div className="mb-4">
                             <FormLabel htmlFor="district">District</FormLabel>
                             <select
-                                name="district"
                                 id="district"
+                                name="district_id"
                                 className="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:ring-gray-300 focus:border-gray-300"
+                                onChange={(e) => handleSelectChange(e)}
                             >
-                                <option value="">Select District</option>
+                                <option value="" disabled={true}>
+                                    Select District
+                                </option>
                                 {districts.map((option) => {
                                     return (
                                         <option

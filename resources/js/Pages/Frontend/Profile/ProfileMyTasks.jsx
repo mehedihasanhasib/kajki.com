@@ -1,11 +1,18 @@
-import ProfileSideBar from '@/Components/Frontend/ProfileSideBar'
-import AppLayout from '@/Layouts/AppLayout'
-import { Head } from '@inertiajs/react'
-import React from 'react'
+import ProfileSideBar from "@/Components/Frontend/ProfileSideBar";
+import AppLayout from "@/Layouts/AppLayout";
+import { Head, usePage } from "@inertiajs/react";
+import React, { useEffect } from "react";
+import { toast } from "react-toastify";
 
 export default function ProfileMyTasks() {
-  return (
-    <AppLayout>
+    const { flash } = usePage().props;
+    useEffect(() => {
+        if (flash.message) {
+            toast.success(flash.message)
+        }
+    }, [flash.message])
+    return (
+        <AppLayout>
             <Head>
                 <title>My Tasks</title>
             </Head>
@@ -185,5 +192,5 @@ export default function ProfileMyTasks() {
                 </div>
             </section>
         </AppLayout>
-  )
+    );
 }
