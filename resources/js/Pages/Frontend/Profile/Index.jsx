@@ -4,7 +4,7 @@ import FormSubmitButton from "@/Components/Frontend/FormSubmitButton";
 import FormTextInput from "@/Components/Frontend/FormTextInput";
 import ProfileSideBar from "@/Components/Frontend/ProfileSideBar";
 import AppLayout from "@/Layouts/AppLayout";
-import { Head, router, useForm, usePage } from "@inertiajs/react";
+import { Head, router, useForm } from "@inertiajs/react";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 
@@ -28,8 +28,8 @@ export default function Profile({ auth }) {
             },
             onError: (validationErrors) => {
                 toast.error("Error Updating Profile");
-                setErrors({...validationErrors})
-                console.log(errors)
+                setErrors({ ...validationErrors });
+                console.log(errors);
             },
         });
     };
@@ -110,12 +110,18 @@ export default function Profile({ auth }) {
                                             borderRadius: "50%",
                                         }}
                                     />
-                                    <label
+                                    <FormLabel
                                         htmlFor="profile_picture"
                                         className="px-4 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-md hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     >
                                         Choose Image
-                                    </label>
+                                    </FormLabel>
+                                    {/* <label
+                                        htmlFor="profile_picture"
+                                        className="px-4 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-md hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    >
+                                        Choose Image
+                                    </label> */}
                                     <input
                                         type="file"
                                         name="profile_picture"

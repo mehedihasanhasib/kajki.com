@@ -43,8 +43,26 @@ class TasksController extends Controller
      */
     public function store(Request $request)
     {
-        $validated_data = $request->all();
+        dd($request->all());
+        $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'category_id' => ['required', 'exists:categories,id'],
+            'details' => ['required', 'string', 'max:500'],
+            'division_id' => ['required', 'exists:divisions,id'],
+            'district_id' => ['required', 'exists:districts,id'],
+            'address' => ['required', 'string', 'max:255'],
+            'budget' => ['required', 'numeric', 'min:0'],
+            'contact_number' => ['required', 'max:255'],
+        ],[
+            'category_id.required' => 'Select a category',
+            'category_id.exists' => 'Category not found',
+            'division_id.required' => 'Select a division',
+            'division_id.exists' => 'Division not found',
+            'district_id.required' => 'Select a district',
+            'district_id.exists' => 'District not found'
+        ]);
 
+        $validated_data = $request->all();
         $request->user()->task()->create($validated_data);
 
         session()->flash('message', 'Task created successfully!');

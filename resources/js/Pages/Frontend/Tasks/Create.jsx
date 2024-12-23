@@ -1,3 +1,4 @@
+import FormInputError from "@/Components/Frontend/FormInputError";
 import FormInputSelect from "@/Components/Frontend/FormInputSelect";
 import FormInputTextArea from "@/Components/Frontend/FormInputTextArea";
 import FormLabel from "@/Components/Frontend/FormLabel";
@@ -6,10 +7,12 @@ import FormTextInput from "@/Components/Frontend/FormTextInput";
 import AppLayout from "@/Layouts/AppLayout";
 import { Head, useForm } from "@inertiajs/react";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function TaskPost({ categories, divisions }) {
     const [districts, setDistricts] = useState([]);
-    const { data, setData, post, processing, errors } = useForm({
+    const [images, setImages] = useState([]);
+    const { setData, post, processing, errors } = useForm({
         title: "",
         category_id: "",
         details: "",
@@ -18,11 +21,11 @@ export default function TaskPost({ categories, divisions }) {
         address: "",
         budget: "",
         contact_number: "",
+        images: [],
     });
 
     const handleChange = (event) => {
         const { name, value } = event.target;
-
         setData(name, value);
     };
 
@@ -34,6 +37,31 @@ export default function TaskPost({ categories, divisions }) {
             }
         });
         setData(name, value);
+    };
+
+    const handleImageChange = (event) => {
+        const files = Array.from(event.target.files);
+
+        // Check if the total number of images exceeds the limit
+        if (images.length + files.length > 5) {
+            toast.error("You can only select 5 images");
+            return;
+        }
+
+        const updatedImages = files.map((file) => ({
+            file,
+            preview: URL.createObjectURL(file),
+        }));
+
+        setImages((prevImages) => [...prevImages, ...updatedImages]);
+        // setData('images', updatedImages.map((image) => image.file));
+        setData('images', event.target.files);
+    };
+
+    const removeImage = (index) => {
+        const updatedImages = images.filter((_, i) => i !== index);
+        setImages(updatedImages);
+        setData('images', updatedImages.map((image) => image.file));
     };
 
     const handleSubmit = (event) => {
@@ -66,6 +94,9 @@ export default function TaskPost({ categories, divisions }) {
                                 placeholder="What task do you need help with?"
                                 handleChange={handleChange}
                             />
+                            {errors.title && (
+                                <FormInputError>{errors.title}</FormInputError>
+                            )}
                         </div>
 
                         {/* <!-- Category --> */}
@@ -77,6 +108,11 @@ export default function TaskPost({ categories, divisions }) {
                                 options={categories}
                                 handleChange={handleSelectChange}
                             />
+                            {errors.category_id && (
+                                <FormInputError>
+                                    {errors.category_id}
+                                </FormInputError>
+                            )}
                         </div>
 
                         {/* <!-- Description --> */}
@@ -89,6 +125,11 @@ export default function TaskPost({ categories, divisions }) {
                                 placeholder="Provide more details about your task"
                                 handleChange={handleChange}
                             />
+                            {errors.details && (
+                                <FormInputError>
+                                    {errors.details}
+                                </FormInputError>
+                            )}
                         </div>
 
                         {/* <!-- Division --> */}
@@ -100,7 +141,11 @@ export default function TaskPost({ categories, divisions }) {
                                 className="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:ring-gray-300 focus:border-gray-300"
                                 onChange={(e) => handleSelectChange(e)}
                             >
-                                <option value="" disabled={true}>
+                                <option
+                                    value=""
+                                    selected={true}
+                                    disabled={true}
+                                >
                                     Select Division
                                 </option>
                                 {divisions.map((option) => {
@@ -114,6 +159,12 @@ export default function TaskPost({ categories, divisions }) {
                                     );
                                 })}
                             </select>
+
+                            {errors.division_id && (
+                                <FormInputError>
+                                    {errors.division_id}
+                                </FormInputError>
+                            )}
                         </div>
 
                         {/* <!-- District --> */}
@@ -125,7 +176,11 @@ export default function TaskPost({ categories, divisions }) {
                                 className="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:ring-gray-300 focus:border-gray-300"
                                 onChange={(e) => handleSelectChange(e)}
                             >
-                                <option value="" disabled={true}>
+                                <option
+                                    value=""
+                                    selected={true}
+                                    disabled={true}
+                                >
                                     Select District
                                 </option>
                                 {districts.map((option) => {
@@ -139,6 +194,12 @@ export default function TaskPost({ categories, divisions }) {
                                     );
                                 })}
                             </select>
+
+                            {errors.district_id && (
+                                <FormInputError>
+                                    {errors.district_id}
+                                </FormInputError>
+                            )}
                         </div>
 
                         {/* <!-- Address --> */}
@@ -151,6 +212,11 @@ export default function TaskPost({ categories, divisions }) {
                                 placeholder="Provide your address"
                                 handleChange={handleChange}
                             />
+                            {errors.address && (
+                                <FormInputError>
+                                    {errors.address}
+                                </FormInputError>
+                            )}
                         </div>
                         {/* <!-- Budget --> */}
                         <div className="mb-4">
@@ -162,6 +228,9 @@ export default function TaskPost({ categories, divisions }) {
                                 placeholder="Enter your budget (e.g., $50)"
                                 handleChange={handleChange}
                             />
+                            {errors.budget && (
+                                <FormInputError>{errors.budget}</FormInputError>
+                            )}
                         </div>
 
                         {/* <!-- Contact Number --> */}
@@ -176,12 +245,65 @@ export default function TaskPost({ categories, divisions }) {
                                 placeholder="Enter your contact number"
                                 handleChange={handleChange}
                             />
+                            {errors.contact_number && (
+                                <FormInputError>
+                                    {errors.contact_number}
+                                </FormInputError>
+                            )}
+                        </div>
+
+                        {/* <!-- Images --> */}
+                        <div className="mb-4">
+                            <FormLabel htmlFor="images">
+                                Upload Images
+                            </FormLabel>
+                            <input
+                                type="file"
+                                name="images"
+                                id="images"
+                                className="hidden"
+                                multiple={true}
+                                onChange={(e) => handleImageChange(e)}
+                            />
+                            <label
+                                htmlFor="images"
+                                className="inline-block px-4 py-2 mt-2 text-sm font-medium text-white bg-blue-600 rounded-lg cursor-pointer hover:bg-blue-700"
+                            >
+                                Choose Images
+                            </label>
+                            <div className="grid grid-cols-3 gap-4 mt-4">
+                                {images.map((image, index) => (
+                                    <div
+                                        key={index}
+                                        className="relative group border rounded-lg overflow-hidden"
+                                        style={{ padding: "10px" }}
+                                    >
+                                        <img
+                                            src={image.preview}
+                                            alt={`Preview ${index + 1}`}
+                                            className="w-full h-32 object-cover rounded-lg"
+                                        />
+                                        <button
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                removeImage(index);
+                                            }}
+                                            className="absolute top-2 right-2 w-6 h-6 text-white bg-red-600 rounded-full hover:bg-red-700 flex items-center justify-center"
+                                            aria-label={`Remove image ${
+                                                index + 1
+                                            }`}
+                                        >
+                                            &times;
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
 
                         {/* <!-- Submit Button --> */}
                         <div>
                             <FormSubmitButton
-                                processing={null}
+                                processing={processing}
                                 processingText="Posting Task"
                             >
                                 Post Task

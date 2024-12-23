@@ -6,7 +6,6 @@
 /storage/*.key
 /storage/pail
 /storage/app/public
-/scripts/auto_commit.sh
 /vendor
 .env
 .env.backup
