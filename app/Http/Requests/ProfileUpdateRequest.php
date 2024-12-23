@@ -17,15 +17,17 @@ class ProfileUpdateRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'profile_picture' => ['nullable', 'image', 'max:2048'],
-            // 'email' => [
-            //     'required',
-            //     'string',
-            //     'lowercase',
-            //     'email',
-            //     'max:255',
-            //     Rule::unique(User::class)->ignore($this->user()->id),
-            // ],
+            'profile_picture' => ['nullable', 'image'],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.string' => 'Name must be a string',
+            'name.max' => 'Name must not be greater than 255 characters',
+            'profile_picture.image' => 'Profile picture must be an images',
+            // 'profile_picture.max' => 'Profile picture must not be greater than 2MB'
         ];
     }
 }

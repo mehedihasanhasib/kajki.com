@@ -84,6 +84,61 @@ export default function ProfileMyTasks() {
                                     </button>
                                 </div>
                             </div>
+
+                            {/* <!-- Task 3 --> */}
+                            <div class="border border-gray-200 shadow-sm rounded-lg p-4 hover:shadow-md transition-shadow">
+                                <h2 class="text-lg font-semibold text-gray-800">
+                                    Task Title 3
+                                </h2>
+                                <p class="text-sm text-gray-600 mt-2">
+                                    This is a description of the third task. It
+                                    includes information about the objectives.
+                                </p>
+                                <div class="mt-4 flex justify-between items-center">
+                                    <span class="text-sm text-gray-500">
+                                        Posted on: Dec 18, 2024
+                                    </span>
+                                    <button class="text-blue-600 text-sm font-medium hover:underline">
+                                        View Details
+                                    </button>
+                                </div>
+                            </div>
+                            {/* <!-- Task 3 --> */}
+                            <div class="border border-gray-200 shadow-sm rounded-lg p-4 hover:shadow-md transition-shadow">
+                                <h2 class="text-lg font-semibold text-gray-800">
+                                    Task Title 3
+                                </h2>
+                                <p class="text-sm text-gray-600 mt-2">
+                                    This is a description of the third task. It
+                                    includes information about the objectives.
+                                </p>
+                                <div class="mt-4 flex justify-between items-center">
+                                    <span class="text-sm text-gray-500">
+                                        Posted on: Dec 18, 2024
+                                    </span>
+                                    <button class="text-blue-600 text-sm font-medium hover:underline">
+                                        View Details
+                                    </button>
+                                </div>
+                            </div>
+                            {/* <!-- Task 3 --> */}
+                            <div class="border border-gray-200 shadow-sm rounded-lg p-4 hover:shadow-md transition-shadow">
+                                <h2 class="text-lg font-semibold text-gray-800">
+                                    Task Title 3
+                                </h2>
+                                <p class="text-sm text-gray-600 mt-2">
+                                    This is a description of the third task. It
+                                    includes information about the objectives.
+                                </p>
+                                <div class="mt-4 flex justify-between items-center">
+                                    <span class="text-sm text-gray-500">
+                                        Posted on: Dec 18, 2024
+                                    </span>
+                                    <button class="text-blue-600 text-sm font-medium hover:underline">
+                                        View Details
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

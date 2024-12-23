@@ -9,25 +9,28 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 
 export default function Profile({ auth }) {
-    const [user, setUser] = useState(auth.user);
     const [profilePicture, setProfilePicture] = useState(
         auth.user.profile_picture
     );
-    const { data, setData, processing, errors } = useForm({
+    const { data, setData, processing } = useForm({
         _method: "PATCH",
-        name: user.name,
+        name: auth.user.name,
         profile_picture: null,
     });
-
+    const [errors, setErrors] = useState({});
     const handleSubmit = (event) => {
         event.preventDefault();
         router.post(route("profile.update"), data, {
             forceFormData: true,
-            onSuccess: ({props}) => {
+            onSuccess: ({ props }) => {
                 toast.success("Profile Updated Successfully");
-                setProfilePicture(props.auth.user.profile_picture)
+                setProfilePicture(props.auth.user.profile_picture);
             },
-            onError: () => toast.error("Error Updating Profile"),
+            onError: (validationErrors) => {
+                toast.error("Error Updating Profile");
+                setErrors({...validationErrors})
+                console.log(errors)
+            },
         });
     };
 
@@ -60,7 +63,7 @@ export default function Profile({ auth }) {
                             {/* <!-- Email Field --> */}
                             <div className="space-y-2">
                                 <strong>Email: </strong>
-                                <span>{user.email}</span>
+                                <span>{auth.user.email}</span>
                             </div>
 
                             {/* <!-- Name Field --> */}
@@ -73,7 +76,7 @@ export default function Profile({ auth }) {
                                     name="name"
                                     className="py-3"
                                     placeholder="Enter your name"
-                                    value={user.name}
+                                    value={data.name}
                                     handleChange={handleChange}
                                 />
                                 {errors.name && (
@@ -88,6 +91,11 @@ export default function Profile({ auth }) {
                                 <FormLabel htmlFor="image">
                                     Profile Picture:
                                 </FormLabel>
+                                {errors.profile_picture && (
+                                    <FormInputError>
+                                        {errors.profile_picture}
+                                    </FormInputError>
+                                )}
                                 <div className="flex items-center space-x-4">
                                     <img
                                         src={
