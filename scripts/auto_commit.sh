@@ -4,10 +4,16 @@
 PROJECT_DIR=$(dirname "$(dirname "$(readlink -f "$0")")")
 cd "$PROJECT_DIR"
 
-# Watch for file changes in the Laravel project
-inotifywait -m -r -e modify,create,delete --format '%w%f' . | while read FILE
-do
-    git add "$FILE"
-    git commit -m "Auto-commit: Updated $FILE"
+# Continuous monitoring for file changes
+while true; do
+    # Wait for any file change (modify, create, delete)
+    FILE=$(inotifywait -r -e modify,create,delete --format '%w%f' .)
+
+    # If a file change is detected, stage and commit it
+    if [ -n "$FILE" ]; then
+        git add "$FILE"
+        git commit -m "Auto-commit: Detected change in $FILE"
+        echo "Committed changes for $FILE"
+    fi
 done
 
