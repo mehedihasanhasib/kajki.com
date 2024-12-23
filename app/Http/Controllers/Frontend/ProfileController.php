@@ -25,6 +25,7 @@ class ProfileController extends Controller
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status')
         ]);
+        
     }
 
     /**
@@ -32,6 +33,7 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
+        dd($request->all());
         $validated_data = $request->validated();
         $user = User::find(Auth::id());
         $user->name = $validated_data['name'];
@@ -41,9 +43,7 @@ class ProfileController extends Controller
             $user->profile_picture = $path;
         }
         $user->save();
-        return Redirect::back()->with([
-            'path' => "hello"
-        ]);
+        return Redirect::back();
     }
 
     /**
