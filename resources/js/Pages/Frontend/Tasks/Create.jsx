@@ -6,7 +6,7 @@ import FormSubmitButton from "@/Components/Frontend/FormSubmitButton";
 import FormTextInput from "@/Components/Frontend/FormTextInput";
 import AppLayout from "@/Layouts/AppLayout";
 import { Head, useForm } from "@inertiajs/react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
 export default function TaskPost({ categories, divisions }) {
@@ -23,7 +23,7 @@ export default function TaskPost({ categories, divisions }) {
         contact_number: "",
         images: [],
     });
-
+    
     const handleChange = (event) => {
         const { name, value } = event.target;
         setData(name, value);
@@ -54,7 +54,7 @@ export default function TaskPost({ categories, divisions }) {
         }));
 
         setImages((prevImages) => [...prevImages, ...updatedImages]);
-        setData("images", [...images, ...updatedImages]);
+        setData("images", [...images, ...updatedImages].map((image) => image.file));
     };
 
     const removeImage = (index) => {
@@ -113,23 +113,6 @@ export default function TaskPost({ categories, divisions }) {
                             {errors.category_id && (
                                 <FormInputError>
                                     {errors.category_id}
-                                </FormInputError>
-                            )}
-                        </div>
-
-                        {/* <!-- Description --> */}
-                        <div className="mb-4">
-                            <FormLabel htmlFor="details">Details</FormLabel>
-                            <FormInputTextArea
-                                id="details"
-                                name="details"
-                                rows="6"
-                                placeholder="Provide more details about your task"
-                                handleChange={handleChange}
-                            />
-                            {errors.details && (
-                                <FormInputError>
-                                    {errors.details}
                                 </FormInputError>
                             )}
                         </div>
@@ -210,8 +193,8 @@ export default function TaskPost({ categories, divisions }) {
                             <FormInputTextArea
                                 id="address"
                                 name="address"
-                                rows="3"
-                                placeholder="Provide your address"
+                                rows="2"
+                                placeholder="Provide your address. (e.g. 123 Main St, Anytown, USA)"
                                 handleChange={handleChange}
                             />
                             {errors.address && (
@@ -254,6 +237,23 @@ export default function TaskPost({ categories, divisions }) {
                             )}
                         </div>
 
+                        {/* <!-- Description --> */}
+                        <div className="mb-4">
+                            <FormLabel htmlFor="details">Details</FormLabel>
+                            <FormInputTextArea
+                                id="details"
+                                name="details"
+                                rows="6"
+                                placeholder="Provide more details about your task"
+                                handleChange={handleChange}
+                            />
+                            {errors.details && (
+                                <FormInputError>
+                                    {errors.details}
+                                </FormInputError>
+                            )}
+                        </div>
+
                         {/* <!-- Images --> */}
                         <div className="mb-4">
                             <FormLabel htmlFor="images">
@@ -267,12 +267,19 @@ export default function TaskPost({ categories, divisions }) {
                                 multiple={true}
                                 onChange={(e) => handleImageChange(e)}
                             />
-                            <label
+                            <FormLabel
                                 htmlFor="images"
-                                className="inline-block px-4 py-2 mt-2 text-sm font-medium text-white bg-blue-600 rounded-lg cursor-pointer hover:bg-blue-700"
+                                className="inline-block px-4 py-2 mt-2 font-bold text-white bg-blue-600 rounded-lg cursor-pointer hover:bg-blue-700"
                             >
                                 Choose Images
-                            </label>
+                            </FormLabel>
+                            {errors.images && (
+                                <div>
+                                    <FormInputError>
+                                        {errors.images}
+                                    </FormInputError>
+                                </div>
+                            )}
                             <div className="grid grid-cols-3 gap-4 mt-4">
                                 {images.map((image, index) => (
                                     <div
