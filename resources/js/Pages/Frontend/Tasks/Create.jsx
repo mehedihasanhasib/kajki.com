@@ -54,14 +54,16 @@ export default function TaskPost({ categories, divisions }) {
         }));
 
         setImages((prevImages) => [...prevImages, ...updatedImages]);
-        // setData('images', updatedImages.map((image) => image.file));
-        setData('images', event.target.files);
+        setData("images", [...images, ...updatedImages]);
     };
 
     const removeImage = (index) => {
         const updatedImages = images.filter((_, i) => i !== index);
         setImages(updatedImages);
-        setData('images', updatedImages.map((image) => image.file));
+        setData(
+            "images",
+            updatedImages.map((image) => image.file)
+        );
     };
 
     const handleSubmit = (event) => {
