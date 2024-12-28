@@ -32,7 +32,6 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        dd($request->all());
         $validated_data = $request->validated();
         $user = User::find(Auth::id());
         $user->name = $validated_data['name'];
