@@ -19,10 +19,10 @@ export default function ProfileMyTasks({ tasks }) {
             <Head>
                 <title>My Tasks</title>
             </Head>
-            <section className="py-2 xl:flex w-full">
+            <section className="flex flex-col gap-3 p-2 xl:gap-0 xl:p-0 xl:flex-row w-full">
                 <ProfileSideBar />
 
-                <div class="flex-1">
+                <div class="flex-1 shadow-lg xl:shadow-none">
                     <div class="bg-white shadow-md p-6 md:p-8">
                         <h1 class="text-xl font-bold mb-4">My Posted Tasks</h1>
 
@@ -41,7 +41,7 @@ export default function ProfileMyTasks({ tasks }) {
                                 })
                             ) : (
                                 <div className="text-lg font-semibold text-gray-800 text-center p-4">
-                                    No Posted tasks found.
+                                    No tasks found.
                                 </div>
                             )}
                         </div>

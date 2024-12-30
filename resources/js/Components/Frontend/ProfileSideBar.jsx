@@ -2,7 +2,7 @@ import ProfileSideBarLink from "./ProfileSideBarLink";
 
 export default function ProfileSideBar() {
     return (
-        <div className="bg-white xl:w-[20vw] 2xl:w-[16vw]">
+        <div className="bg-white shadow-lg xl:shadow-none xl:w-[20vw] 2xl:w-[16vw]">
             <ul className="p-4">
                 <ProfileSideBarLink route={route("profile")} activePath="/profile">
                     Name

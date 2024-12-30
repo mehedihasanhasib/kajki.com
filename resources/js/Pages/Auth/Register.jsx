@@ -30,7 +30,7 @@ export default function Register() {
             <Head>
                 <title>Register</title>
             </Head>
-            <section className="flex justify-center items-center p-4">
+            <section className="flex justify-center items-center lg:p-4">
                 <div className="bg-white rounded-xl shadow-md p-4 lg:p-6 xl:p-8 w-full max-w-lg">
                     <h2 className="text-xl lg:text-2xl text-center font-extrabold text-gray-800 mb-6">
                         Register Your Account

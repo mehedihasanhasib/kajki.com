@@ -77,7 +77,7 @@ export default function TaskPost({ categories, divisions }) {
             </Head>
             <section className="lg:py-4">
                 <div className="mx-auto max-w-4xl bg-white p-4 lg:p-6 xl:p-8 shadow-md rounded-lg">
-                    <h2 className="lg:text-2xl mb-4 text-center text-blue-600 font-semibold">
+                    <h2 className="lg:text-2xl mb-4 text-center text-blue-600 font-bold">
                         Fill this form to post your task
                     </h2>
                     <form onSubmit={handleSubmit}>

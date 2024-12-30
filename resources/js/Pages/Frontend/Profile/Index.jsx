@@ -50,10 +50,10 @@ export default function Profile({ auth }) {
             <Head>
                 <title>My Profile</title>
             </Head>
-            <section className="py-2 xl:flex w-full">
+            <section className="flex flex-col gap-3 p-2 xl:gap-0 xl:p-0 xl:flex-row w-full">
                 <ProfileSideBar />
 
-                <div className="flex-1">
+                <div className="flex-1 shadow-lg xl:shadow-none">
                     <div className="bg-white shadow-md p-6 md:p-8">
                         <form
                             className="space-y-6"

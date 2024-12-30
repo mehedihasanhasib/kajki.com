@@ -13,7 +13,7 @@ export default function Tasks() {
             </Head>
             <AppLayout>
                 {/* Main Content */}
-                <section className="py-2 md:px-6">
+                <section className="md:px-6">
                     <TasksFilter />
 
                     <TasksTags />

@@ -29,7 +29,7 @@ export default function Login({ status, canResetPassword }) {
                 <title>Login</title>
             </Head>
             <AppLayout>
-                <section className="flex justify-center p-4 items-center">
+                <section className="flex justify-center lg:p-4 items-center">
                     <div className="bg-white rounded-xl shadow-md p-4 lg:p-6 xl:p-8 w-full max-w-lg">
                         <h2 className="text-xl lg:text-2xl xl:text-3xl text-center font-extrabold text-gray-800 mb-6">
                             Sign in to Your Profile
