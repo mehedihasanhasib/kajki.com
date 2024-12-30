@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Frontend\TaskStoreRequest;
 use App\Models\Frontend\Category;
 use App\Models\Frontend\Division;
 use App\Models\Frontend\Task;
@@ -43,7 +44,7 @@ class TasksController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(TaskStoreRequest $request)
     {
         try {
             DB::beginTransaction();

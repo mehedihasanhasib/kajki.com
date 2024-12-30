@@ -16,7 +16,7 @@ export default function Nav() {
                 <div className="flex items-center">
                     <Link
                         href={route("home")}
-                        className="text-2xl font-extrabold text-gray-800 tracking-wide hover:text-blue-500 transition duration-200"
+                        className="text-3xl font-extrabold text-blue-600 hover:text-blue-500 transition duration-200"
                     >
                         KajKi.com
                     </Link>
