@@ -1,3 +1,4 @@
+import ProfileContent from "@/Components/Frontend/ProfileContent";
 import ProfileSideBar from "@/Components/Frontend/ProfileSideBar";
 import ProfileTaskCard from "@/Components/Frontend/ProfileTaskCard";
 import AppLayout from "@/Layouts/AppLayout";
@@ -22,31 +23,29 @@ export default function ProfileMyTasks({ tasks }) {
             <section className="flex flex-col gap-3 p-2 xl:gap-0 xl:p-0 xl:flex-row w-full">
                 <ProfileSideBar />
 
-                <div class="flex-1 shadow-lg xl:shadow-none">
-                    <div class="bg-white shadow-md p-6 md:p-8">
-                        <h1 class="text-xl font-bold mb-4">My Posted Tasks</h1>
+                <ProfileContent>
+                    <h1 class="text-xl font-bold mb-4">My Posted Tasks</h1>
 
-                        {/* <!-- Task List --> */}
-                        <div class="space-y-4">
-                            {tasks?.length > 0 ? (
-                                tasks?.map((task, index) => {
-                                    const { id, title, details } = task;
-                                    return (
-                                        <ProfileTaskCard
-                                            key={id}
-                                            title={title}
-                                            details={details}
-                                        />
-                                    );
-                                })
-                            ) : (
-                                <div className="text-lg font-semibold text-gray-800 text-center p-4">
-                                    No tasks found.
-                                </div>
-                            )}
-                        </div>
+                    {/* <!-- Task List --> */}
+                    <div class="space-y-4">
+                        {tasks?.length > 0 ? (
+                            tasks?.map((task, index) => {
+                                const { id, title, details } = task;
+                                return (
+                                    <ProfileTaskCard
+                                        key={id}
+                                        title={title}
+                                        details={details}
+                                    />
+                                );
+                            })
+                        ) : (
+                            <div className="text-lg font-semibold text-gray-800 text-center p-4">
+                                No tasks found.
+                            </div>
+                        )}
                     </div>
-                </div>
+                </ProfileContent>
             </section>
         </AppLayout>
     );

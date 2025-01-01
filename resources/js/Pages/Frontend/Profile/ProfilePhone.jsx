@@ -1,11 +1,12 @@
+import ProfileContent from "@/Components/Frontend/ProfileContent";
 import ProfileSideBar from "@/Components/Frontend/ProfileSideBar";
 import AppLayout from "@/Layouts/AppLayout";
 import { Head, Link } from "@inertiajs/react";
 import React, { useState } from "react";
 
-export default function ProfilePhone({auth}) {
-    const [user, setUser] = useState(auth.user)
-    console.log(user.phone)
+export default function ProfilePhone({ auth }) {
+    const [user, setUser] = useState(auth.user);
+    console.log(user.phone);
     return (
         <AppLayout>
             <Head>
@@ -14,28 +15,27 @@ export default function ProfilePhone({auth}) {
             <section className="flex flex-col gap-3 p-2 xl:gap-0 xl:p-0 xl:flex-row w-full">
                 <ProfileSideBar />
 
-                <div className="flex-1 shadow-lg xl:shadow-none">
-                    <div className="bg-white shadow-md p-6 md:p-8">
-                        <form className="space-y-6">
-                            {/* <!-- Phone Field --> */}
-                            <div className="space-y-2">
-                                <label
-                                    for="phone"
-                                    className="block text-sm font-medium text-gray-700"
-                                >
-                                    ফোন নম্বর
-                                </label>
-                                <input
-                                    type="tel"
-                                    id="phone"
-                                    className="w-full px-4 py-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
-                                    placeholder="আপনার ফোন নম্বর লিখুন"
-                                    value={user.phone ?? ''}
-                                />
-                            </div>
+                <ProfileContent>
+                    <form className="space-y-6">
+                        {/* <!-- Phone Field --> */}
+                        <div className="space-y-2">
+                            <label
+                                for="phone"
+                                className="block text-sm font-medium text-gray-700"
+                            >
+                                ফোন নম্বর
+                            </label>
+                            <input
+                                type="tel"
+                                id="phone"
+                                className="w-full px-4 py-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
+                                placeholder="আপনার ফোন নম্বর লিখুন"
+                                value={user.phone ?? ""}
+                            />
+                        </div>
 
-                            {/* <!-- Location Field --> */}
-                            {/* <div className="space-y-2">
+                        {/* <!-- Location Field --> */}
+                        {/* <div className="space-y-2">
                                 <label
                                     for="location"
                                     className="block text-sm font-medium text-gray-700"
@@ -73,8 +73,8 @@ export default function ProfilePhone({auth}) {
                                 </div>
                             </div> */}
 
-                            {/* <!-- Password Field --> */}
-                            {/* <div className="space-y-2">
+                        {/* <!-- Password Field --> */}
+                        {/* <div className="space-y-2">
                                 <label
                                     for="password"
                                     className="block text-sm font-medium text-gray-700"
@@ -112,20 +112,17 @@ export default function ProfilePhone({auth}) {
                                 </div>
                             </div> */}
 
-                            
-
-                            {/* <!-- Save Button --> */}
-                            <div className="pt-4">
-                                <button
-                                    type="submit"
-                                    className="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors font-medium"
-                                >
-                                    সংরক্ষণ করুন
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+                        {/* <!-- Save Button --> */}
+                        <div className="pt-4">
+                            <button
+                                type="submit"
+                                className="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors font-medium"
+                            >
+                                সংরক্ষণ করুন
+                            </button>
+                        </div>
+                    </form>
+                </ProfileContent>
             </section>
         </AppLayout>
     );
