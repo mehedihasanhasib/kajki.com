@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\User;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Intervention\Image\ImageManager;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
+use Intervention\Image\Drivers\Gd\Driver;
+use App\Http\Requests\ProfileUpdateRequest;
+use Intervention\Image\Facades\Image;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 class ProfileController extends Controller
 {
@@ -37,8 +40,11 @@ class ProfileController extends Controller
         $user->name = $validated_data['name'];
         if ($request->hasFile('profile_picture')) {
             $file = $request->file('profile_picture');
-            $path = $file->store('users_profile_picture', 'public');
-            $user->profile_picture = $path;
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $manager = new ImageManager(new Driver());
+            $image = $manager->read($request->file('profile_picture'));
+            $image->resize(512, 512)->save(storage_path('app/public/users_profile_picture/' . $filename));
+            $user->profile_picture = $filename;
         }
         $user->save();
         return Redirect::back();

@@ -1,14 +1,15 @@
 <?php
 
-use App\Http\Controllers\Auth\PasswordController;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\TasksController;
 use App\Http\Controllers\Frontend\ProfileController;
-use App\Http\Controllers\Frontend\TasksProfileController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use App\Http\Controllers\Frontend\TasksProfileController;
+use Spatie\LaravelImageOptimizer\Middlewares\OptimizeImages;
 
 /* ======= Home =======*/
 

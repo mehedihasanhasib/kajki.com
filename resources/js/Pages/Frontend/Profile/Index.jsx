@@ -98,7 +98,7 @@ export default function Profile({ auth }) {
                                 <img
                                     src={
                                         profilePicture != null
-                                            ? `/storage/${profilePicture}`
+                                            ? `/storage/users_profile_picture/${profilePicture}`
                                             : `/assets/images/user-avatar.webp`
                                     }
                                     alt={`KajKi.com`}
