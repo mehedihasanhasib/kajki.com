@@ -1,4 +1,4 @@
-import ProfileContent from "@/Components/Frontend/ProfileContent";
+import ProfileContent from "@/Layouts/ProfileContent";
 import ProfileSideBar from "@/Components/Frontend/ProfileSideBar";
 import AppLayout from "@/Layouts/AppLayout";
 import { Head, Link } from "@inertiajs/react";

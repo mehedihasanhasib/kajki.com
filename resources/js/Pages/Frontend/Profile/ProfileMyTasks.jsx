@@ -1,4 +1,4 @@
-import ProfileContent from "@/Components/Frontend/ProfileContent";
+import ProfileContent from "@/Layouts/ProfileContent";
 import ProfileSideBar from "@/Components/Frontend/ProfileSideBar";
 import ProfileTaskCard from "@/Components/Frontend/ProfileTaskCard";
 import AppLayout from "@/Layouts/AppLayout";

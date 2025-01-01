@@ -2,7 +2,7 @@ import FormInputError from "@/Components/Frontend/FormInputError";
 import FormLabel from "@/Components/Frontend/FormLabel";
 import FormSubmitButton from "@/Components/Frontend/FormSubmitButton";
 import FormTextInput from "@/Components/Frontend/FormTextInput";
-import ProfileContent from "@/Components/Frontend/ProfileContent";
+import ProfileContent from "@/Layouts/ProfileContent";
 import ProfileSideBar from "@/Components/Frontend/ProfileSideBar";
 import AppLayout from "@/Layouts/AppLayout";
 import { Head, router, useForm } from "@inertiajs/react";
