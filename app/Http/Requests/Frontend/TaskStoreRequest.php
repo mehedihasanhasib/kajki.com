@@ -29,7 +29,7 @@ class TaskStoreRequest extends FormRequest
             'district_id' => ['required', 'exists:districts,id'],
             'address' => ['nullable', 'string', 'max:255'],
             'budget' => ['required', 'numeric', 'min:0'],
-            'contact_number' => ['required', 'numeric', 'max:255'],
+            'contact_number' => ['required', 'numeric', 'digits:11'],
             'images' => ['required', 'array', 'min:1', 'max:5'],
             'images.*' => ['image', 'max:2048', 'mimes:jpg,jpeg,png'],
         ];

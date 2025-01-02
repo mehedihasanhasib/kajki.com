@@ -2,10 +2,9 @@ import TaskCard from "@/Components/Frontend/TaskCard";
 import AppLayout from "@/Layouts/AppLayout";
 import { Head } from "@inertiajs/react";
 import React, { useState } from "react";
-// import { v4 as uuidv4 } from 'uuid';
 
 export default function Tasks({ tasks, categories, divisions }) {
-    console.log(divisions);
+    console.log(tasks)
     const [districts, setDistricts] = useState([]);
 
     const handleDivisionChange = (event) => {
@@ -129,15 +128,7 @@ export default function Tasks({ tasks, categories, divisions }) {
                     {/* Main Content */}
                     <section className="flex-1">
                         <div className="grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
-                            <TaskCard />
-                            <TaskCard />
-                            <TaskCard />
-                            <TaskCard />
-                            <TaskCard />
-                            <TaskCard />
-                            <TaskCard />
-                            <TaskCard />
-                            <TaskCard />
+                            {tasks.map(task=> <TaskCard task={task}/>)}
                         </div>
                     </section>
                 </div>

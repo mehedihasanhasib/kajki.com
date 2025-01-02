@@ -18,12 +18,12 @@ export default function Home() {
                             Recent Tasks
                         </h2>
                         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3">
-                            <TaskCard />
-                            <TaskCard />
-                            <TaskCard />
-                            <TaskCard />
-                            <TaskCard />
-                            <TaskCard />
+                            <TaskCard className="m-2"/>
+                            <TaskCard className="m-2"/>
+                            <TaskCard className="m-2"/>
+                            <TaskCard className="m-2"/>
+                            <TaskCard className="m-2"/>
+                            <TaskCard className="m-2"/>
                         </div>
                     </div>
                 </section>

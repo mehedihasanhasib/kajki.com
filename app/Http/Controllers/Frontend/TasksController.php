@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Frontend\TaskStoreRequest;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Models\Frontend\Task;
 use App\Models\Frontend\Category;
 use App\Models\Frontend\District;
 use App\Models\Frontend\Division;
-use App\Models\Frontend\Task;
 use App\Models\Frontend\TaskImage;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
+use App\Http\Requests\Frontend\TaskStoreRequest;
 
 class TasksController extends Controller
 {
@@ -61,6 +62,7 @@ class TasksController extends Controller
         try {
             DB::beginTransaction();
             $validated_data = $request->except('images');
+            $validated_data['slug'] = Str::slug($request->title);
             $task = $request->user()->task()->create($validated_data);
             $images = $request->images;
             $path = [];
