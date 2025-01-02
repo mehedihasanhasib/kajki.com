@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\TaskStoreRequest;
 use App\Models\Frontend\Category;
+use App\Models\Frontend\District;
 use App\Models\Frontend\Division;
 use App\Models\Frontend\Task;
 use App\Models\Frontend\TaskImage;
@@ -17,13 +18,27 @@ class TasksController extends Controller
     /**
      * Display a listing of the resource.
      */
+    protected $categories;
+    protected $divisions;
+
+    public function __construct()
+    {
+        $this->categories = Cache::remember('categories', now()->addMinutes(10), function () {
+            return Category::select('id', 'name')->get();
+        });
+
+        $this->divisions = Cache::remember('divisions', now()->addMinutes(10), function () {
+            return Division::with(['district:id,division_id,district'])->select('id', 'division')->get();
+        });
+    }
+
     public function index()
     {
         $tasks = Task::all();
-        $categories = Category::all();
         return inertia("Frontend/Tasks/Index", [
             'tasks' => $tasks,
-            'categories' => $categories
+            'categories' => $this->categories,
+            'divisions' => $this->divisions,
         ]);
     }
 
@@ -32,17 +47,9 @@ class TasksController extends Controller
      */
     public function create()
     {
-        $categories = Cache::remember('categories', now()->addMinutes(10), function () {
-            return Category::select('id', 'name')->get();
-        });
-
-        $divisions = Cache::remember('divisions', now()->addMinutes(10), function () {
-            return Division::with(['district:id,division_id,district'])->select('id', 'division')->get();
-        });
-
         return inertia('Frontend/Tasks/Create', [
-            'categories' => $categories,
-            'divisions' => $divisions,
+            'categories' => $this->categories,
+            'divisions' => $this->divisions,
         ]);
     }
 

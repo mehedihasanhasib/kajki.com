@@ -1,9 +1,9 @@
-import FormInputError from "@/Components/Frontend/FormInputError";
-import FormInputSelect from "@/Components/Frontend/FormInputSelect";
-import FormInputTextArea from "@/Components/Frontend/FormInputTextArea";
-import FormLabel from "@/Components/Frontend/FormLabel";
-import FormSubmitButton from "@/Components/Frontend/FormSubmitButton";
-import FormTextInput from "@/Components/Frontend/FormTextInput";
+import FormInputError from "@/Components/Form/FormInputError";
+import FormInputSelect from "@/Components/Form/FormInputSelect";
+import FormInputTextArea from "@/Components/Form/FormInputTextArea";
+import FormLabel from "@/Components/Form/FormLabel";
+import FormSubmitButton from "@/Components/Form/FormSubmitButton";
+import FormTextInput from "@/Components/Form/FormTextInput";
 import AppLayout from "@/Layouts/AppLayout";
 import { Head, useForm } from "@inertiajs/react";
 import React, { useState, useEffect } from "react";

@@ -1,7 +1,7 @@
-import FormInputError from "@/Components/Frontend/FormInputError";
-import FormLabel from "@/Components/Frontend/FormLabel";
-import FormSubmitButton from "@/Components/Frontend/FormSubmitButton";
-import FormTextInput from "@/Components/Frontend/FormTextInput";
+import FormInputError from "@/Components/Form/FormInputError";
+import FormLabel from "@/Components/Form/FormLabel";
+import FormSubmitButton from "@/Components/Form/FormSubmitButton";
+import FormTextInput from "@/Components/Form/FormTextInput";
 import AppLayout from "@/Layouts/AppLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
 

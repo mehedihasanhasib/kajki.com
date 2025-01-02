@@ -2,9 +2,20 @@ import TaskCard from "@/Components/Frontend/TaskCard";
 import AppLayout from "@/Layouts/AppLayout";
 import { Head } from "@inertiajs/react";
 import React, { useState } from "react";
+// import { v4 as uuidv4 } from 'uuid';
 
-export default function Tasks({ tasks, categories }) {
-    console.log(categories);
+export default function Tasks({ tasks, categories, divisions }) {
+    console.log(divisions);
+    const [districts, setDistricts] = useState([]);
+
+    const handleDivisionChange = (event) => {
+        const { value } = event.target;
+        divisions.forEach((division) => {
+            if (value == division.id) {
+                setDistricts(division.district);
+            }
+        });
+    };
     return (
         <>
             <Head>
@@ -26,46 +37,72 @@ export default function Tasks({ tasks, categories }) {
                                         Categories
                                     </h4>
                                     <div className="space-y-2">
-                                        {categories.map((category) => (
-                                            <label key={category.id} className="flex items-center">
+                                        {categories.map((option) => (
+                                            <label
+                                                key={option.id}
+                                                className="flex items-center"
+                                            >
                                                 <input
                                                     type="checkbox"
                                                     className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                                                 />
                                                 <span className="ml-2.5 text-sm text-gray-700">
-                                                    {category.name}
+                                                    {option.name}
                                                 </span>
                                             </label>
                                         ))}
                                     </div>
                                 </div>
 
-                                {/* Distance */}
+                                {/* Division */}
                                 <div className="mb-6">
                                     <h4 className="text-sm font-medium text-gray-900 mb-3">
-                                        Distance
+                                        Divisions
+                                    </h4>
+                                    <select
+                                        onChange={(e) =>
+                                            handleDivisionChange(e)
+                                        }
+                                        className="w-full text-sm rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                    >
+                                        <option value="">
+                                            Select Division
+                                        </option>
+                                        {divisions.map((option) => (
+                                            <option
+                                                key={option.id}
+                                                value={option.id}
+                                            >
+                                                {option.division}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+
+                                {/* District */}
+                                <div className="mb-6">
+                                    <h4 className="text-sm font-medium text-gray-900 mb-3">
+                                        District
                                     </h4>
                                     <select className="w-full text-sm rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                        <option value="any">
-                                            Any Distance
+                                        <option value="">
+                                            Select Disrtict
                                         </option>
-                                        <option value="1">Within 1 mile</option>
-                                        <option value="5">
-                                            Within 5 miles
-                                        </option>
-                                        <option value="10">
-                                            Within 10 miles
-                                        </option>
-                                        <option value="20">
-                                            Within 20 miles
-                                        </option>
+                                        {districts.map((option) => (
+                                            <option
+                                                key={option.id}
+                                                value={option.id}
+                                            >
+                                                {option.district}
+                                            </option>
+                                        ))}
                                     </select>
                                 </div>
 
                                 {/* Price Range */}
                                 <div className="mb-6">
                                     <h4 className="text-sm font-medium text-gray-900 mb-3">
-                                        Price Range
+                                        Budget
                                     </h4>
                                     <div className="flex gap-3">
                                         <input
