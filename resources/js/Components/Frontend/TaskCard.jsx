@@ -1,6 +1,12 @@
 import { Link } from "@inertiajs/react";
 
-export default function TaskCard({ task = [], className = "" }) {
+export default function TaskCard({
+    task = [],
+    showTaskModal,
+    setShowTaskModal,
+    setShowTask,
+    className = "",
+}) {
     const {
         id = null,
         title = "",
@@ -8,10 +14,15 @@ export default function TaskCard({ task = [], className = "" }) {
         budget = "",
         address = "",
     } = task;
+
+    const handleClick = () => {
+        setShowTaskModal(!showTaskModal);
+        setShowTask(task);
+    }
     return (
         <>
-            <Link
-                href={route("task.show", { slug: "example-slug" })}
+            <div
+                // href={route("task.show", { slug: "example-slug" })}
                 className={`bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow p-6 flex flex-col justify-between ${className}`}
             >
                 <div className="flex justify-between items-start mb-2 md:mb-4">
@@ -70,10 +81,11 @@ export default function TaskCard({ task = [], className = "" }) {
                             Experienced
                         </span>
                     </div>
-                </div> 
+                </div>
                 <div className="mt-auto flex justify-end">
-                    <Link
-                        href={route("task.show", { slug: "example-slug" })}
+                    <button
+                        // href={route("task.show", { slug: "example-slug" })}
+                        onClick={handleClick}
                         className="inline-flex items-center text-blue-600 hover:text-blue-700 font-semibold"
                     >
                         <span>Details</span>
@@ -90,9 +102,9 @@ export default function TaskCard({ task = [], className = "" }) {
                                 d="M17 8l4 4m0 0l-4 4m4-4H3"
                             />
                         </svg>
-                    </Link>
+                    </button>
                 </div>
-            </Link>
+            </div>
         </>
     );
 }

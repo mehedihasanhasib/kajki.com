@@ -1,11 +1,13 @@
 import TaskCard from "@/Components/Frontend/TaskCard";
+import TaskModal from "@/Components/Frontend/TaskModal";
 import AppLayout from "@/Layouts/AppLayout";
 import { Head } from "@inertiajs/react";
 import React, { useState } from "react";
 
 export default function Tasks({ tasks, categories, divisions }) {
-    console.log(tasks);
     const [districts, setDistricts] = useState([]);
+    const [showTaskModal, setShowTaskModal] = useState(false);
+    const [showTask, setShowTask] = useState({});
 
     const handleDivisionChange = (event) => {
         const { value } = event.target;
@@ -131,11 +133,24 @@ export default function Tasks({ tasks, categories, divisions }) {
                     <section className="flex-1">
                         <div className="grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
                             {tasks.map((task) => (
-                                <TaskCard task={task} />
+                                <TaskCard
+                                    key={task.id}
+                                    task={task}
+                                    showTaskModal={showTaskModal}
+                                    setShowTaskModal={setShowTaskModal}
+                                    setShowTask={setShowTask}
+                                />
                             ))}
                         </div>
                     </section>
                 </div>
+
+                {showTaskModal && (
+                    <TaskModal
+                        task={showTask}
+                        setShowTaskModal={setShowTaskModal}
+                    />
+                )}
             </AppLayout>
         </>
     );

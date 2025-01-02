@@ -90,7 +90,7 @@ class TasksController extends Controller
      */
     public function show(string $id)
     {
-        return inertia("Frontend/Tasks/Show");
+        // return inertia("Frontend/Tasks/Show");
     }
 
     /**

@@ -18,7 +18,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 /* ======= Tasks Show =======*/
 Route::get('/tasks', [TasksController::class, 'index'])->name('tasks');
-Route::get('/tasks/{slug}', [TasksController::class, 'show'])->name('task.show');
+// Route::get('/tasks/{slug}', [TasksController::class, 'show'])->name('task.show');
 
 
 
