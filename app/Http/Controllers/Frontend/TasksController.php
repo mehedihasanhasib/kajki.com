@@ -35,7 +35,7 @@ class TasksController extends Controller
 
     public function index()
     {
-        $tasks = Task::all();
+        $tasks = Task::with(['user:id,name,profile_picture'])->get();
         return inertia("Frontend/Tasks/Index", [
             'tasks' => $tasks,
             'categories' => $this->categories,

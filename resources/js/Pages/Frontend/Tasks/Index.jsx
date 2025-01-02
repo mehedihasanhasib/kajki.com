@@ -1,5 +1,5 @@
-import TaskCard from "@/Components/Frontend/TaskCard";
-import TaskModal from "@/Components/Frontend/TaskModal";
+import TaskCard from "@/Components/Frontend/Task/TaskCard";
+import TaskModal from "@/Components/Frontend/Task/TaskModal";
 import AppLayout from "@/Layouts/AppLayout";
 import { Head } from "@inertiajs/react";
 import React, { useState } from "react";

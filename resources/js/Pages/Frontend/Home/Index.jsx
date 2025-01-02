@@ -1,6 +1,6 @@
 import Hero from "@/Components/Frontend/Hero";
 import PopularCategories from "@/Components/Frontend/PopularCategories";
-import TaskCard from "@/Components/Frontend/TaskCard";
+import TaskCard from "@/Components/Frontend/Task/TaskCard";
 import AppLayout from "@/Layouts/AppLayout";
 import { Head } from "@inertiajs/react";
 

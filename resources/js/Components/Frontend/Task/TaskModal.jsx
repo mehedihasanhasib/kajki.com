@@ -4,12 +4,15 @@ export default function TaskModal({ task, setShowTaskModal }) {
     const closeModal = () => {
         setShowTaskModal(false);
     };
+    console.log(task);
     const {
         id = null,
         title = "",
         details = "",
         budget = "",
         address = "",
+        contact_number = "",
+        user = {},
     } = task;
     return (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
@@ -115,7 +118,7 @@ export default function TaskModal({ task, setShowTaskModal }) {
                                 <div>
                                     {/* <!-- <p className="text-sm text-blue-700">Contact</p> --> */}
                                     <p className="text-2xl font-bold text-blue-700">
-                                        +8801965046625
+                                        {`+88${contact_number}`}
                                     </p>
                                 </div>
                             </div>
@@ -146,13 +149,17 @@ export default function TaskModal({ task, setShowTaskModal }) {
                     <div className="border-t pt-6">
                         <h4 className="font-medium mb-4">Posted By</h4>
                         <div className="flex items-start gap-4">
-                            {/* <img
+                            <img
                                 className="w-12 h-12 rounded-full border border-gray-300"
-                                src="avatar.jpg"
+                                src={
+                                    user.profile_picture
+                                        ? `/storage/users_profile_picture/${user.profile_picture}`
+                                        : `/assets/images/user-avatar.webp`
+                                }
                                 alt="Client avatar"
-                            /> */}
+                            />
                             <div>
-                                <h5 className="font-medium">John Smith</h5>
+                                <h5 className="font-medium">{user.name}</h5>
                                 <p className="text-sm text-gray-600">
                                     Member since Jan 2024
                                 </p>
@@ -184,7 +191,7 @@ export default function TaskModal({ task, setShowTaskModal }) {
                         Close
                     </button>
                     <a
-                        href="tel:+8801965046625"
+                        href={`tel:+88${contact_number}`}
                         className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg"
                     >
                         Call Now
