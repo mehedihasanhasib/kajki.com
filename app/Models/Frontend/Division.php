@@ -11,8 +11,14 @@ class Division extends Model
         'division_bn',
     ];
 
+    
     public function district()
     {
         return $this->hasMany(District::class);
+    }
+
+    public function tasks()
+    {
+        return $this->belongsTo(Task::class);
     }
 }

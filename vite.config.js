@@ -10,8 +10,8 @@ export default defineConfig({
         }),
         react(),
     ],
-    // server: {
-    //     host: 'https://bd39-103-107-161-80.ngrok-free.app',
-    //     port: 5173, // Replace with your dev server port
-    // },
+    server: {
+        host: '192.168.10.109',
+        port: 5173, // Replace with your dev server port
+    },
 });

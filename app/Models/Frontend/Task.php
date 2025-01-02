@@ -18,4 +18,19 @@ class Task extends Model
     {
         return $this->hasMany(TaskImage::class);
     }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function division()
+    {
+        return $this->belongsTo(Division::class);
+    }
+
+    public function district()
+    {
+        return $this->belongsTo(District::class);
+    }
 }

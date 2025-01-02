@@ -12,7 +12,6 @@ use App\Http\Controllers\Frontend\TasksProfileController;
 use Spatie\LaravelImageOptimizer\Middlewares\OptimizeImages;
 
 /* ======= Home =======*/
-
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 
@@ -35,10 +34,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/update-password', [PasswordController::class, 'edit'])->name('profile.update.password');
         Route::put('password', [PasswordController::class, 'update'])->name('password.update');
 
-        /* ======= Profile Tasks =======*/
+        /* ======= User Tasks List =======*/
         Route::get('/my-tasks', [TasksProfileController::class, 'index'])->name('profile.mytasks');
     });
-    /* ======= Tasks =======*/
+    /* ======= Tasks Create =======*/
     Route::get('task/create', [TasksController::class, 'create'])->name('task.create');
     Route::post('task/store', [TasksController::class, 'store'])->name('task.store');
 });

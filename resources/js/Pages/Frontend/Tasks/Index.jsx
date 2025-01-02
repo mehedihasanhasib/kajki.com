@@ -3,25 +3,8 @@ import AppLayout from "@/Layouts/AppLayout";
 import { Head } from "@inertiajs/react";
 import React, { useState } from "react";
 
-export default function Tasks() {
-    const [filters, setFilters] = useState({
-        categories: [],
-        distance: "any",
-        urgency: "all",
-        price: { min: "", max: "" },
-    });
-
-    const categories = [
-        { id: "plumbing", label: "Plumbing" },
-        { id: "electrical", label: "Electrical" },
-        { id: "cleaning", label: "Cleaning" },
-        { id: "moving", label: "Moving" },
-        { id: "painting", label: "Painting" },
-        { id: "gardening", label: "Gardening" },
-        { id: "assembly", label: "Furniture Assembly" },
-        { id: "handyman", label: "Handyman" },
-    ];
-
+export default function Tasks({ tasks, categories }) {
+    console.log(categories);
     return (
         <>
             <Head>
@@ -43,37 +26,14 @@ export default function Tasks() {
                                         Categories
                                     </h4>
                                     <div className="space-y-2">
-                                        {categories.map(({ id, label }) => (
-                                            <label
-                                                key={id}
-                                                className="flex items-center"
-                                            >
+                                        {categories.map((category) => (
+                                            <label key={category.id} className="flex items-center">
                                                 <input
                                                     type="checkbox"
                                                     className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                                                    checked={filters.categories.includes(
-                                                        id
-                                                    )}
-                                                    onChange={(e) => {
-                                                        const newCategories = e
-                                                            .target.checked
-                                                            ? [
-                                                                  ...filters.categories,
-                                                                  id,
-                                                              ]
-                                                            : filters.categories.filter(
-                                                                  (c) =>
-                                                                      c !== id
-                                                              );
-                                                        setFilters({
-                                                            ...filters,
-                                                            categories:
-                                                                newCategories,
-                                                        });
-                                                    }}
                                                 />
                                                 <span className="ml-2.5 text-sm text-gray-700">
-                                                    {label}
+                                                    {category.name}
                                                 </span>
                                             </label>
                                         ))}
@@ -85,16 +45,7 @@ export default function Tasks() {
                                     <h4 className="text-sm font-medium text-gray-900 mb-3">
                                         Distance
                                     </h4>
-                                    <select
-                                        className="w-full text-sm rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                                        value={filters.distance}
-                                        onChange={(e) =>
-                                            setFilters({
-                                                ...filters,
-                                                distance: e.target.value,
-                                            })
-                                        }
-                                    >
+                                    <select className="w-full text-sm rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                                         <option value="any">
                                             Any Distance
                                         </option>
@@ -121,72 +72,17 @@ export default function Tasks() {
                                             type="number"
                                             placeholder="Min"
                                             className="w-full text-sm rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                                            value={filters.price.min}
-                                            onChange={(e) =>
-                                                setFilters({
-                                                    ...filters,
-                                                    price: {
-                                                        ...filters.price,
-                                                        min: e.target.value,
-                                                    },
-                                                })
-                                            }
                                         />
                                         <input
                                             type="number"
                                             placeholder="Max"
                                             className="w-full text-sm rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                                            value={filters.price.max}
-                                            onChange={(e) =>
-                                                setFilters({
-                                                    ...filters,
-                                                    price: {
-                                                        ...filters.price,
-                                                        max: e.target.value,
-                                                    },
-                                                })
-                                            }
                                         />
                                     </div>
                                 </div>
 
-                                {/* Urgency */}
-                                <div className="mb-6">
-                                    <h4 className="text-sm font-medium text-gray-900 mb-3">
-                                        Urgency
-                                    </h4>
-                                    <select
-                                        className="w-full text-sm rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                                        value={filters.urgency}
-                                        onChange={(e) =>
-                                            setFilters({
-                                                ...filters,
-                                                urgency: e.target.value,
-                                            })
-                                        }
-                                    >
-                                        <option value="all">All Tasks</option>
-                                        <option value="urgent">
-                                            Urgent Only
-                                        </option>
-                                        <option value="normal">
-                                            Normal Priority
-                                        </option>
-                                    </select>
-                                </div>
-
                                 {/* Clear Filters */}
-                                <button
-                                    className="w-full text-sm bg-gray-100 text-gray-700 py-2.5 px-4 rounded-lg hover:bg-gray-200"
-                                    onClick={() =>
-                                        setFilters({
-                                            categories: [],
-                                            distance: "any",
-                                            urgency: "all",
-                                            price: { min: "", max: "" },
-                                        })
-                                    }
-                                >
+                                <button className="w-full text-sm bg-gray-100 text-gray-700 py-2.5 px-4 rounded-lg hover:bg-gray-200">
                                     Clear All Filters
                                 </button>
                             </div>

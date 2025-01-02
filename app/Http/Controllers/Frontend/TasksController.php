@@ -19,7 +19,12 @@ class TasksController extends Controller
      */
     public function index()
     {
-        return inertia("Frontend/Tasks/Index");
+        $tasks = Task::all();
+        $categories = Category::all();
+        return inertia("Frontend/Tasks/Index", [
+            'tasks' => $tasks,
+            'categories' => $categories
+        ]);
     }
 
     /**
