@@ -1,5 +1,4 @@
 import { Link } from "@inertiajs/react";
-import React from "react";
 
 export default function TaskCard({ task = [], className = "" }) {
     const {
@@ -11,8 +10,9 @@ export default function TaskCard({ task = [], className = "" }) {
     } = task;
     return (
         <>
-            <div
-                className={`bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow p-6 ${className}`}
+            <Link
+                href={route("task.show", { slug: "example-slug" })}
+                className={`bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow p-6 flex flex-col justify-between ${className}`}
             >
                 <div className="flex justify-between items-start mb-2 md:mb-4">
                     <div>
@@ -55,27 +55,23 @@ export default function TaskCard({ task = [], className = "" }) {
                         ? details.substring(0, 165) + "..."
                         : details}
                 </p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                    {/* Tags Section */}
-                    {/* <div>
-                        <span className="px-2 py-1 bg-gray-100 text-gray-600 rounded-lg text-sm">
+                <div>
+                    <h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">
+                        Requirements
+                    </h2>
+                    <div className="flex flex-wrap gap-2">
+                        <span className="px-2.5 py-1 bg-blue-50 text-blue-700 rounded-full text-xs sm:text-sm font-medium">
                             Plumbing
                         </span>
-                        <span className="px-2 py-1 bg-gray-100 text-gray-600 rounded-lg text-sm">
+                        <span className="px-2.5 py-1 bg-red-50 text-red-700 rounded-full text-xs sm:text-sm font-medium">
                             Urgent
                         </span>
-                        <span className="px-2 py-1 bg-gray-100 text-gray-600 rounded-lg text-sm">
-                            Home
+                        <span className="px-2.5 py-1 bg-orange-50 text-orange-700 rounded-full text-xs sm:text-sm font-medium">
+                            Experienced
                         </span>
-                    </div> */}
-                    {/* Budget Section */}
-                    <div className="mb-4 flex items-center justify-end gap-2">
-                        {/* <span className="text-gray-700 font-medium">Budget:</span> */}
-                        <p className="text-gray-600">৳ {budget}</p>
                     </div>
-                </div>
-
-                <div className="flex justify-end">
+                </div> 
+                <div className="mt-auto flex justify-end">
                     <Link
                         href={route("task.show", { slug: "example-slug" })}
                         className="inline-flex items-center text-blue-600 hover:text-blue-700 font-semibold"
@@ -96,7 +92,7 @@ export default function TaskCard({ task = [], className = "" }) {
                         </svg>
                     </Link>
                 </div>
-            </div>
+            </Link>
         </>
     );
 }
