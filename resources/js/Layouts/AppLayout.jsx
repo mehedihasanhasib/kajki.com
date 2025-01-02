@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function AppLayout({ children }) {
     return (
         <>
-            <header className="sticky top-0 z-200">
+            <header className="sticky top-0">
                 <Nav />
             </header>
             <main className="bg-[#f8f9fa]">

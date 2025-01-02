@@ -1,7 +1,7 @@
 import { Link } from "@inertiajs/react";
 import React from "react";
 
-export default function TaskCard({ task = [], className }) {
+export default function TaskCard({ task = [], className = "" }) {
     const {
         id = null,
         title = "",
