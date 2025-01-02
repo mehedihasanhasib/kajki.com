@@ -4,7 +4,7 @@ import React from "react";
 export default function TaskCard() {
     return (
         <>
-            <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow p-6 m-2">
+            <div className="bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow p-6">
                 <div className="flex justify-between items-start mb-2 md:mb-4">
                     <div>
                         <h3 className="md:text-lg font-semibold mb-2">
