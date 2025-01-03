@@ -11,6 +11,7 @@ use App\Models\Frontend\Division;
 use App\Models\Frontend\TaskImage;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use App\Http\Requests\Frontend\TaskStoreRequest;
 
@@ -35,11 +36,19 @@ class TasksController extends Controller
 
     public function index()
     {
-        $tasks = Task::with(['user:id,name,profile_picture'])->get();
+        $tasks = Task::with(['user:id,name,profile_picture', 'images:task_id,image_path'])->get();
         return inertia("Frontend/Tasks/Index", [
             'tasks' => $tasks,
             'categories' => $this->categories,
             'divisions' => $this->divisions,
+        ]);
+    }
+
+    public function profile_index()
+    {
+        $tasks = Task::where('user_id', Auth::user()->id)->get();
+        return inertia('Frontend/Profile/ProfileMyTasks', [
+            'tasks' => $tasks,
         ]);
     }
 

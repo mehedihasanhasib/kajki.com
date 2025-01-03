@@ -14,7 +14,7 @@ class Task extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function image()
+    public function images()
     {
         return $this->hasMany(TaskImage::class);
     }

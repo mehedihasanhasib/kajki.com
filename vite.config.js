@@ -11,7 +11,7 @@ export default defineConfig({
         react(),
     ],
     server: {
-        host: '192.168.10.109',
+        host: '192.168.10.111',
         port: 5173, // Replace with your dev server port
     },
 });

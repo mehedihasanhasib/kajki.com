@@ -1,11 +1,11 @@
 import { Link } from "@inertiajs/react";
 
-export default function TaskCard({ task = [], showTaskModal, setShowTaskModal, setShowTask, className = "" }) {
+export default function TaskCard({ task = [], showTaskModal, setShowTaskModal, setTask, className = "" }) {
     const { id = null, title = "", details = "", budget = "", address = "" } = task;
 
     const handleClick = () => {
         setShowTaskModal(!showTaskModal);
-        setShowTask(task);
+        setTask(task);
     };
     return (
         <>

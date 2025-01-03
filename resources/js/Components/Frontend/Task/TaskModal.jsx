@@ -4,7 +4,7 @@ export default function TaskModal({ task, setShowTaskModal }) {
     const closeModal = () => {
         setShowTaskModal(false);
     };
-    console.log(task);
+
     const {
         id = null,
         title = "",
@@ -13,6 +13,7 @@ export default function TaskModal({ task, setShowTaskModal }) {
         address = "",
         contact_number = "",
         user = {},
+        images = [],
     } = task;
     return (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
@@ -124,6 +125,17 @@ export default function TaskModal({ task, setShowTaskModal }) {
                             </div>
                         </div>
 
+                        <div className="bg-gray-100 p-4 rounded-lg flex gap-4">
+                            {images.map((image) => {
+                                return (
+                                    <img
+                                        key={image.id}
+                                        src={`storage/${image.image_path}`}
+                                        className="w-52 h-52 object-cover"
+                                    />
+                                );
+                            })}
+                        </div>
                         <div>
                             <h4 className="font-medium mb-2">Details</h4>
                             <p className="text-gray-600">{details}</p>

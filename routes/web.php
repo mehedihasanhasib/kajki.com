@@ -35,7 +35,7 @@ Route::middleware('auth')->group(function () {
         Route::put('password', [PasswordController::class, 'update'])->name('password.update');
 
         /* ======= User Tasks List =======*/
-        Route::get('/my-tasks', [TasksProfileController::class, 'index'])->name('profile.mytasks');
+        Route::get('/my-tasks', [TasksController::class, 'profile_index'])->name('profile.mytasks');
     });
     /* ======= Tasks Create =======*/
     Route::get('task/create', [TasksController::class, 'create'])->name('task.create');

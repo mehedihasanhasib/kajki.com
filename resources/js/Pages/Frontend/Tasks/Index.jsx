@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 
 export default function Tasks({ tasks, categories, divisions }) {
     const [showTaskModal, setShowTaskModal] = useState(false);
-    const [showTask, setShowTask] = useState({});
+    const [task, setTask] = useState({});
 
     useEffect(() => {
         return () => {
@@ -39,7 +39,7 @@ export default function Tasks({ tasks, categories, divisions }) {
                                     task={task}
                                     showTaskModal={showTaskModal}
                                     setShowTaskModal={setShowTaskModal}
-                                    setShowTask={setShowTask}
+                                    setTask={setTask}
                                 />
                             ))}
                         </div>
@@ -48,7 +48,7 @@ export default function Tasks({ tasks, categories, divisions }) {
 
                 {showTaskModal && (
                     <TaskModal
-                        task={showTask}
+                        task={task}
                         setShowTaskModal={setShowTaskModal}
                     />
                 )}
