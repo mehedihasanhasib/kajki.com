@@ -24,10 +24,10 @@ export default function ProfileMyTasks({ tasks }) {
                 <ProfileSideBar />
 
                 <ProfileContent>
-                    <h1 class="text-xl font-bold mb-4">My Posted Tasks</h1>
+                    <h1 className="text-xl font-bold mb-4">My Posted Tasks</h1>
 
                     {/* <!-- Task List --> */}
-                    <div class="space-y-4">
+                    <div className="space-y-4">
                         {tasks?.length > 0 ? (
                             tasks?.map((task, index) => {
                                 const { id, title, details } = task;

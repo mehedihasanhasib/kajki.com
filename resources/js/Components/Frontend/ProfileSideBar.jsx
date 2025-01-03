@@ -13,7 +13,7 @@ export default function ProfileSideBar() {
                 <ProfileSideBarLink route={route("profile.mytasks")} activePath="/profile/my-tasks">
                     My Tasks
                 </ProfileSideBarLink>
-                <ProfileSideBarLink route={route("logout")} method="post" as="button">
+                <ProfileSideBarLink route={route("logout")} method="post" asButton={true}>
                     Sign out
                 </ProfileSideBarLink>
             </ul>
