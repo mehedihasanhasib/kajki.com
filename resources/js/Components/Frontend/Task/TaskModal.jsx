@@ -34,8 +34,8 @@ export default function TaskModal({ task, setShowTaskModal }) {
                         >
                             <path
                                 d="M6 18L18 6M6 6l12 12"
-                                stroke-width="2"
-                                stroke-linecap="round"
+                                strokeWidth="2"
+                                strokeLinecap="round"
                             />
                         </svg>
                     </button>
@@ -55,11 +55,11 @@ export default function TaskModal({ task, setShowTaskModal }) {
                                 >
                                     <path
                                         d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                                        stroke-width="2"
+                                        strokeWidth="2"
                                     />
                                     <path
                                         d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                                        stroke-width="2"
+                                        strokeWidth="2"
                                     />
                                 </svg>
                                 <span>{address}</span>
@@ -82,11 +82,11 @@ export default function TaskModal({ task, setShowTaskModal }) {
                                         className="text-green-700"
                                         x="50%"
                                         y="50%"
-                                        dominant-baseline="middle"
-                                        text-anchor="middle"
-                                        font-family="Arial, sans-serif"
-                                        font-size="115"
-                                        font-weight="bold"
+                                        dominantBaseline="middle"
+                                        textAnchor="middle"
+                                        fontFamily="Arial, sans-serif"
+                                        fontSize="115"
+                                        fontWeight="bold"
                                     >
                                         ৳
                                     </text>
@@ -109,9 +109,9 @@ export default function TaskModal({ task, setShowTaskModal }) {
                                     stroke="currentColor"
                                 >
                                     <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
                                         d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
                                     />
                                 </svg>

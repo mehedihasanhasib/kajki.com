@@ -1,29 +1,17 @@
 import { Link } from "@inertiajs/react";
 
-export default function TaskCard({
-    task = [],
-    showTaskModal,
-    setShowTaskModal,
-    setShowTask,
-    className = "",
-}) {
-    const {
-        id = null,
-        title = "",
-        details = "",
-        budget = "",
-        address = "",
-    } = task;
+export default function TaskCard({ task = [], showTaskModal, setShowTaskModal, setShowTask, className = "" }) {
+    const { id = null, title = "", details = "", budget = "", address = "" } = task;
 
     const handleClick = () => {
         setShowTaskModal(!showTaskModal);
         setShowTask(task);
-    }
+    };
     return (
         <>
             <div
                 // href={route("task.show", { slug: "example-slug" })}
-                className={`bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow p-6 flex flex-col justify-between ${className}`}
+                className={`bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow px-6 py-4 flex flex-col justify-between ${className}`}
             >
                 <div className="flex justify-between items-start mb-2 md:mb-4">
                     <div>
@@ -40,15 +28,15 @@ export default function TaskCard({
                                 viewBox="0 0 24 24"
                             >
                                 <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
                                     d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
                                 />
                                 <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
                                     d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                                 />
                             </svg>
@@ -82,7 +70,7 @@ export default function TaskCard({
                         </span>
                     </div>
                 </div>
-                <div className="mt-auto flex justify-end">
+                <div className="mt-auto flex justify-end pt-4">
                     <button
                         // href={route("task.show", { slug: "example-slug" })}
                         onClick={handleClick}
@@ -96,9 +84,9 @@ export default function TaskCard({
                             viewBox="0 0 24 24"
                         >
                             <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
                                 d="M17 8l4 4m0 0l-4 4m4-4H3"
                             />
                         </svg>
