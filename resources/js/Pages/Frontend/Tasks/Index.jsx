@@ -14,13 +14,13 @@ export default function Tasks({ tasks, categories, divisions }) {
                 <title>Tasks</title>
             </Head>
             <AppLayout>
-                <div className="flex flex-col md:flex-row gap-6 p-4 lg:p-6 2xl:max-w-[1536px] 2xl:mx-auto">
+                <div className="flex flex-col md:flex-row gap-2 p-4 2xl:max-w-[1536px] 2xl:mx-auto">
                     {/* Filter Sidebar */}
                     <TaskFilter categories={categories} divisions={divisions} />
 
                     {/* Main Content */}
                     <section className="flex-1">
-                        <div className="grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
+                        <div className="grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-2">
                             {tasks.map((task) => (
                                 <TaskCard
                                     key={task.id}

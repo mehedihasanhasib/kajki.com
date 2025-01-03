@@ -85,7 +85,7 @@ export default function TaskModal({ task, setShowTaskModal }) {
                                         dominantBaseline="middle"
                                         textAnchor="middle"
                                         fontFamily="Arial, sans-serif"
-                                        fontSize="115"
+                                        fontSize="70"
                                         fontWeight="bold"
                                     >
                                         ৳
