@@ -1,9 +1,9 @@
-import FormInputError from "@/Components/Form/FormInputError";
-import FormInputSelect from "@/Components/Form/FormInputSelect";
-import FormInputTextArea from "@/Components/Form/FormInputTextArea";
-import FormLabel from "@/Components/Form/FormLabel";
-import FormSubmitButton from "@/Components/Form/FormSubmitButton";
-import FormTextInput from "@/Components/Form/FormTextInput";
+import FormInputError from "@/Components/Frontend/Form/FormInputError";
+import FormInputSelect from "@/Components/Frontend/Form/FormInputSelect";
+import FormInputTextArea from "@/Components/Frontend/Form/FormInputTextArea";
+import FormLabel from "@/Components/Frontend/Form/FormLabel";
+import FormSubmitButton from "@/Components/Frontend/Form/FormSubmitButton";
+import FormTextInput from "@/Components/Frontend/Form/FormTextInput";
 import AppLayout from "@/Layouts/AppLayout";
 import { Head, useForm } from "@inertiajs/react";
 import React, { useState, useEffect } from "react";
@@ -23,7 +23,7 @@ export default function TaskPost({ categories, divisions }) {
         contact_number: "",
         images: [],
     });
-    
+
     const handleChange = (event) => {
         const { name, value } = event.target;
         setData(name, value);
