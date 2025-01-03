@@ -14,12 +14,9 @@ export default function Tasks({ tasks, categories, divisions }) {
                 <title>Tasks</title>
             </Head>
             <AppLayout>
-                <div className="flex flex-col md:flex-row gap-6 p-4 lg:p-6">
+                <div className="flex flex-col md:flex-row gap-6 p-4 lg:p-6 2xl:max-w-[1536px] 2xl:mx-auto">
                     {/* Filter Sidebar */}
-                    <TaskFilter
-                        categories={categories}
-                        divisions={divisions}
-                    />
+                    <TaskFilter categories={categories} divisions={divisions} />
 
                     {/* Main Content */}
                     <section className="flex-1">
