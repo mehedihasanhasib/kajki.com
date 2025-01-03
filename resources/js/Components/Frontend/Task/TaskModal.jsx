@@ -125,13 +125,13 @@ export default function TaskModal({ task, setShowTaskModal }) {
                             </div>
                         </div>
 
-                        <div className="bg-gray-100 p-4 rounded-lg flex gap-4">
+                        <div className="bg-gray-100 p-4 rounded-md flex gap-3">
                             {images.map((image) => {
                                 return (
                                     <img
                                         key={image.id}
                                         src={`storage/${image.image_path}`}
-                                        className="w-52 h-52 object-cover"
+                                        className="w-52 h-52 object-cover rounded-md"
                                     />
                                 );
                             })}
