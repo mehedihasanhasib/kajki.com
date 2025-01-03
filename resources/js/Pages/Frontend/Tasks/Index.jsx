@@ -3,11 +3,23 @@ import TaskFilter from "@/Components/Frontend/Task/TaskFilter";
 import TaskModal from "@/Components/Frontend/Task/TaskModal";
 import AppLayout from "@/Layouts/AppLayout";
 import { Head } from "@inertiajs/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function Tasks({ tasks, categories, divisions }) {
     const [showTaskModal, setShowTaskModal] = useState(false);
     const [showTask, setShowTask] = useState({});
+
+    useEffect(() => {
+        return () => {
+            document.body.classList.remove("overflow-hidden");
+        };
+    }, []);
+
+    useEffect(() => {
+        showTaskModal
+            ? document.body.classList.add("overflow-hidden")
+            : document.body.classList.remove("overflow-hidden");
+    }, [showTaskModal]);
     return (
         <>
             <Head>
