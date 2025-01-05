@@ -6,7 +6,6 @@ export default function TaskFilter({ categories, divisions }) {
     const { data, setData, submit, processing, errors } = useForm();
 
     const filter = (updatedData) => {
-        console.log(updatedData)
         router.get(route("tasks"), updatedData, {
             preserveState: true,
         });
@@ -21,12 +20,14 @@ export default function TaskFilter({ categories, divisions }) {
 
     const handleDivisionChange = (event) => {
         const { value } = event.target;
-        setData({ ...data, division: value });
         divisions.forEach((division) => {
             if (value == division.id) {
                 setDistricts(division.district);
             }
         });
+        const updatedData = { ...data, division: value };
+        setData(updatedData);
+        filter(updatedData);
     };
     return (
         <aside className="w-full md:w-72 shrink-0">
