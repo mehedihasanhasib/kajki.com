@@ -1,22 +1,22 @@
-import { useForm } from "@inertiajs/react";
+import { router, useForm } from "@inertiajs/react";
 import React, { useEffect, useState } from "react";
 
 export default function TaskFilter({ categories, divisions }) {
     const [districts, setDistricts] = useState([]);
     const { data, setData, submit, processing, errors } = useForm();
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        submit("get", route("tasks"), {
+    const filter = (updatedData) => {
+        console.log(updatedData)
+        router.get(route("tasks"), updatedData, {
             preserveState: true,
-            preserveScroll: true,
         });
-        console.log(data);
     };
 
     const handleChange = (event) => {
         const { name, value } = event.target;
-        setData({ ...data, category: 1 });
+        const updatedData = { ...data, categories: value };
+        setData(updatedData);
+        filter(updatedData);
     };
 
     const handleDivisionChange = (event) => {
@@ -31,7 +31,7 @@ export default function TaskFilter({ categories, divisions }) {
     return (
         <aside className="w-full md:w-72 shrink-0">
             <form
-                onSubmit={(e) => handleSubmit(e)}
+                // onSubmit={(e) => handleSubmit(e)}
                 className="bg-white rounded-lg shadow-lg p-5 space-y-6"
             >
                 <div>
@@ -107,9 +107,8 @@ export default function TaskFilter({ categories, divisions }) {
                                 >
                                     <input
                                         type="checkbox"
-                                        onChange={(e) =>
-                                            handleChange(e, option.id)
-                                        }
+                                        name="categories"
+                                        onChange={(e) => handleChange(e)}
                                         value={option.id}
                                         className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                                     />
@@ -122,12 +121,12 @@ export default function TaskFilter({ categories, divisions }) {
                     </div>
 
                     <div className="flex flex-col gap-2">
-                        <button
+                        {/* <button
                             type="submit"
                             className="w-full text-sm bg-blue-500 text-white py-2.5 px-4 rounded-lg hover:bg-blue-600"
                         >
                             Apply Filters
-                        </button>
+                        </button> */}
                         {/* Clear Filters */}
                         <button className="w-full text-sm bg-gray-100 text-gray-700 py-2.5 px-4 rounded-lg hover:bg-gray-200">
                             Clear All Filters
