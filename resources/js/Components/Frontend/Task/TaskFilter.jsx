@@ -6,14 +6,27 @@ export default function TaskFilter({ categories, divisions }) {
     const { data, setData, submit, processing, errors } = useForm();
 
     const filter = (updatedData) => {
-        router.get(route("tasks"), updatedData, {
+        router.get(route("tasks",), {...updatedData}, {
             preserveState: true,
         });
     };
 
     const handleChange = (event) => {
         const { name, value } = event.target;
-        const updatedData = { ...data, categories: value };
+        let updatedData;
+        if (name === "categories") {
+            const checkboxes = document.querySelectorAll(
+                'input[name="categories"]:checked'
+            );
+            const checkedCategories = Array.from(checkboxes).map(
+                (checkbox) => checkbox.value
+            );
+            console.log(checkedCategories);
+            updatedData = { ...data, [name]: checkedCategories };
+            console.log(updatedData)
+        } else {
+            updatedData = { ...data, [name]: value };
+        }
         setData(updatedData);
         filter(updatedData);
     };

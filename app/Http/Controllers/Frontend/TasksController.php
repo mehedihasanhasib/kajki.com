@@ -34,8 +34,11 @@ class TasksController extends Controller
         });
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        // if ($request->query()) {
+        //     dump($request->query());
+        // }
         $tasks = Task::with(['user:id,name,profile_picture', 'images:task_id,image_path'])->get();
         return inertia("Frontend/Tasks/Index", [
             'tasks' => $tasks,
