@@ -36,10 +36,26 @@ class TasksController extends Controller
 
     public function index(Request $request)
     {
-        // if ($request->query()) {
-        //     dump($request->query());
-        // }
-        $tasks = Task::with(['user:id,name,profile_picture', 'images:task_id,image_path'])->get();
+        $tasks = [];
+        if ($request->query()) {
+            // dd($request->query('division'));
+            $filterParams = [];
+            // foreach ($request->query() as $key => $value) {
+            //     if ($key === "division" || $key === "district") {
+            //         $filterParams[] = [$key . "_id", $value];
+            //     } else if ($key === "budget_min") {
+            //         $filterParams[] = ["price", ">=", $value];
+            //     } else if($key === "budget_max"){
+            //         $filterParams[] = ["price", "<=", $value];
+            //     }
+            // }
+            $tasks = Task::where($filterParams)->get();
+
+            // dd($tasks);
+        } else {
+            $tasks = Task::with(['user:id,name,profile_picture', 'images:task_id,image_path'])->get();
+        }
+
         return inertia("Frontend/Tasks/Index", [
             'tasks' => $tasks,
             'categories' => $this->categories,

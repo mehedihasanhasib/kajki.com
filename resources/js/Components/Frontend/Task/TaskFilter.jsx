@@ -6,9 +6,13 @@ export default function TaskFilter({ categories, divisions }) {
     const { data, setData, submit, processing, errors } = useForm();
 
     const filter = (updatedData) => {
-        router.get(route("tasks",), {...updatedData}, {
+        setData(updatedData);
+        router.get(route("tasks"), updatedData, {
             preserveState: true,
+            preserveScroll: true,
         });
+
+        console.log(updatedData);
     };
 
     const handleChange = (event) => {
@@ -21,30 +25,29 @@ export default function TaskFilter({ categories, divisions }) {
             const checkedCategories = Array.from(checkboxes).map(
                 (checkbox) => checkbox.value
             );
-            console.log(checkedCategories);
             updatedData = { ...data, [name]: checkedCategories };
-            console.log(updatedData)
+            filter(updatedData);
+        } else if (name === "division") {
+            divisions.forEach((division) => {
+                if (value == division.id) {
+                    setDistricts(division.district);
+                }
+            });
+            updatedData = { ...data, division: value };
+            filter(updatedData);
         } else {
             updatedData = { ...data, [name]: value };
+            filter(updatedData);
         }
-        setData(updatedData);
-        filter(updatedData);
     };
 
-    const handleDivisionChange = (event) => {
-        const { value } = event.target;
-        divisions.forEach((division) => {
-            if (value == division.id) {
-                setDistricts(division.district);
-            }
-        });
-        const updatedData = { ...data, division: value };
-        setData(updatedData);
-        filter(updatedData);
-    };
+    // const handleDivisionChange = (event) => {
+    //     const { value } = event.target;
+
+    // };
     return (
         <aside className="w-full md:w-72 shrink-0">
-            <form
+            <div
                 // onSubmit={(e) => handleSubmit(e)}
                 className="bg-white rounded-lg shadow-lg p-5 space-y-6"
             >
@@ -60,7 +63,7 @@ export default function TaskFilter({ categories, divisions }) {
                         </h4>
                         <select
                             name="division"
-                            onChange={(e) => handleDivisionChange(e)}
+                            onChange={(e) => handleChange(e)}
                             className="w-full text-sm rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                         >
                             <option value="">Select Division</option>
@@ -77,7 +80,11 @@ export default function TaskFilter({ categories, divisions }) {
                         <h4 className="text-sm font-medium text-gray-900 mb-3">
                             District
                         </h4>
-                        <select className="w-full text-sm rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        <select
+                            name="district"
+                            onChange={(e) => handleChange(e)}
+                            className="w-full text-sm rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        >
                             <option value="">Select Disrtict</option>
                             {districts.map((option) => (
                                 <option key={option.id} value={option.id}>
@@ -96,12 +103,16 @@ export default function TaskFilter({ categories, divisions }) {
                             <input
                                 type="number"
                                 placeholder="Min"
+                                name="budget_min"
+                                onChange={(e) => handleChange(e)}
                                 min={0}
                                 className="w-full text-sm rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                             />
                             <input
                                 type="number"
                                 placeholder="Max"
+                                name="budget_max"
+                                onChange={(e) => handleChange(e)}
                                 min={0}
                                 className="w-full text-sm rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                             />
@@ -147,7 +158,7 @@ export default function TaskFilter({ categories, divisions }) {
                         </button>
                     </div>
                 </div>
-            </form>
+            </div>
         </aside>
     );
 }
