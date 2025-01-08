@@ -63,6 +63,7 @@ export default function TaskFilter({ categories, divisions }) {
                         </h4>
                         <select
                             name="division"
+                            defaultValue=""
                             onChange={(e) => handleChange(e)}
                             className="w-full text-sm rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                         >
