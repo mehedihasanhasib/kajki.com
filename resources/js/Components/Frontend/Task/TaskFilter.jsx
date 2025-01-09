@@ -22,7 +22,9 @@ export default function TaskFilter({ categories, divisions }) {
             const checkboxes = Array.from(
                 document.querySelectorAll('input[name="categories"]:checked')
             );
-            const checkedCategories = checkboxes.map((checkbox) => checkbox.value);
+            const checkedCategories = checkboxes.map(
+                (checkbox) => checkbox.value
+            );
             if (checkedCategories.length > 0) {
                 updatedData[name] = checkedCategories;
             } else {
@@ -30,7 +32,9 @@ export default function TaskFilter({ categories, divisions }) {
             }
         } else if (name === "division") {
             // Handle division change
-            const selectedDivision = divisions.find((division) => division.id == value);
+            const selectedDivision = divisions.find(
+                (division) => division.id == value
+            );
             if (selectedDivision) {
                 setDistricts(selectedDivision.district);
             }
@@ -51,7 +55,6 @@ export default function TaskFilter({ categories, divisions }) {
         // Apply filter with the updated data
         filter(updatedData);
     };
-
 
     return (
         <aside className="w-full md:w-72 shrink-0">
@@ -153,7 +156,10 @@ export default function TaskFilter({ categories, divisions }) {
 
                     <div className="flex flex-col gap-2">
                         {/* Clear Filters */}
-                        <button className="w-full text-sm bg-gray-100 text-gray-700 py-2.5 px-4 rounded-lg hover:bg-gray-200">
+                        <button
+                            onClick={() => filter({})}
+                            className="w-full text-sm bg-gray-100 text-gray-700 py-2.5 px-4 rounded-lg hover:bg-gray-200"
+                        >
                             Clear All Filters
                         </button>
                     </div>
