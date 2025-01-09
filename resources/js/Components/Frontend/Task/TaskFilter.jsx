@@ -75,7 +75,7 @@ export default function TaskFilter({ categories, divisions }) {
                             onChange={(e) => handleChange(e)}
                             className="w-full text-sm rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                         >
-                            <option value="">Select Division</option>
+                            <option value="">All</option>
                             {divisions.map((option) => (
                                 <option key={option.id} value={option.id}>
                                     {option.division}
@@ -94,7 +94,7 @@ export default function TaskFilter({ categories, divisions }) {
                             onChange={(e) => handleChange(e)}
                             className="w-full text-sm rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                         >
-                            <option value="">Select Disrtict</option>
+                            <option value="">All</option>
                             {districts.map((option) => (
                                 <option key={option.id} value={option.id}>
                                     {option.district}

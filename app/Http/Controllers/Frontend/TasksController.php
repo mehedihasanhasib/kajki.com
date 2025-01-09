@@ -6,7 +6,6 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Frontend\Task;
 use App\Models\Frontend\Category;
-use App\Models\Frontend\District;
 use App\Models\Frontend\Division;
 use App\Models\Frontend\TaskImage;
 use Illuminate\Support\Facades\DB;
@@ -36,26 +35,23 @@ class TasksController extends Controller
 
     public function index(Request $request)
     {
-        $tasks = [];
-        if ($request->query()) {
-            $tasks = Task::with(['user:id,name,profile_picture', 'images:task_id,image_path'])
-                ->when(!empty($request->query('division')), function ($q) use ($request) {
-                    return $q->where('division_id', $request->query('division'));
-                })
-                ->when(!empty($request->query('district')), function ($q) use ($request) {
-                    return $q->where('district_id', $request->query('district'));
-                })
-                ->when(!empty($request->query('budget_min')), function ($q) use ($request) {
-                    return $q->where('budget', '>=', $request->query('budget_min'));
-                })
-                ->when(!empty($request->query('budget_max')), function ($q) use ($request) {
-                    return $q->where('budget', '<=', $request->query('budget_max'));
-                })
-                ->get();
-        } else {
-            $tasks = Task::with(['user:id,name,profile_picture', 'images:task_id,image_path'])->get();
-        }
-
+        $tasks = Task::with(['user:id,name,profile_picture', 'images:task_id,image_path'])
+            ->when($request->has('division'), function ($q) use ($request) {
+                return $q->where('division_id', $request->query('division'));
+            })
+            ->when($request->has('district'), function ($q) use ($request) {
+                return $q->where('district_id', $request->query('district'));
+            })
+            ->when($request->has('budget_min'), function ($q) use ($request) {
+                return $q->where('budget', '>=', $request->query('budget_min'));
+            })
+            ->when($request->has('budget_max'), function ($q) use ($request) {
+                return $q->where('budget', '<=', $request->query('budget_max'));
+            })
+            ->when($request->has('categories'), function ($q) use ($request) {
+                return $q->whereIn('category_id', $request->query('categories'));
+            })
+            ->get();
         return inertia("Frontend/Tasks/Index", [
             'tasks' => $tasks,
             'categories' => $this->categories,
