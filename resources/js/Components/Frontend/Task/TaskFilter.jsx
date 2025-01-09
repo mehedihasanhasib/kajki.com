@@ -11,46 +11,51 @@ export default function TaskFilter({ categories, divisions }) {
             preserveState: true,
             preserveScroll: true,
         });
-
-        console.log(updatedData);
     };
 
     const handleChange = (event) => {
         const { name, value } = event.target;
-        let updatedData;
+        let updatedData = { ...data }; // Initialize with the current data
+
         if (name === "categories") {
-            const checkboxes = document.querySelectorAll(
-                'input[name="categories"]:checked'
+            // Handle categories checkboxes
+            const checkboxes = Array.from(
+                document.querySelectorAll('input[name="categories"]:checked')
             );
-            const checkedCategories = Array.from(checkboxes).map(
-                (checkbox) => checkbox.value
-            );
-            updatedData = { ...data, [name]: checkedCategories };
-            filter(updatedData);
+            const checkedCategories = checkboxes.map((checkbox) => checkbox.value);
+            if (checkedCategories.length > 0) {
+                updatedData[name] = checkedCategories;
+            } else {
+                delete updatedData[name]; // Remove key if no value
+            }
         } else if (name === "division") {
-            divisions.forEach((division) => {
-                if (value == division.id) {
-                    setDistricts(division.district);
-                }
-            });
-            updatedData = { ...data, division: value };
-            filter(updatedData);
+            // Handle division change
+            const selectedDivision = divisions.find((division) => division.id == value);
+            if (selectedDivision) {
+                setDistricts(selectedDivision.district);
+            }
+            if (value) {
+                updatedData[name] = value;
+            } else {
+                delete updatedData[name]; // Remove key if no value
+            }
         } else {
-            updatedData = { ...data, [name]: value };
-            filter(updatedData);
+            // Handle other fields
+            if (value) {
+                updatedData[name] = value;
+            } else {
+                delete updatedData[name]; // Remove key if no value
+            }
         }
+
+        // Apply filter with the updated data
+        filter(updatedData);
     };
 
-    // const handleDivisionChange = (event) => {
-    //     const { value } = event.target;
 
-    // };
     return (
         <aside className="w-full md:w-72 shrink-0">
-            <div
-                // onSubmit={(e) => handleSubmit(e)}
-                className="bg-white rounded-lg shadow-lg p-5 space-y-6"
-            >
+            <div className="bg-white rounded-lg shadow-lg p-5 space-y-6">
                 <div>
                     <h3 className="text-lg text-center font-semibold text-gray-900 mb-4">
                         Filters
@@ -147,12 +152,6 @@ export default function TaskFilter({ categories, divisions }) {
                     </div>
 
                     <div className="flex flex-col gap-2">
-                        {/* <button
-                            type="submit"
-                            className="w-full text-sm bg-blue-500 text-white py-2.5 px-4 rounded-lg hover:bg-blue-600"
-                        >
-                            Apply Filters
-                        </button> */}
                         {/* Clear Filters */}
                         <button className="w-full text-sm bg-gray-100 text-gray-700 py-2.5 px-4 rounded-lg hover:bg-gray-200">
                             Clear All Filters
