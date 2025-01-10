@@ -5,8 +5,8 @@
 /public/storage
 /storage/*.key
 /storage/pail
-/storage/app/public/task_images/*
-/storage/app/public/users_profile_picture/*
+# /storage/app/public/task_images/*
+# /storage/app/public/users_profile_picture/*
 /vendor
 .env
 .env.backup
