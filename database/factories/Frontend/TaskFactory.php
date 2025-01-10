@@ -2,6 +2,7 @@
 
 namespace Database\Factories\Frontend;
 
+use App\Models\Frontend\Division;
 use Illuminate\Support\Str;
 use App\Models\Frontend\Task;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -12,17 +13,18 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class TaskFactory extends Factory
 {
     protected $model = Task::class;
-    
+
     public function definition(): array
     {
+        $division = Division::with('district')->find(rand(1, 8));
         return [
             'user_id' => $this->faker->numberBetween(1, 10),
             'title' => $title = $this->faker->sentence,
             'slug' => Str::slug($title),
             'category_id' => $this->faker->numberBetween(1, 5),
             'details' => $this->faker->paragraph,
-            'division_id' => $this->faker->numberBetween(1, 8),
-            'district_id' => $this->faker->numberBetween(1, 64),
+            'division_id' => $division->id,
+            'district_id' => $division->district->random()->id,
             'address' => $this->faker->address,
             'budget' => $this->faker->numberBetween(100, 5000),
             'contact_number' => $this->faker->phoneNumber,

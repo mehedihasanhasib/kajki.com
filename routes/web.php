@@ -2,6 +2,8 @@
 
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use App\Models\Frontend\Task;
+use App\Models\Frontend\Division;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Frontend\HomeController;
@@ -13,7 +15,6 @@ use Spatie\LaravelImageOptimizer\Middlewares\OptimizeImages;
 
 /* ======= Home =======*/
 Route::get('/', [HomeController::class, 'index'])->name('home');
-
 
 
 /* ======= Tasks Show =======*/
