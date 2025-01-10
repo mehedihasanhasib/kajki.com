@@ -23,12 +23,17 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        // the users model has name, email, phone, profile_picture, email_verified_at, password, remeber_token and timesatamps
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            'phone' => fake()->phoneNumber(),
+            'profile_picture' => fake()->imageUrl(),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 

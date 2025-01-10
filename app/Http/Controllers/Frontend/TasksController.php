@@ -87,8 +87,10 @@ class TasksController extends Controller
             DB::beginTransaction();
             $validated_data = $request->except('images');
             $validated_data['slug'] = Str::slug($request->title);
-            $task = $request->user()->task()->create($validated_data);
-            $images = $request->images;
+
+            $task = $request->user()->task()->create($validated_data); // create task
+
+            $images = $request->images; // get images
             $path = [];
             foreach ($images as $image) {
                 $path[] = [
@@ -98,9 +100,12 @@ class TasksController extends Controller
                     'updated_at' => now()
                 ];
             }
-            TaskImage::insert($path);
+            TaskImage::insert($path); // insert images
+
             session()->flash('message', 'Task created successfully!');
+
             DB::commit();
+
             return redirect()->route('profile.mytasks');
         } catch (\Exception $e) {
             DB::rollBack();
