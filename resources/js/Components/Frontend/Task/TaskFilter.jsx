@@ -15,10 +15,9 @@ export default function TaskFilter({ categories, divisions }) {
 
     const handleChange = (event) => {
         const { name, value } = event.target;
-        let updatedData = { ...data }; // Initialize with the current data
+        let updatedData = { ...data };
 
         if (name === "categories") {
-            // Handle categories checkboxes
             const checkboxes = Array.from(
                 document.querySelectorAll('input[name="categories"]:checked')
             );
@@ -28,31 +27,31 @@ export default function TaskFilter({ categories, divisions }) {
             if (checkedCategories.length > 0) {
                 updatedData[name] = checkedCategories;
             } else {
-                delete updatedData[name]; // Remove key if no value
+                delete updatedData[name];
             }
         } else if (name === "division") {
-            // Handle division change
             const selectedDivision = divisions.find(
                 (division) => division.id == value
             );
             if (selectedDivision) {
                 setDistricts(selectedDivision.district);
+            } else{
+                setDistricts([]);
             }
             if (value) {
                 updatedData[name] = value;
             } else {
-                delete updatedData[name]; // Remove key if no value
+                delete updatedData[name];
+                delete updatedData["district"];
             }
         } else {
-            // Handle other fields
             if (value) {
                 updatedData[name] = value;
             } else {
-                delete updatedData[name]; // Remove key if no value
+                delete updatedData[name];
             }
         }
 
-        // Apply filter with the updated data
         filter(updatedData);
     };
 
