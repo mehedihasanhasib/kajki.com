@@ -2,12 +2,20 @@ import TaskCard from "@/Components/Frontend/Task/TaskCard";
 import TaskFilter from "@/Components/Frontend/Task/TaskFilter";
 import TaskModal from "@/Components/Frontend/Task/TaskModal";
 import AppLayout from "@/Layouts/AppLayout";
-import { Head } from "@inertiajs/react";
+import { Head, router } from "@inertiajs/react";
 import React, { useEffect, useState } from "react";
+
+// import { Inertia } from '@inertiajs/inertia';
 
 export default function Tasks({ tasks, categories, divisions }) {
     const [showTaskModal, setShowTaskModal] = useState(false);
     const [task, setTask] = useState({});
+
+    const handlePageChange = (url) => {
+        if (url) {
+            router.visit(url);
+        }
+    };
 
     useEffect(() => {
         return () => {
@@ -33,7 +41,7 @@ export default function Tasks({ tasks, categories, divisions }) {
                     {/* Main Content */}
                     <section className="flex-1">
                         <div className="grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-2">
-                            {tasks.map((task) => (
+                            {tasks.data.map((task) => (
                                 <TaskCard
                                     key={task.id}
                                     task={task}
@@ -41,6 +49,24 @@ export default function Tasks({ tasks, categories, divisions }) {
                                     setShowTaskModal={setShowTaskModal}
                                     setTask={setTask}
                                 />
+                            ))}
+                        </div>
+
+                        {/* pagination */}
+                        <div className="pagination">
+                            {tasks.links.map((link, index) => (
+                                <button
+                                    key={index}
+                                    disabled={!link.url}
+                                    className={
+                                        link.active
+                                            ? "active"
+                                            : "p-2 bg-blue-300 text-black"
+                                    }
+                                    onClick={() => handlePageChange(link.url)}
+                                >
+                                    {link.label}
+                                </button>
                             ))}
                         </div>
                     </section>
