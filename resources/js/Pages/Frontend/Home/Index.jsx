@@ -4,7 +4,8 @@ import TaskCard from "@/Components/Frontend/Task/TaskCard";
 import AppLayout from "@/Layouts/AppLayout";
 import { Head } from "@inertiajs/react";
 
-export default function Home() {
+export default function Home({ recent_tasks }) {
+    console.log(recent_tasks);
     return (
         <>
             <Head>
@@ -19,6 +20,9 @@ export default function Home() {
                                 Recent Tasks
                             </h2>
                             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3">
+                                {/* {recentTasks.map((task, index) => {
+                                    return <TaskCard key={index} task={task} />;
+                                })} */}
                                 <TaskCard className="m-2" />
                                 <TaskCard className="m-2" />
                                 <TaskCard className="m-2" />

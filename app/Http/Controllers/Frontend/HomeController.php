@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
+use App\Models\Frontend\Task;
 use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
@@ -12,7 +13,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return inertia('Frontend/Home/Index');
+        return inertia('Frontend/Home/Index', [
+            'recent_tasks' => Task::with(['user:id,name,profile_picture', 'images:task_id,image_path'])->orderBy('id', 'desc')->limit(6)->get(),
+        ]);
     }
 
     /**
