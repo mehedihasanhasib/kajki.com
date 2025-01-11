@@ -100,7 +100,7 @@ export default function TaskModal({ task, setShowTaskModal }) {
                             </div>
 
                             {/* <!-- Contact Section --> */}
-                            <div className="bg-blue-50 p-4 rounded-lg flex-1 flex items-center gap-4">
+                            <a href={`tel:+88${contact_number}`} className="bg-blue-50 p-4 rounded-lg flex-1 flex items-center gap-4">
                                 <svg
                                     className="w-8 h-8 text-blue-700"
                                     viewBox="0 0 26 26"
@@ -120,7 +120,7 @@ export default function TaskModal({ task, setShowTaskModal }) {
                                         {`+88${contact_number}`}
                                     </p>
                                 </div>
-                            </div>
+                            </a>
                         </div>
 
                         <div className="bg-gray-100 p-4 rounded-md flex gap-3">
