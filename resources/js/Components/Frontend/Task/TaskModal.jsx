@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function TaskModal({ task, setShowTaskModal }) {
     const closeModal = () => {
         setShowTaskModal(false);
