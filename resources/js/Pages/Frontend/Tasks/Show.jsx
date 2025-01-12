@@ -1,6 +1,12 @@
 import AppLayout from "@/Layouts/AppLayout";
 import { Head } from "@inertiajs/react";
 
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import { Pagination, Navigation } from "swiper/modules";
+
 export default function TaskDetails() {
     return (
         <>
@@ -25,6 +31,36 @@ export default function TaskDetails() {
                         </div>
 
                         <div className="bg-white rounded-xl shadow-sm border border-gray-100">
+                            <Swiper
+                                modules={[Pagination, Navigation]}
+                                spaceBetween={10}
+                                slidesPerView={1}
+                                navigation
+                                pagination={{ clickable: true }}
+                                className="rounded-t-xl"
+                            >
+                                <SwiperSlide>
+                                    <img
+                                        src="/storage/demo_images/1.jpg"
+                                        alt="Kitchen Faucet"
+                                        className="w-full h-[50vh] rounded-t-xl"
+                                    />
+                                </SwiperSlide>
+                                <SwiperSlide>
+                                    <img
+                                        src="/storage/demo_images/2.jpg"
+                                        alt="Faucet Parts"
+                                        className="w-full h-[50vh] rounded-t-xl"
+                                    />
+                                </SwiperSlide>
+                                <SwiperSlide>
+                                    <img
+                                        src="/storage/demo_images/3.jpg"
+                                        alt="Tools"
+                                        className="w-full h-[50vh] rounded-t-xl"
+                                    />
+                                </SwiperSlide>
+                            </Swiper>
                             <div className="border-b border-gray-100">
                                 <div className="p-4 sm:p-6">
                                     <div className="flex flex-col gap-4">

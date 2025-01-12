@@ -14,6 +14,7 @@ use App\Http\Controllers\Frontend\TasksProfileController;
 use Spatie\LaravelImageOptimizer\Middlewares\OptimizeImages;
 
 /* ======= Home =======*/
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 
@@ -22,6 +23,9 @@ Route::get('/tasks', [TasksController::class, 'index'])->name('tasks');
 // Route::get('/tasks/{slug}', [TasksController::class, 'show'])->name('task.show');
 
 
+Route::get('/show', function () {
+    return inertia('Frontend/Tasks/Show');
+})->name('task.show');
 
 /* ======= Account =======*/
 Route::middleware('auth')->group(function () {
