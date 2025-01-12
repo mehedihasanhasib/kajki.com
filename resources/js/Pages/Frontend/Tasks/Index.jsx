@@ -1,33 +1,16 @@
 import TaskCard from "@/Components/Frontend/Task/TaskCard";
 import TaskFilter from "@/Components/Frontend/Task/TaskFilter";
-import TaskModal from "@/Components/Frontend/Task/TaskModal";
 import AppLayout from "@/Layouts/AppLayout";
 import { Head, router } from "@inertiajs/react";
-import React, { useEffect, useState } from "react";
 
 // import { Inertia } from '@inertiajs/inertia';
 
 export default function Tasks({ tasks, categories, divisions }) {
-    const [showTaskModal, setShowTaskModal] = useState(false);
-    const [task, setTask] = useState({});
-
     const handlePageChange = (url) => {
         if (url) {
             router.visit(url);
         }
     };
-
-    useEffect(() => {
-        return () => {
-            document.body.classList.remove("overflow-hidden");
-        };
-    }, []);
-
-    useEffect(() => {
-        showTaskModal
-            ? document.body.classList.add("overflow-hidden")
-            : document.body.classList.remove("overflow-hidden");
-    }, [showTaskModal]);
     return (
         <>
             <Head>
@@ -41,14 +24,8 @@ export default function Tasks({ tasks, categories, divisions }) {
                     {/* Main Content */}
                     <section className="flex-1">
                         <div className="grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-2">
-                            {tasks.data.map((task) => (
-                                <TaskCard
-                                    key={task.id}
-                                    task={task}
-                                    showTaskModal={showTaskModal}
-                                    setShowTaskModal={setShowTaskModal}
-                                    setTask={setTask}
-                                />
+                            {tasks.data.map((task, index) => (
+                                <TaskCard key={index} task={task} />
                             ))}
                         </div>
 
@@ -71,13 +48,6 @@ export default function Tasks({ tasks, categories, divisions }) {
                         </div>
                     </section>
                 </div>
-
-                {showTaskModal && (
-                    <TaskModal
-                        task={task}
-                        setShowTaskModal={setShowTaskModal}
-                    />
-                )}
             </AppLayout>
         </>
     );

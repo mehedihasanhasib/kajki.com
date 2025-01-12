@@ -35,7 +35,7 @@ class TasksController extends Controller
 
     public function index(Request $request)
     {
-        $tasks = Task::with(['user:id,name,profile_picture', 'images:task_id,image_path'])
+        $tasks = Task::select(['title', 'address', 'slug', 'details'])
             ->when($request->has('division'), function ($q) use ($request) {
                 return $q->where('division_id', $request->query('division'));
             })
@@ -89,9 +89,9 @@ class TasksController extends Controller
             $validated_data = $request->except('images');
             $validated_data['slug'] = Str::slug($request->title);
 
-            $task = $request->user()->task()->create($validated_data); // create task
+            $task = $request->user()->task()->create($validated_data);
 
-            $images = $request->images; // get images
+            $images = $request->images;
             $path = [];
             foreach ($images as $image) {
                 $path[] = [
@@ -101,7 +101,7 @@ class TasksController extends Controller
                     'updated_at' => now()
                 ];
             }
-            TaskImage::insert($path); // insert images
+            TaskImage::insert($path);
 
             session()->flash('message', 'Task created successfully!');
 
@@ -118,9 +118,19 @@ class TasksController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($slug)
     {
-        // return inertia("Frontend/Tasks/Show");
+        $task = Task::where('slug', $slug)
+            ->with([
+                'user:id,name,profile_picture',
+                'images:id,task_id,image_path'
+            ])
+            ->select(['id', 'user_id', 'title', 'details', 'budget', 'address', 'contact_number'])
+            ->first();
+
+        return inertia("Frontend/Tasks/Show", [
+            'task' => $task,
+        ]);
     }
 
     /**

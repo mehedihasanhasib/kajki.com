@@ -20,12 +20,12 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 /* ======= Tasks Show =======*/
 Route::get('/tasks', [TasksController::class, 'index'])->name('tasks');
-// Route::get('/tasks/{slug}', [TasksController::class, 'show'])->name('task.show');
+Route::get('/tasks/{slug}', [TasksController::class, 'show'])->name('task.show');
 
 
-Route::get('/show', function () {
-    return inertia('Frontend/Tasks/Show');
-})->name('task.show');
+// Route::get('/show', function () {
+//     return inertia('Frontend/Tasks/Show');
+// })->name('task.show');
 
 /* ======= Account =======*/
 Route::middleware('auth')->group(function () {
@@ -42,7 +42,7 @@ Route::middleware('auth')->group(function () {
         /* ======= User Tasks List =======*/
         Route::get('/my-tasks', [TasksController::class, 'profile_index'])->name('profile.mytasks');
     });
-    /* ======= Tasks Create =======*/
+    /* ======= Tasks =======*/
     Route::get('task/create', [TasksController::class, 'create'])->name('task.create');
     Route::post('task/store', [TasksController::class, 'store'])->name('task.store');
 });

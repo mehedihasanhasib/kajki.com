@@ -1,12 +1,8 @@
 import { Link } from "@inertiajs/react";
 
-export default function TaskCard({ task = [], showTaskModal, setShowTaskModal, setTask, className = "" }) {
-    const { id = null, title = "", details = "", budget = "", address = "" } = task;
+export default function TaskCard({ task = [], className = "" }) {
+    const { title = "", details = "", address = "", slug = "" } = task;
 
-    const handleClick = () => {
-        setShowTaskModal(!showTaskModal);
-        setTask(task);
-    };
     return (
         <>
             <div
@@ -71,9 +67,9 @@ export default function TaskCard({ task = [], showTaskModal, setShowTaskModal, s
                     </div>
                 </div>
                 <div className="mt-auto flex justify-end pt-4">
-                    <button
-                        // href={route("task.show", { slug: "example-slug" })}
-                        onClick={handleClick}
+                    <Link
+                        href={route("task.show", { slug })}
+                        // onClick={handleClick}
                         className="inline-flex items-center text-blue-600 hover:text-blue-700 font-semibold"
                     >
                         <span>Details</span>
@@ -90,7 +86,7 @@ export default function TaskCard({ task = [], showTaskModal, setShowTaskModal, s
                                 d="M17 8l4 4m0 0l-4 4m4-4H3"
                             />
                         </svg>
-                    </button>
+                    </Link>
                 </div>
             </div>
         </>

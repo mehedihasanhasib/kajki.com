@@ -1,25 +1,10 @@
 import Hero from "@/Components/Frontend/Hero";
 import PopularCategories from "@/Components/Frontend/PopularCategories";
 import TaskCard from "@/Components/Frontend/Task/TaskCard";
-import TaskModal from "@/Components/Frontend/Task/TaskModal";
 import AppLayout from "@/Layouts/AppLayout";
 import { Head } from "@inertiajs/react";
-import { useState, useEffect } from "react";
 
 export default function Home({ recent_tasks }) {
-    const [showTaskModal, setShowTaskModal] = useState(false);
-    const [task, setTask] = useState({});
-    useEffect(() => {
-        return () => {
-            document.body.classList.remove("overflow-hidden");
-        };
-    }, []);
-
-    useEffect(() => {
-        showTaskModal
-            ? document.body.classList.add("overflow-hidden")
-            : document.body.classList.remove("overflow-hidden");
-    }, [showTaskModal]);
     return (
         <>
             <Head>
@@ -39,9 +24,6 @@ export default function Home({ recent_tasks }) {
                                         <TaskCard
                                             key={task.id}
                                             task={task}
-                                            showTaskModal={showTaskModal}
-                                            setShowTaskModal={setShowTaskModal}
-                                            setTask={setTask}
                                         />
                                     );
                                 })}
@@ -62,13 +44,6 @@ export default function Home({ recent_tasks }) {
                         </div>
                     </div>
                 </section>
-
-                {showTaskModal && (
-                    <TaskModal
-                        task={task}
-                        setShowTaskModal={setShowTaskModal}
-                    />
-                )}
             </AppLayout>
         </>
     );
