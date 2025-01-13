@@ -56,6 +56,29 @@ export default function TaskFilter({ categories, divisions, getFilterData }) {
         filter(updatedData);
     };
 
+    const handleBudgetFilter = (event) => {
+        event.preventDefault();
+
+        let updatedData = { ...data };
+
+        const budget_min = document.getElementById("budget_min").value;
+        const budget_max = document.getElementById("budget_max").value;
+
+        if (budget_min) {
+            updatedData["budget_min"] = budget_min;
+        } else {
+            delete updatedData["budget_min"];
+        }
+
+        if (budget_max) {
+            updatedData["budget_max"] = budget_max;
+        } else {
+            delete updatedData["budget_max"];
+        }
+
+        filter(updatedData);
+    };
+
     return (
         <aside className="w-full md:w-72 shrink-0">
             <div className="bg-white rounded-lg shadow-lg p-5 space-y-6">
@@ -108,12 +131,15 @@ export default function TaskFilter({ categories, divisions, getFilterData }) {
                         <h4 className="text-sm font-medium text-gray-900 mb-3">
                             Budget
                         </h4>
-                        <div className="flex gap-3">
+                        <form
+                            onSubmit={handleBudgetFilter}
+                            className="flex gap-3"
+                        >
                             <input
                                 type="number"
                                 placeholder="Min"
                                 name="budget_min"
-                                onChange={(e) => handleChange(e)}
+                                id="budget_min"
                                 min={0}
                                 className="w-full text-sm rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                             />
@@ -121,11 +147,13 @@ export default function TaskFilter({ categories, divisions, getFilterData }) {
                                 type="number"
                                 placeholder="Max"
                                 name="budget_max"
-                                onChange={(e) => handleChange(e)}
+                                id="budget_max"
                                 min={0}
                                 className="w-full text-sm rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                             />
-                        </div>
+
+                            <input type="submit" className="hidden" />
+                        </form>
                     </div>
 
                     {/* Categories */}
