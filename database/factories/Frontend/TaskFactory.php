@@ -21,7 +21,7 @@ class TaskFactory extends Factory
             'user_id' => $this->faker->numberBetween(1, 10),
             'title' => $title = $this->faker->sentence,
             'slug' => Str::slug($title),
-            'category_id' => $this->faker->numberBetween(1, 5),
+            'category_id' => $this->faker->numberBetween(1, 16),
             'details' => $this->faker->paragraph,
             'division_id' => $division->id,
             'district_id' => $division->district->random()->id,

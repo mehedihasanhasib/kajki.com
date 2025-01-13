@@ -1,6 +1,5 @@
 import AppLayout from "@/Layouts/AppLayout";
 import { Head } from "@inertiajs/react";
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -44,9 +43,8 @@ export default function TaskDetails({ task }) {
                                                 <div className="flex items-center">
                                                     <img
                                                         src={
-                                                            task.user
-                                                                .profile_picture
-                                                                ? `/storage/users_profile_picture/${user.profile_picture}`
+                                                            userProfilePicture
+                                                                ? `/storage/users_profile_picture/${userProfilePicture}`
                                                                 : `/assets/images/user-avatar.webp`
                                                         }
                                                         alt="John Doe"
@@ -90,9 +88,8 @@ export default function TaskDetails({ task }) {
                                 pagination={{ clickable: true }}
                             >
                                 {task.images.map((image) => {
-                                    console.log(image.image_path);
                                     return (
-                                        <SwiperSlide>
+                                        <SwiperSlide key={image.id}>
                                             <img
                                                 src={`/storage/${image.image_path}`}
                                                 alt="Kitchen Faucet"
@@ -285,9 +282,6 @@ export default function TaskDetails({ task }) {
                                         </svg>
                                         Call Now
                                     </a>
-                                    {/* <button className="w-full sm:flex-1 bg-white text-gray-700 px-4 py-2.5 rounded-lg border text-sm sm:text-base font-medium hover:bg-gray-50">
-                                    Save for Later
-                                </button> */}
                                 </div>
                             </div>
                         </div>

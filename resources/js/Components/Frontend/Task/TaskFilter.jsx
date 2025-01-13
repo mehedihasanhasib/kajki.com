@@ -1,12 +1,13 @@
 import { router, useForm } from "@inertiajs/react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
-export default function TaskFilter({ categories, divisions }) {
+export default function TaskFilter({ categories, divisions, getFilterData }) {
     const [districts, setDistricts] = useState([]);
     const { data, setData, submit, processing, errors } = useForm();
 
     const filter = (updatedData) => {
         setData(updatedData);
+        getFilterData(updatedData);
         router.get(route("tasks"), updatedData, {
             preserveState: true,
             preserveScroll: true,
@@ -35,7 +36,7 @@ export default function TaskFilter({ categories, divisions }) {
             );
             if (selectedDivision) {
                 setDistricts(selectedDivision.district);
-            } else{
+            } else {
                 setDistricts([]);
             }
             if (value) {
