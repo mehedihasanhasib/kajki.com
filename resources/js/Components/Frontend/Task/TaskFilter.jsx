@@ -22,14 +22,6 @@ export default function TaskFilter({ categories, divisions, getFilterData }) {
     const [budgetMax, setBudgetMax] = useState(queryParams.budget_max || "");
 
     useEffect(() => {
-        // if (queryParams.division) {
-        //     const division = divisions.find(
-        //         (d) => d.id == queryParams.division
-        //     );
-        //     if (division) {
-        //         setDistricts(division.district);
-        //     }
-        // }
         setData(queryParams);
     }, []);
 
