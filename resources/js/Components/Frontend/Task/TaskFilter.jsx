@@ -1,9 +1,37 @@
 import { router, useForm } from "@inertiajs/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function TaskFilter({ categories, divisions, getFilterData }) {
-    const [districts, setDistricts] = useState([]);
-    const { data, setData, submit, processing, errors } = useForm();
+    const url = new URL(window.location.href);
+    const queryParams = Object.fromEntries(url.searchParams.entries());
+
+    const [districts, setDistricts] = useState(() => {
+        // Initialize districts based on initial division value
+        if (queryParams.division) {
+            const division = divisions.find(
+                (d) => d.id == queryParams.division
+            );
+            return division ? division.district : [];
+        }
+        return [];
+    });
+
+    const { data, setData, submit, processing, errors } = useForm({});
+
+    const [budgetMin, setBudgetMin] = useState(queryParams.budget_min || "");
+    const [budgetMax, setBudgetMax] = useState(queryParams.budget_max || "");
+
+    useEffect(() => {
+        // if (queryParams.division) {
+        //     const division = divisions.find(
+        //         (d) => d.id == queryParams.division
+        //     );
+        //     if (division) {
+        //         setDistricts(division.district);
+        //     }
+        // }
+        setData(queryParams);
+    }, []);
 
     const filter = (updatedData) => {
         setData(updatedData);
@@ -25,8 +53,9 @@ export default function TaskFilter({ categories, divisions, getFilterData }) {
             const checkedCategories = checkboxes.map(
                 (checkbox) => checkbox.value
             );
+
             if (checkedCategories.length > 0) {
-                updatedData[name] = checkedCategories;
+                updatedData[name] = checkedCategories.join("_");
             } else {
                 delete updatedData[name];
             }
@@ -41,6 +70,7 @@ export default function TaskFilter({ categories, divisions, getFilterData }) {
             }
             if (value) {
                 updatedData[name] = value;
+                delete updatedData["district"];
             } else {
                 delete updatedData[name];
                 delete updatedData["district"];
@@ -52,31 +82,60 @@ export default function TaskFilter({ categories, divisions, getFilterData }) {
                 delete updatedData[name];
             }
         }
+        filter(updatedData);
+    };
+
+    const handleBudgetChange = (event) => {
+        const { name, value } = event.target;
+        if (name === "budget_min") {
+            setBudgetMin(value);
+        }
+        if (name === "budget_max") {
+            setBudgetMax(value);
+        }
+    };
+
+    const submitBudget = (event) => {
+        const { name, value } = event.target;
+        const updatedData = { ...data };
+        if (name == "budget_min") {
+            if (value) {
+                updatedData["budget_min"] = value;
+            } else {
+                delete updatedData["budget_min"];
+            }
+        }
+        if (name == "budget_max") {
+            if (value) {
+                updatedData["budget_max"] = value;
+            } else {
+                delete updatedData["budget_max"];
+            }
+        }
 
         filter(updatedData);
     };
 
-    const handleBudgetFilter = (event) => {
-        event.preventDefault();
-
-        let updatedData = { ...data };
-
-        const budget_min = document.getElementById("budget_min").value;
-        const budget_max = document.getElementById("budget_max").value;
-
-        if (budget_min) {
-            updatedData["budget_min"] = budget_min;
-        } else {
-            delete updatedData["budget_min"];
+    const handleKeyPress = (event) => {
+        const { name, value } = event.target;
+        const updatedData = { ...data };
+        if (event.key === "Enter") {
+            if (name == "budget_min") {
+                if (value) {
+                    updatedData["budget_min"] = value;
+                } else {
+                    delete updatedData["budget_min"];
+                }
+            }
+            if (name == "budget_max") {
+                if (value) {
+                    updatedData["budget_max"] = value;
+                } else {
+                    delete updatedData["budget_max"];
+                }
+            }
+            filter(updatedData);
         }
-
-        if (budget_max) {
-            updatedData["budget_max"] = budget_max;
-        } else {
-            delete updatedData["budget_max"];
-        }
-
-        filter(updatedData);
     };
 
     return (
@@ -94,7 +153,7 @@ export default function TaskFilter({ categories, divisions, getFilterData }) {
                         </h4>
                         <select
                             name="division"
-                            defaultValue=""
+                            defaultValue={queryParams.division || ""}
                             onChange={(e) => handleChange(e)}
                             className="w-full text-sm rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                         >
@@ -114,6 +173,7 @@ export default function TaskFilter({ categories, divisions, getFilterData }) {
                         </h4>
                         <select
                             name="district"
+                            defaultValue={queryParams.district || ""}
                             onChange={(e) => handleChange(e)}
                             className="w-full text-sm rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                         >
@@ -131,14 +191,15 @@ export default function TaskFilter({ categories, divisions, getFilterData }) {
                         <h4 className="text-sm font-medium text-gray-900 mb-3">
                             Budget
                         </h4>
-                        <form
-                            onSubmit={handleBudgetFilter}
-                            className="flex gap-3"
-                        >
+                        <div className="flex gap-3">
                             <input
                                 type="number"
                                 placeholder="Min"
                                 name="budget_min"
+                                value={budgetMin}
+                                onChange={(e) => handleBudgetChange(e)}
+                                onBlur={(e) => submitBudget(e)}
+                                onKeyDown={(e) => handleKeyPress(e)}
                                 id="budget_min"
                                 min={0}
                                 className="w-full text-sm rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
@@ -147,13 +208,16 @@ export default function TaskFilter({ categories, divisions, getFilterData }) {
                                 type="number"
                                 placeholder="Max"
                                 name="budget_max"
+                                value={budgetMax}
+                                onChange={(e) => handleBudgetChange(e)}
+                                onBlur={(e) => submitBudget(e)}
+                                onKeyDown={(e) => handleKeyPress(e)}
                                 id="budget_max"
                                 min={0}
                                 className="w-full text-sm rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                             />
-
                             <input type="submit" className="hidden" />
-                        </form>
+                        </div>
                     </div>
 
                     {/* Categories */}

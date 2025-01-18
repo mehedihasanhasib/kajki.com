@@ -1,21 +1,19 @@
 import TaskCard from "@/Components/Frontend/Task/TaskCard";
 import TaskFilter from "@/Components/Frontend/Task/TaskFilter";
 import AppLayout from "@/Layouts/AppLayout";
-import { Head, router } from "@inertiajs/react";
+import { Head, router, usePage } from "@inertiajs/react";
 import { useState } from "react";
 
-import "./pagination.css";
+// import "./pagination.css";
 
-// import { Inertia } from '@inertiajs/inertia';
-
-export default function Tasks({ tasks, categories, divisions }) {
+export default function Tasks({ props, tasks, categories, divisions }) {
     const [filterData, setFilterData] = useState({});
 
     const handlePageChange = (page) => {
         const updatedData = { ...filterData, page };
         router.get(route("tasks"), updatedData, {
             preserveState: true,
-            preserveScroll: true,
+            // preserveScroll: true,
         });
     };
 
@@ -50,15 +48,14 @@ export default function Tasks({ tasks, categories, divisions }) {
                                 <button
                                     key={index}
                                     disabled={!link.url}
-                                    className={
-                                        link.active
-                                            ? "active"
-                                            : "p-2 bg-blue-300 text-black"
-                                    }
+                                    className={`${
+                                        link.active ? "active" : ""
+                                    } ${!link.url ? "disabled" : ""}`}
                                     onClick={() => handlePageChange(link.label)}
-                                >
-                                    {link.label}
-                                </button>
+                                    dangerouslySetInnerHTML={{
+                                        __html: link.label,
+                                    }}
+                                />
                             ))}
                         </div>
                     </section>

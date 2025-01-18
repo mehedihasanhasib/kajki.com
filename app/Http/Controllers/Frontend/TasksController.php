@@ -35,6 +35,7 @@ class TasksController extends Controller
 
     public function index(Request $request)
     {
+        // dd();
         $tasks = Task::select(['title', 'address', 'slug', 'details'])
             ->when($request->has('division'), function ($q) use ($request) {
                 return $q->where('division_id', $request->query('division'));
@@ -49,7 +50,7 @@ class TasksController extends Controller
                 return $q->where('budget', '<=', $request->query('budget_max'));
             })
             ->when($request->has('categories'), function ($q) use ($request) {
-                return $q->whereIn('category_id', $request->query('categories'));
+                return $q->whereIn('category_id', explode("_", $request->query('categories')));
             })
             ->paginate(18);
 
