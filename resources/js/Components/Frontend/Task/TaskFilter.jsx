@@ -5,8 +5,8 @@ export default function TaskFilter({ categories, divisions, getFilterData }) {
     const url = new URL(window.location.href);
     const queryParams = Object.fromEntries(url.searchParams.entries());
 
+    const [data, setData] = useState({});
     const [districts, setDistricts] = useState(() => {
-        // Initialize districts based on initial division value
         if (queryParams.division) {
             const division = divisions.find(
                 (d) => d.id == queryParams.division
@@ -15,11 +15,20 @@ export default function TaskFilter({ categories, divisions, getFilterData }) {
         }
         return [];
     });
-
-    const { data, setData, submit, processing, errors } = useForm({});
-
     const [budgetMin, setBudgetMin] = useState(queryParams.budget_min || "");
     const [budgetMax, setBudgetMax] = useState(queryParams.budget_max || "");
+    const [updatedCategories, setUpdatedCategories] = useState(() => {
+        const queryCategories = queryParams.categories
+            ? queryParams.categories.split("_")
+            : [];
+        return categories.map((category) => {
+            return {
+                id: category.id,
+                name: category.name,
+                isChecked: queryCategories.includes(category.id.toString()),
+            };
+        });
+    });
 
     useEffect(() => {
         setData(queryParams);
@@ -34,20 +43,25 @@ export default function TaskFilter({ categories, divisions, getFilterData }) {
         });
     };
 
-    const handleChange = (event) => {
+    const handleChange = (event, id = null) => {
         const { name, value } = event.target;
         let updatedData = { ...data };
 
         if (name === "categories") {
-            const checkboxes = Array.from(
-                document.querySelectorAll('input[name="categories"]:checked')
-            );
-            const checkedCategories = checkboxes.map(
-                (checkbox) => checkbox.value
-            );
+            const ckeckedCategories = updatedCategories.map((category) => {
+                return category.id === id
+                    ? { ...category, isChecked: !category.isChecked }
+                    : category;
+            });
 
-            if (checkedCategories.length > 0) {
-                updatedData[name] = checkedCategories.join("_");
+            setUpdatedCategories(ckeckedCategories);
+
+            const checkedBoxes = ckeckedCategories
+                .map((category) => (category.isChecked ? category.id : null))
+                .filter((category) => category !== null);
+
+            if (checkedBoxes.length > 0) {
+                updatedData[name] = checkedBoxes.join("_");
             } else {
                 delete updatedData[name];
             }
@@ -218,15 +232,18 @@ export default function TaskFilter({ categories, divisions, getFilterData }) {
                             Categories
                         </h4>
                         <div className="space-y-2">
-                            {categories.map((option) => (
+                            {updatedCategories.map((option) => (
                                 <label
                                     key={option.id}
                                     className="flex items-center"
                                 >
                                     <input
                                         type="checkbox"
+                                        checked={option.isChecked}
                                         name="categories"
-                                        onChange={(e) => handleChange(e)}
+                                        onChange={(e) =>
+                                            handleChange(e, option.id)
+                                        }
                                         value={option.id}
                                         className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                                     />
