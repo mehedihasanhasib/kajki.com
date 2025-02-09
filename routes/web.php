@@ -11,11 +11,17 @@ use App\Http\Controllers\Frontend\TasksController;
 use App\Http\Controllers\Frontend\ProfileController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\Frontend\TasksProfileController;
+use Illuminate\Support\Facades\Artisan;
 use Spatie\LaravelImageOptimizer\Middlewares\OptimizeImages;
 
 /* ======= Home =======*/
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::get('/storage-link', function () {
+    Artisan::call('storage:link');
+    return 'Storage link created successfully!';
+});
 
 
 /* ======= Tasks Show =======*/
