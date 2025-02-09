@@ -52,7 +52,7 @@ class TasksController extends Controller
             ->when($request->has('categories'), function ($q) use ($request) {
                 return $q->whereIn('category_id', explode("_", $request->query('categories')));
             })
-            ->paginate(18);
+            ->paginate(24);
 
         return inertia("Frontend/Tasks/Index", [
             'tasks' => $tasks,
