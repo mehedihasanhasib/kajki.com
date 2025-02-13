@@ -27,7 +27,7 @@ class TaskFactory extends Factory
             'district_id' => $division->district->random()->id,
             'address' => $this->faker->address,
             'budget' => $this->faker->numberBetween(100, 5000),
-            'contact_number' => $this->faker->phoneNumber,
+            'contact_number' => '01' . fake()->randomElement(['3', '4', '5', '6', '7', '8', '9']) . fake()->numerify('#######'),
             'created_at' => now(),
             'updated_at' => now(),
         ];

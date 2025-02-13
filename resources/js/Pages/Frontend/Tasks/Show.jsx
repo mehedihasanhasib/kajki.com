@@ -211,7 +211,7 @@ export default function TaskDetails({ task }) {
 
                                     {/* <!-- Contact Section --> */}
                                     <a
-                                        href={`tel:+88${contact_number}`}
+                                        href={`tel:${contact_number}`}
                                         className="bg-blue-50 p-4 rounded-lg flex-1 flex items-center gap-4"
                                     >
                                         <svg
@@ -230,7 +230,7 @@ export default function TaskDetails({ task }) {
                                         <div>
                                             {/* <!-- <p className="text-sm text-blue-700">Contact</p> --> */}
                                             <p className="text-2xl font-bold text-blue-700">
-                                                {`+88${contact_number}`}
+                                                {`${contact_number}`}
                                             </p>
                                         </div>
                                     </a>
