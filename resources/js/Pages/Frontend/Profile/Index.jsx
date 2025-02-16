@@ -30,7 +30,6 @@ export default function Profile({ auth }) {
             onError: (validationErrors) => {
                 toast.error("Error Updating Profile");
                 setErrors({ ...validationErrors });
-                console.log(errors);
             },
         });
     };
@@ -42,8 +41,10 @@ export default function Profile({ auth }) {
 
     const handleProfilePictureChange = (event) => {
         const files = event.target.files;
+        
         if (files && files.length > 0) {
             setData("profile_picture", files[0]);
+            setProfilePicture(URL.createObjectURL(files[0]));
         }
     };
     return (
@@ -96,11 +97,7 @@ export default function Profile({ auth }) {
                             )}
                             <div className="flex items-center space-x-4">
                                 <img
-                                    src={
-                                        profilePicture != null
-                                            ? `/storage/users_profile_picture/${profilePicture}`
-                                            : `/assets/images/user-avatar.webp`
-                                    }
+                                    src={profilePicture != null ? profilePicture : `/assets/images/user-avatar.webp`}
                                     alt={`KajKi.com`}
                                     style={{
                                         height: "120px",

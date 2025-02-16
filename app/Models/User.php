@@ -3,10 +3,11 @@
 namespace App\Models;
 
 use App\Models\Frontend\Task;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -34,6 +35,13 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    public function getProfilePictureUrlAttribute()
+    {
+        return $this->profile_picture
+            ? Storage::url($this->profile_picture)
+            : null; // Or provide a default URL
+    }
 
     /**
      * Get the attributes that should be cast.

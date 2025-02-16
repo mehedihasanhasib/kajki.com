@@ -4,6 +4,7 @@ import FormSubmitButton from "@/Components/Frontend/Form/FormSubmitButton";
 import FormTextInput from "@/Components/Frontend/Form/FormTextInput";
 import AppLayout from "@/Layouts/AppLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
+import { useState } from "react";
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -12,6 +13,8 @@ export default function Register() {
         password: "",
         password_confirmation: "",
     });
+
+    const [profilePicture, setProfilePicture] = useState(null);
 
     const submit = (e) => {
         e.preventDefault();
@@ -25,6 +28,15 @@ export default function Register() {
         setData(event.target.name, event.target.value);
     };
 
+    const handleProfilePictureChange = (event) => {
+        const files = event.target.files;
+
+        if (files && files.length > 0) {
+            setData("profile_picture", files[0]);
+            setProfilePicture(URL.createObjectURL(files[0]));
+        }
+    };
+
     return (
         <AppLayout>
             <Head>
@@ -36,6 +48,7 @@ export default function Register() {
                         Register Your Account
                     </h2>
                     <form onSubmit={submit} className="space-y-6">
+                        {/* Name */}
                         <div>
                             <FormLabel htmlFor="name">Name:</FormLabel>
                             <FormTextInput
@@ -50,6 +63,8 @@ export default function Register() {
                                 <FormInputError>{errors.name}</FormInputError>
                             )}
                         </div>
+
+                        {/* Email */}
                         <div>
                             <FormLabel htmlFor="email">Email:</FormLabel>
                             <FormTextInput
@@ -64,6 +79,8 @@ export default function Register() {
                                 <FormInputError>{errors.email}</FormInputError>
                             )}
                         </div>
+
+                        {/* Password */}
                         <div>
                             <FormLabel htmlFor="password">Password:</FormLabel>
                             <FormTextInput
@@ -80,6 +97,8 @@ export default function Register() {
                                 </FormInputError>
                             )}
                         </div>
+
+                        {/* Confirm Password */}
                         <div>
                             <FormLabel htmlFor="password_confirmation">
                                 Confirm Password:
@@ -98,6 +117,46 @@ export default function Register() {
                                 </FormInputError>
                             )}
                         </div>
+
+                        {/* Profile Picture */}
+                        <div className="space-y-2">
+                            <FormLabel htmlFor="image">
+                                Profile Picture:
+                            </FormLabel>
+                            {errors.profile_picture && (
+                                <FormInputError>
+                                    {errors.profile_picture}
+                                </FormInputError>
+                            )}
+                            <div className="flex items-center space-x-4">
+                                <img
+                                    src={profilePicture || `/assets/images/user-avatar.webp`}
+                                    alt={`KajKi.com`}
+                                    style={{
+                                        height: "120px",
+                                        width: "120px",
+                                        borderRadius: "50%",
+                                    }}
+                                />
+                                <FormLabel
+                                    htmlFor="profile_picture"
+                                    className="px-4 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-md hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                >
+                                    Choose Image
+                                </FormLabel>
+                                <input
+                                    type="file"
+                                    name="profile_picture"
+                                    className="hidden"
+                                    id="profile_picture"
+                                    onChange={(e) =>
+                                        handleProfilePictureChange(e)
+                                    }
+                                />
+                            </div>
+                        </div>
+
+                        {/* Submit Button */}
                         <FormSubmitButton
                             processing={processing}
                             processingText="Registering"
