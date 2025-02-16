@@ -13,7 +13,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Intervention\Image\Drivers\Gd\Driver;
 use App\Http\Requests\ProfileUpdateRequest;
-use Intervention\Image\Facades\Image;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 class ProfileController extends Controller
@@ -23,7 +22,6 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): Response
     {
-        // $auth_user = Auth::user();
         return Inertia::render('Frontend/Profile/Index', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status')
@@ -44,7 +42,7 @@ class ProfileController extends Controller
             $manager = new ImageManager(new Driver());
             $image = $manager->read($request->file('profile_picture'));
             $image->resize(512, 512)->save(storage_path('app/public/users_profile_picture/' . $filename));
-            $user->profile_picture = $filename;
+            $user->profile_picture = 'storage/users_profile_picture/'. $filename;
         }
         $user->save();
         return Redirect::back();
