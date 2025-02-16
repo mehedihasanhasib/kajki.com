@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
 use App\Models\Frontend\Task;
+use App\Models\Frontend\Category;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
@@ -13,8 +15,13 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $popular_categories = Category::withCount('tasks')
+            ->orderByDesc('tasks_count')
+            ->limit(4)
+            ->get(['id', 'name', 'tasks_count']);
         return inertia('Frontend/Home/Index', [
             'recent_tasks' => Task::with(['user:id,name,profile_picture', 'images:task_id,image_path'])->orderBy('id', 'desc')->limit(6)->get(),
+            'popular_categories' => $popular_categories,
         ]);
     }
 

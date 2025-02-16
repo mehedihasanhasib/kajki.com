@@ -4,7 +4,8 @@ import TaskCard from "@/Components/Frontend/Task/TaskCard";
 import AppLayout from "@/Layouts/AppLayout";
 import { Head } from "@inertiajs/react";
 
-export default function Home({ recent_tasks }) {
+export default function Home({ recent_tasks, popular_categories }) {
+
     return (
         <>
             <Head>
@@ -36,10 +37,9 @@ export default function Home({ recent_tasks }) {
                                 Popular Categories
                             </h2>
                             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
-                                <PopularCategories />
-                                <PopularCategories />
-                                <PopularCategories />
-                                <PopularCategories />
+                                {popular_categories.map(category => {
+                                    return <PopularCategories key={category.id} category_id={category.id} category_name={category.name} />
+                                })}
                             </div>
                         </div>
                     </div>
