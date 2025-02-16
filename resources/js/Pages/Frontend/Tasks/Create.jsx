@@ -122,12 +122,13 @@ export default function TaskPost({ categories, divisions }) {
 
                         {/* <!-- Division --> */}
                         <div className="mb-4">
-                            <FormLabel htmlFor="division">Division</FormLabel>
+                            <FormLabel htmlFor="division" required={true}>Division</FormLabel>
                             <select
                                 id="division"
                                 name="division_id"
                                 className="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:ring-gray-300 focus:border-gray-300"
                                 onChange={(e) => handleSelectChange(e)}
+                                required={true}
                             >
                                 <option
                                     value=""
@@ -157,12 +158,13 @@ export default function TaskPost({ categories, divisions }) {
 
                         {/* <!-- District --> */}
                         <div className="mb-4">
-                            <FormLabel htmlFor="district">District</FormLabel>
+                            <FormLabel htmlFor="district" required={true}>District</FormLabel>
                             <select
                                 id="district"
                                 name="district_id"
                                 className="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:ring-gray-300 focus:border-gray-300"
                                 onChange={(e) => handleSelectChange(e)}
+                                required={true}
                             >
                                 <option
                                     value=""
@@ -192,13 +194,14 @@ export default function TaskPost({ categories, divisions }) {
 
                         {/* <!-- Address --> */}
                         <div className="mb-4">
-                            <FormLabel htmlFor="address">Address</FormLabel>
+                            <FormLabel htmlFor="address" required={true}>Address</FormLabel>
                             <FormInputTextArea
                                 id="address"
                                 name="address"
                                 rows="2"
                                 placeholder="Provide your address. (e.g. 123 Main St, Anytown, USA)"
                                 handleChange={handleChange}
+                                required={true}
                             />
                             {errors.address && (
                                 <FormInputError>
@@ -206,15 +209,17 @@ export default function TaskPost({ categories, divisions }) {
                                 </FormInputError>
                             )}
                         </div>
+
                         {/* <!-- Budget --> */}
                         <div className="mb-4">
-                            <FormLabel htmlFor="budget">Budget</FormLabel>
+                            <FormLabel htmlFor="budget" required={true}>Budget</FormLabel>
                             <FormTextInput
                                 type="number"
                                 id="budget"
                                 name="budget"
                                 placeholder="Enter your budget (e.g., $50)"
                                 handleChange={handleChange}
+                                required={true}
                             />
                             {errors.budget && (
                                 <FormInputError>{errors.budget}</FormInputError>
@@ -223,7 +228,7 @@ export default function TaskPost({ categories, divisions }) {
 
                         {/* <!-- Contact Number --> */}
                         <div className="mb-4">
-                            <FormLabel htmlFor="contactNumber">
+                            <FormLabel htmlFor="contactNumber" required={true}>
                                 Contact Number
                             </FormLabel>
                             <FormTextInput
@@ -232,6 +237,7 @@ export default function TaskPost({ categories, divisions }) {
                                 name="contact_number"
                                 placeholder="Enter your contact number"
                                 handleChange={handleChange}
+                                required={true}
                             />
                             {errors.contact_number && (
                                 <FormInputError>
