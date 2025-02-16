@@ -86,6 +86,7 @@ export default function TaskPost({ categories, divisions }) {
                             <FormLabel
                                 className="block text-gray-700 font-medium"
                                 htmlFor="title"
+                                required={true}
                             >
                                 Task Title
                             </FormLabel>
@@ -95,6 +96,7 @@ export default function TaskPost({ categories, divisions }) {
                                 name="title"
                                 placeholder="What task do you need help with?"
                                 handleChange={handleChange}
+                                required={true}
                             />
                             {errors.title && (
                                 <FormInputError>{errors.title}</FormInputError>
@@ -103,12 +105,13 @@ export default function TaskPost({ categories, divisions }) {
 
                         {/* <!-- Category --> */}
                         <div className="mb-4">
-                            <FormLabel htmlFor="category">Category</FormLabel>
+                            <FormLabel htmlFor="category" required={true}>Category</FormLabel>
                             <FormInputSelect
                                 id="category"
                                 name="category_id"
                                 options={categories}
                                 handleChange={handleSelectChange}
+                                required={true}
                             />
                             {errors.category_id && (
                                 <FormInputError>
@@ -298,9 +301,8 @@ export default function TaskPost({ categories, divisions }) {
                                                 removeImage(index);
                                             }}
                                             className="absolute top-2 right-2 w-6 h-6 text-white bg-red-600 rounded-full hover:bg-red-700 flex items-center justify-center"
-                                            aria-label={`Remove image ${
-                                                index + 1
-                                            }`}
+                                            aria-label={`Remove image ${index + 1
+                                                }`}
                                         >
                                             &times;
                                         </button>

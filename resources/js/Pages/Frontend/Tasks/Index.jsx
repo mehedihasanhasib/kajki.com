@@ -6,7 +6,6 @@ import { useState } from "react";
 
 export default function Tasks({ props, tasks, categories, divisions }) {
     const [filterData, setFilterData] = useState({});
-console.log(tasks.links)
     const handlePageChange = (page) => {
         const updatedData = { ...filterData, page };
         router.get(route("tasks"), updatedData, {

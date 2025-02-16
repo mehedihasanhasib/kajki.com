@@ -22,20 +22,22 @@ class TasksController extends Controller
     protected $categories;
     protected $divisions;
 
-    public function __construct()
+    public function categories()
     {
-        $this->categories = Cache::remember('categories', now()->addMinutes(10), function () {
+        return Cache::remember('categories', now()->addMinutes(10), function () {
             return Category::select('id', 'name')->get();
         });
+    }
 
-        $this->divisions = Cache::remember('divisions', now()->addMinutes(10), function () {
+    public function divisions()
+    {
+        return Cache::remember('divisions', now()->addMinutes(10), function () {
             return Division::with(['district:id,division_id,district'])->select('id', 'division')->get();
         });
     }
 
     public function index(Request $request)
     {
-        // dd();
         $tasks = Task::select(['title', 'address', 'slug', 'details'])
             ->when($request->has('division'), function ($q) use ($request) {
                 return $q->where('division_id', $request->query('division'));
@@ -52,12 +54,13 @@ class TasksController extends Controller
             ->when($request->has('categories'), function ($q) use ($request) {
                 return $q->whereIn('category_id', explode("_", $request->query('categories')));
             })
+            ->orderBy('id', 'desc')
             ->paginate(24);
 
         return inertia("Frontend/Tasks/Index", [
             'tasks' => $tasks,
-            'categories' => $this->categories,
-            'divisions' => $this->divisions,
+            'categories' => $this->categories(),
+            'divisions' => $this->divisions(),
         ]);
     }
 
@@ -75,8 +78,8 @@ class TasksController extends Controller
     public function create()
     {
         return inertia('Frontend/Tasks/Create', [
-            'categories' => $this->categories,
-            'divisions' => $this->divisions,
+            'categories' => $this->categories(),
+            'divisions' => $this->divisions(),
         ]);
     }
 
@@ -87,17 +90,18 @@ class TasksController extends Controller
     {
         try {
             DB::beginTransaction();
-            $validated_data = $request->except('images');
-            $validated_data['slug'] = Str::slug($request->title);
+            // $validated_data = $request->except('images');
+            $validated_data = collect($request->validated())->except('images');
+            $validated_data['slug'] = Str::slug($request->title) . '-' . Str::random(6);
 
-            $task = $request->user()->task()->create($validated_data);
+            $task = $request->user()->task()->create($validated_data->toArray());
 
             $images = $request->images;
             $path = [];
             foreach ($images as $image) {
                 $path[] = [
                     'task_id' => $task->id,
-                    'image_path' => $image->store('task_images', 'public'),
+                    'image_path' => 'storage/' . $image->store('task_images', 'public'),
                     'created_at' => now(),
                     'updated_at' => now()
                 ];
