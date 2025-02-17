@@ -6,7 +6,7 @@ export default function NavLink({route, children, activePath}) {
     return (
         <Link
             href={route}
-            className={`font-bold ${url === activePath ? "text-blue-600" : "text-gray-700 hover:text-blue-600"}`}
+            className={`py-2 md:py-0 border-gray-100 font-bold ${url === activePath ? "text-blue-600" : "text-gray-700 hover:text-blue-600"}`}
         >
             {children}
         </Link>
