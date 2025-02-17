@@ -6,8 +6,17 @@ import { useState } from "react";
 
 export default function Tasks({ tasks, categories, divisions }) {
     const [filterData, setFilterData] = useState({});
-    const [isFilterOpen, setIsFilterOpen] = useState(false); // State to manage filter visibility
-    const [sortBy, setSortBy] = useState("date"); // State to manage sorting
+    const [isFilterOpen, setIsFilterOpen] = useState(false);
+    const [sortBy, setSortBy] = useState(() => {
+        const url = new URL(window.location.href);
+        const queryParams = Object.fromEntries(url.searchParams.entries());
+        return queryParams.sort || "default";
+    });
+
+    const getFilterData = (filteredData) => {
+        setFilterData(filteredData);
+        setSortBy(filteredData.sort ? filterData.sort : "default");
+    };
 
     const handlePageChange = (page) => {
         const updatedData = { ...filterData, page };
@@ -16,17 +25,16 @@ export default function Tasks({ tasks, categories, divisions }) {
         });
     };
 
-    const getFilterData = (filterData) => {
-        setFilterData(filterData);
-    };
-
     const handleSortChange = (event) => {
-        // const { value } = event.target;
-        // setSortBy(value);
-        // const updatedData = { ...filterData, sort: value };
-        // router.get(route("tasks"), updatedData, {
-        //     preserveState: true,
-        // });
+        const { value } = event.target;
+        setSortBy(value);
+        const updatedData = { ...filterData, sort: value };
+
+        console.log(updatedData)
+
+        router.get(route("tasks"), updatedData, {
+            preserveState: true,
+        });
     };
 
     return (
@@ -66,11 +74,11 @@ export default function Tasks({ tasks, categories, divisions }) {
                         <select
                             value={sortBy}
                             onChange={handleSortChange}
-                            className="text-sm rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-2"
+                            className="text-sm rounded-lg border-gray-300 shadow-sm focus:gray-300 focus:ring-gray-300 py-2"
                         >
-                            <option value="date">Sort by Date</option>
-                            <option value="budget">Sort by Budget</option>
-                            <option value="popularity">Sort by Popularity</option>
+                            <option value="default">Default</option>
+                            <option value="budget_asc">Budget (Low > High)</option>
+                            <option value="budget_desc">Budget (High > Low)</option>
                         </select>
                     </div>
                 </div>
@@ -119,7 +127,6 @@ export default function Tasks({ tasks, categories, divisions }) {
                         {/* pagination */}
                         <div className="flex flex-wrap justify-center items-center gap-1 sm:gap-2 my-6 px-2">
                             {tasks.links.map((link, index) => {
-                                // Hide "Previous" text on mobile, show only on larger screens
                                 const label =
                                     link.label === "&laquo; Previous" ? (
                                         <>

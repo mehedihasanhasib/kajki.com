@@ -54,7 +54,15 @@ class TasksController extends Controller
             ->when($request->has('categories'), function ($q) use ($request) {
                 return $q->whereIn('category_id', explode("_", $request->query('categories')));
             })
-            ->orderBy('id', 'desc')
+            ->when($request->input('sort') === "default" || $request->input('sort') === null, function ($q) use ($request) {
+                return $q->orderBy('id', 'desc');
+            })
+            ->when($request->input('sort') === "budget_asc", function ($q) use ($request) {
+                return $q->orderBy('budget', 'asc');
+            })
+            ->when($request->input('sort') === "budget_desc", function ($q) use ($request) {
+                return $q->orderBy('budget', 'desc');
+            })
             ->paginate(24);
 
         return inertia("Frontend/Tasks/Index", [
