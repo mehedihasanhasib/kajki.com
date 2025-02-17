@@ -59,7 +59,7 @@ export default function ProfileUpdatePassword() {
                     >
                         {/* <!-- Current Password --> */}
                         <div className="space-y-2">
-                            <FormLabel htmlFor="current_password">
+                            <FormLabel htmlFor="current_password" required={true}>
                                 Current Password
                             </FormLabel>
                             <FormTextInput
@@ -69,6 +69,7 @@ export default function ProfileUpdatePassword() {
                                 placeholder="Enter current password"
                                 value={data.current_password}
                                 handleChange={handleChange}
+                                required={true}
                             />
                             <FormInputError>
                                 {errors.current_password}
@@ -76,7 +77,7 @@ export default function ProfileUpdatePassword() {
                         </div>
                         {/* <!-- New Password --> */}
                         <div className="space-y-2">
-                            <FormLabel htmlFor="password">
+                            <FormLabel htmlFor="password" required={true}>
                                 New Password
                             </FormLabel>
                             <FormTextInput
@@ -86,12 +87,13 @@ export default function ProfileUpdatePassword() {
                                 placeholder="Enter new password"
                                 value={data.password}
                                 handleChange={handleChange}
+                                required={true}
                             />
                             <FormInputError>{errors.password}</FormInputError>
                         </div>
                         {/* <!-- Confirm New Password --> */}
                         <div className="space-y-2">
-                            <FormLabel htmlFor="password_confirmation">
+                            <FormLabel htmlFor="password_confirmation" required={true}>
                                 Confirm New Password
                             </FormLabel>
                             <FormTextInput
@@ -101,6 +103,7 @@ export default function ProfileUpdatePassword() {
                                 placeholder="Confirm new password"
                                 value={data.password_confirmation}
                                 handleChange={handleChange}
+                                required={true}
                             />
                             <FormInputError>
                                 {errors.password_confirmation}

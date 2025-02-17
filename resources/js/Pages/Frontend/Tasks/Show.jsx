@@ -7,6 +7,8 @@ import "swiper/css/navigation";
 import { Pagination, Navigation } from "swiper/modules";
 
 export default function TaskDetails({ task }) {
+    console.log(task.user);
+
     const { title, details, budget, contact_number, address } = task;
     const { name: userName, profile_picture: userProfilePicture } = task.user;
     return (
@@ -44,10 +46,10 @@ export default function TaskDetails({ task }) {
                                                     <img
                                                         src={
                                                             userProfilePicture
-                                                                ? `/storage/users_profile_picture/${userProfilePicture}`
+                                                                ? window.location.origin + "/" + userProfilePicture
                                                                 : `/assets/images/user-avatar.webp`
                                                         }
-                                                        alt="John Doe"
+                                                        alt={userName}
                                                         className="w-8 sm:w-10 h-8 sm:h-10 rounded-full ring-2 ring-white"
                                                     />
                                                     <div className="ml-3">
@@ -91,7 +93,7 @@ export default function TaskDetails({ task }) {
                                     return (
                                         <SwiperSlide key={image.id}>
                                             <img
-                                                src={`/storage/${image.image_path}`}
+                                                src={window.location.origin + "/" + image.image_path}
                                                 alt="Kitchen Faucet"
                                                 className="w-full h-[50vh] object-contain"
                                             />

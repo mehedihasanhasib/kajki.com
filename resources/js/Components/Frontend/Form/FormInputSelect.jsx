@@ -3,6 +3,7 @@ export default function FormInputSelect({
     name,
     options = [],
     handleChange,
+    required = false,
 }) {
     return (
         <select
@@ -10,6 +11,7 @@ export default function FormInputSelect({
             name={name}
             className="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:ring-gray-300 focus:border-gray-300"
             onChange={(e) => handleChange(e)}
+            required={required}
         >
             <option value="">Select a category</option>
             {options.map((option) => {

@@ -36,7 +36,7 @@ export default function Login({ status, canResetPassword }) {
                         </h2>
                         <form onSubmit={submit} className="space-y-6">
                             <div>
-                                <FormLabel htmlFor="email">Email:</FormLabel>
+                                <FormLabel htmlFor="email" required={true}>Email:</FormLabel>
                                 <FormTextInput
                                     type="email"
                                     name="email"
@@ -44,6 +44,7 @@ export default function Login({ status, canResetPassword }) {
                                     placeholder="Enter your email"
                                     value={data.email}
                                     handleChange={handleChange}
+                                    required={true}
                                 />
                                 {errors.email && (
                                     <FormInputError>
@@ -52,7 +53,7 @@ export default function Login({ status, canResetPassword }) {
                                 )}
                             </div>
                             <div>
-                                <FormLabel htmlFor="password">Password:</FormLabel>
+                                <FormLabel htmlFor="password" required={true}>Password:</FormLabel>
                                 <FormTextInput
                                     type="password"
                                     name="password"
@@ -60,6 +61,7 @@ export default function Login({ status, canResetPassword }) {
                                     placeholder="Enter your password"
                                     value={data.password}
                                     handleChange={handleChange}
+                                    required={true}
                                 />
                                 {errors.password && (
                                     <FormInputError>

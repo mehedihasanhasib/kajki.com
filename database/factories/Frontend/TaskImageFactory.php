@@ -21,7 +21,7 @@ class TaskImageFactory extends Factory
         $randomFile = $files[array_rand($files, 1)];
         return [
             'task_id' => null, // Will be assigned dynamically
-            'image_path' => "demo_images/" . $randomFile->getFilename(),
+            'image_path' => "storage/demo_images/" . $randomFile->getFilename(),
         ];
     }
 }

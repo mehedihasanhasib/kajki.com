@@ -50,7 +50,7 @@ export default function Register() {
                     <form onSubmit={submit} className="space-y-6">
                         {/* Name */}
                         <div>
-                            <FormLabel htmlFor="name">Name:</FormLabel>
+                            <FormLabel htmlFor="name" required={true}>Name:</FormLabel>
                             <FormTextInput
                                 type="text"
                                 name="name"
@@ -58,6 +58,7 @@ export default function Register() {
                                 placeholder="Enter Your Name"
                                 value={data.name}
                                 handleChange={handleChange}
+                                required={false}
                             />
                             {errors.name && (
                                 <FormInputError>{errors.name}</FormInputError>
@@ -66,7 +67,7 @@ export default function Register() {
 
                         {/* Email */}
                         <div>
-                            <FormLabel htmlFor="email">Email:</FormLabel>
+                            <FormLabel htmlFor="email" required={true}>Email:</FormLabel>
                             <FormTextInput
                                 type="email"
                                 name="email"
@@ -74,6 +75,7 @@ export default function Register() {
                                 placeholder="example@email.com"
                                 value={data.email}
                                 handleChange={handleChange}
+                                required={true}
                             />
                             {errors.email && (
                                 <FormInputError>{errors.email}</FormInputError>
@@ -82,7 +84,7 @@ export default function Register() {
 
                         {/* Password */}
                         <div>
-                            <FormLabel htmlFor="password">Password:</FormLabel>
+                            <FormLabel htmlFor="password" required={true}>Password:</FormLabel>
                             <FormTextInput
                                 type="password"
                                 name="password"
@@ -90,6 +92,7 @@ export default function Register() {
                                 placeholder="Enter password"
                                 value={data.password}
                                 handleChange={handleChange}
+                                required={true}
                             />
                             {errors.password && (
                                 <FormInputError>
@@ -100,7 +103,7 @@ export default function Register() {
 
                         {/* Confirm Password */}
                         <div>
-                            <FormLabel htmlFor="password_confirmation">
+                            <FormLabel htmlFor="password_confirmation" required={true}>
                                 Confirm Password:
                             </FormLabel>
                             <FormTextInput
@@ -110,6 +113,7 @@ export default function Register() {
                                 placeholder="Confirm Password"
                                 value={data.password_confirmation}
                                 handleChange={handleChange}
+                                required={true}
                             />
                             {errors.password_confirmation && (
                                 <FormInputError>
