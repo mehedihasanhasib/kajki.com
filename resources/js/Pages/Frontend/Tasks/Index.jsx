@@ -63,11 +63,7 @@ export default function Tasks({ tasks, categories, divisions }) {
                                     d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
                                 />
                             </svg>
-                            Filters {filterData && Object.keys(filterData).length > 0 &&
-                                <span className="bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
-                                    {Object.keys(filterData).length}
-                                </span>
-                            }
+                            Filters
                         </button>
 
                         {/* Sort Dropdown */}
@@ -77,8 +73,8 @@ export default function Tasks({ tasks, categories, divisions }) {
                             className="text-sm rounded-lg border-gray-300 shadow-sm focus:gray-300 focus:ring-gray-300 py-2"
                         >
                             <option value="default">Default</option>
-                            <option value="budget_asc">Budget (Low > High)</option>
-                            <option value="budget_desc">Budget (High > Low)</option>
+                            <option value="budget_asc">Budget (Low &gt; High)</option>
+                            <option value="budget_desc">Budget (High &gt; Low)</option>
                         </select>
                     </div>
                 </div>
