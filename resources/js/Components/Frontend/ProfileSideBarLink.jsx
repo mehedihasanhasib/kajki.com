@@ -10,13 +10,18 @@ export default function ProfileSideBarLink({
     const { url } = usePage();
     return (
         <li
-            className={`py-3 px-2 m-1 ${
-                url === activePath
-                    ? "bg-blue-500 text-white font-extrabold xl:text-lg"
-                    : ""
-            }`}
+            className={`py-3 px-2 m-1 ${url === activePath
+                ? "bg-blue-500 text-white font-extrabold xl:text-lg"
+                : ""
+                }`}
         >
-            <Link className="font-bold" href={route} method={method} as={asButton ? "button" : "a"}>
+            <Link
+                preserveScroll={true}
+                className="font-bold"
+                href={route}
+                method={method}
+                as={asButton ? "button" : "a"}
+            >
                 {children}
             </Link>
         </li>

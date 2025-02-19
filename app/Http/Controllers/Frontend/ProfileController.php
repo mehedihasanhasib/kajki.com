@@ -22,10 +22,7 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): Response
     {
-        return Inertia::render('Frontend/Profile/Index', [
-            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
-            'status' => session('status')
-        ]);
+        return Inertia::render('Frontend/Profile/Index');
     }
 
     /**

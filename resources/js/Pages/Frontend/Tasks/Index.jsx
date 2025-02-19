@@ -22,6 +22,7 @@ export default function Tasks({ tasks, categories, divisions }) {
         const updatedData = { ...filterData, page };
         router.get(route("tasks"), updatedData, {
             preserveState: true,
+            preserveScroll: true
         });
     };
 

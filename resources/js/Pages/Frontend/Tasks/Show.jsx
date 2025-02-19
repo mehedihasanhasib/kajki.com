@@ -47,7 +47,7 @@ export default function TaskDetails({ task }) {
                                                         src={
                                                             userProfilePicture
                                                                 ? window.location.origin + "/" + userProfilePicture
-                                                                : `/assets/images/user-avatar.webp`
+                                                                : `assets/images/user-avatar.webp`
                                                         }
                                                         alt={userName}
                                                         className="w-8 sm:w-10 h-8 sm:h-10 rounded-full ring-2 ring-white"
