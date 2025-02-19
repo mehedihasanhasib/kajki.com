@@ -19,23 +19,6 @@ class TasksController extends Controller
     /**
      * Display a listing of the resource.
      */
-    protected $categories;
-    protected $divisions;
-
-    public function categories()
-    {
-        return Cache::remember('categories', now()->addMinutes(10), function () {
-            return Category::select('id', 'name')->get();
-        });
-    }
-
-    public function divisions()
-    {
-        return Cache::remember('divisions', now()->addMinutes(10), function () {
-            return Division::with(['district:id,division_id,district'])->select('id', 'division')->get();
-        });
-    }
-
     public function index(Request $request)
     {
         $tasks = Task::select(['title', 'address', 'slug', 'details'])
@@ -96,6 +79,7 @@ class TasksController extends Controller
      */
     public function store(TaskStoreRequest $request)
     {
+        
         try {
             DB::beginTransaction();
             // $validated_data = $request->except('images');
@@ -151,7 +135,15 @@ class TasksController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        try {
+            return inertia("Frontend/Profile/ProfileMyTasksEdit", [
+                'task' => Task::with(['images:id,task_id,image_path'])->findOrFail($id),
+                'categories' => $this->categories(),
+                'divisions' => $this->divisions(),
+            ]);
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+        }
     }
 
     /**
@@ -159,7 +151,7 @@ class TasksController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        dd($request->all(), $id);
     }
 
     /**
@@ -168,5 +160,20 @@ class TasksController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+
+    public function categories()
+    {
+        return Cache::remember('categories', now()->addMinutes(10), function () {
+            return Category::select('id', 'name')->get();
+        });
+    }
+
+    public function divisions()
+    {
+        return Cache::remember('divisions', now()->addMinutes(10), function () {
+            return Division::with(['district:id,division_id,district'])->select('id', 'division')->get();
+        });
     }
 }

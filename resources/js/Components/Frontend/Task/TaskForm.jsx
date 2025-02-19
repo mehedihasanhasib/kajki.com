@@ -1,6 +1,86 @@
-import React from 'react'
+import FormInputError from "@/Components/Frontend/Form/FormInputError";
+import FormInputSelect from "@/Components/Frontend/Form/FormInputSelect";
+import FormInputTextArea from "@/Components/Frontend/Form/FormInputTextArea";
+import FormLabel from "@/Components/Frontend/Form/FormLabel";
+import FormSubmitButton from "@/Components/Frontend/Form/FormSubmitButton";
+import FormTextInput from "@/Components/Frontend/Form/FormTextInput";
+import { asset } from "@/utils/helpers";
+import { useForm } from "@inertiajs/react";
+import { useState } from "react";
+import { toast } from "react-toastify";
 
-function TaskForm({ handleSubmit, }) {
+function TaskForm({ categories, divisions, task = {}, submitRoute, method }) {
+    const [districts, setDistricts] = useState(() => {
+        if (Object.keys(task).length === 0) {
+            return []
+        } else {
+            const selectedDivision = divisions.find((division) => {
+                return division.id == task.division_id
+            })
+            return selectedDivision.district
+        }
+    });
+
+    const [images, setImages] = useState(task.images || []);
+
+    const { data, setData, post, processing, errors } = useForm({
+        _method: method,
+        title: task.title ?? "",
+        category_id: task.category_id ?? "",
+        details: task.details ?? "",
+        division_id: task.division_id ?? "",
+        district_id: task.district_id ?? "",
+        address: task.address ?? "",
+        budget: task.budget ?? "",
+        contact_number: task.contact_number ?? "",
+        images: images,
+    });
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setData(name, value);
+    };
+
+    const handleSelectChange = (event) => {
+        const { name, value } = event.target;
+        divisions.forEach((division) => {
+            if (value == division.id) {
+                setDistricts(division.district);
+            }
+        });
+        setData(name, value);
+    };
+
+    const handleImageChange = (event) => {
+        const files = Array.from(event.target.files);
+
+        if (images.length + files.length > 5) {
+            toast.error("You can only select 5 images");
+            return;
+        }
+
+        const updatedImages = files.map((file) => ({
+            file,
+            preview: URL.createObjectURL(file),
+        }));
+
+        setImages((prevImages) => [...prevImages, ...updatedImages]);
+        setData("images", [...images, ...updatedImages].filter((image) => image.file).map(img => img.file));
+    };
+
+    const removeImage = (index) => {
+        const updatedImages = images.filter((_, i) => i !== index);
+        setImages(updatedImages);
+        setData(
+            "images",
+            updatedImages.map((image) => image.file)
+        );
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        post(submitRoute);
+    };
     return (
         <form onSubmit={handleSubmit}>
             {/* <!-- Task Title --> */}
@@ -16,6 +96,7 @@ function TaskForm({ handleSubmit, }) {
                     type="text"
                     id="title"
                     name="title"
+                    value={data.title}
                     placeholder="What task do you need help with?"
                     handleChange={handleChange}
                     required={true}
@@ -34,6 +115,7 @@ function TaskForm({ handleSubmit, }) {
                     options={categories}
                     handleChange={handleSelectChange}
                     required={true}
+                    value={data.category_id}
                 />
                 {errors.category_id && (
                     <FormInputError>
@@ -51,10 +133,10 @@ function TaskForm({ handleSubmit, }) {
                     className="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:ring-gray-300 focus:border-gray-300"
                     onChange={(e) => handleSelectChange(e)}
                     required={true}
+                    defaultValue={data.division_id}
                 >
                     <option
                         value=""
-                        selected={true}
                         disabled={true}
                     >
                         Select Division
@@ -87,10 +169,10 @@ function TaskForm({ handleSubmit, }) {
                     className="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:ring-gray-300 focus:border-gray-300"
                     onChange={(e) => handleSelectChange(e)}
                     required={true}
+                    defaultValue={data.category_id}
                 >
                     <option
                         value=""
-                        selected={true}
                         disabled={true}
                     >
                         Select District
@@ -124,6 +206,7 @@ function TaskForm({ handleSubmit, }) {
                     placeholder="Provide your address. (e.g. 123 Main St, Anytown, USA)"
                     handleChange={handleChange}
                     required={true}
+                    value={data.address}
                 />
                 {errors.address && (
                     <FormInputError>
@@ -142,6 +225,7 @@ function TaskForm({ handleSubmit, }) {
                     placeholder="Enter your budget (e.g., $50)"
                     handleChange={handleChange}
                     required={true}
+                    value={data.budget}
                 />
                 {errors.budget && (
                     <FormInputError>{errors.budget}</FormInputError>
@@ -160,6 +244,7 @@ function TaskForm({ handleSubmit, }) {
                     placeholder="Enter your contact number"
                     handleChange={handleChange}
                     required={true}
+                    value={data.contact_number}
                 />
                 {errors.contact_number && (
                     <FormInputError>
@@ -168,7 +253,7 @@ function TaskForm({ handleSubmit, }) {
                 )}
             </div>
 
-            {/* <!-- Description --> */}
+            {/* <!-- Details --> */}
             <div className="mb-4">
                 <FormLabel htmlFor="details">Details</FormLabel>
                 <FormInputTextArea
@@ -177,6 +262,7 @@ function TaskForm({ handleSubmit, }) {
                     rows="6"
                     placeholder="Provide more details about your task"
                     handleChange={handleChange}
+                    value={data.details}
                 />
                 {errors.details && (
                     <FormInputError>
@@ -211,7 +297,7 @@ function TaskForm({ handleSubmit, }) {
                         </FormInputError>
                     </div>
                 )}
-                <div className="grid grid-cols-3 gap-4 mt-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4">
                     {images.map((image, index) => (
                         <div
                             key={index}
@@ -219,7 +305,7 @@ function TaskForm({ handleSubmit, }) {
                             style={{ padding: "10px" }}
                         >
                             <img
-                                src={image.preview}
+                                src={image.preview ?? asset(image.image_path)}
                                 alt={`Preview ${index + 1}`}
                                 className="w-full h-32 object-cover rounded-lg"
                             />

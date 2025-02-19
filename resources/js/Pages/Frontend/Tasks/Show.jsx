@@ -5,6 +5,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Pagination, Navigation } from "swiper/modules";
+import { asset } from "@/utils/helpers";
 
 export default function TaskDetails({ task }) {
     console.log(task.user);
@@ -46,8 +47,8 @@ export default function TaskDetails({ task }) {
                                                     <img
                                                         src={
                                                             userProfilePicture
-                                                                ? window.location.origin + "/" + userProfilePicture
-                                                                : `assets/images/user-avatar.webp`
+                                                                ? asset(userProfilePicture)
+                                                                : asset(`assets/images/user-avatar.webp`)
                                                         }
                                                         alt={userName}
                                                         className="w-8 sm:w-10 h-8 sm:h-10 rounded-full ring-2 ring-white"

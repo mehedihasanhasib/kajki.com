@@ -42,9 +42,8 @@ Route::middleware('auth')->group(function () {
 
         /* ======= User Tasks List =======*/
         Route::get('/my-tasks', [TasksController::class, 'profile_index'])->name('profile.mytasks');
-        Route::get('/my-tasks/{id}', function($id){
-            dd($id);
-        })->name('profile.mytask.edit');
+        Route::get('/my-tasks/{id}', [TasksController::class, 'edit'])->name('profile.mytask.edit');
+        Route::put('/my-tasks/{id}/update', [TasksController::class, 'update'])->name('profile.mytask.update');
     });
 
     /* ======= Tasks =======*/
