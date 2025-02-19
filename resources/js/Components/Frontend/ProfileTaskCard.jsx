@@ -1,6 +1,7 @@
+import { Link } from "@inertiajs/react";
 import React from "react";
 
-export default function ProfileTaskCard({id, title, details}) {
+export default function ProfileTaskCard({ id, title, details }) {
     return (
         <>
             <div className="border border-gray-200 shadow-sm rounded-lg p-4 hover:shadow-md transition-shadow">
@@ -14,9 +15,14 @@ export default function ProfileTaskCard({id, title, details}) {
                     <span className="text-sm text-gray-500">
                         Posted on: Dec 20, 2024
                     </span>
-                    <button className="text-blue-600 text-sm font-medium hover:underline">
-                        View Details
-                    </button>
+                    <div className="flex gap-3">
+                        <Link href={route("profile.mytask.edit", { id })} className="text-blue-600 text-sm font-medium hover:underline">
+                            Edit
+                        </Link>
+                        <button className="text-red-600 text-sm font-medium hover:underline">
+                            Delete
+                        </button>
+                    </div>
                 </div>
             </div>
         </>

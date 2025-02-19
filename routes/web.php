@@ -28,11 +28,6 @@ Route::get('/storage-link', function () {
 Route::get('/tasks', [TasksController::class, 'index'])->name('tasks');
 Route::get('/tasks/{slug}', [TasksController::class, 'show'])->name('task.show');
 
-
-// Route::get('/show', function () {
-//     return inertia('Frontend/Tasks/Show');
-// })->name('task.show');
-
 /* ======= Account =======*/
 Route::middleware('auth')->group(function () {
     Route::prefix('/profile')->group(function () {
@@ -47,7 +42,11 @@ Route::middleware('auth')->group(function () {
 
         /* ======= User Tasks List =======*/
         Route::get('/my-tasks', [TasksController::class, 'profile_index'])->name('profile.mytasks');
+        Route::get('/my-tasks/{id}', function($id){
+            dd($id);
+        })->name('profile.mytask.edit');
     });
+
     /* ======= Tasks =======*/
     Route::get('task/create', [TasksController::class, 'create'])->name('task.create');
     Route::post('task/store', [TasksController::class, 'store'])->name('task.store');

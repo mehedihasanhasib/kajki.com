@@ -24,6 +24,7 @@ export default function ProfileMyTasks({ tasks }) {
                                 return (
                                     <ProfileTaskCard
                                         key={id}
+                                        id={id}
                                         title={title}
                                         details={details}
                                     />
