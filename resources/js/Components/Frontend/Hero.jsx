@@ -23,7 +23,7 @@ export default function Hero() {
 
                     <div className="flex justify-center xl:justify-end">
                         <div className="w-full max-w-lg bg-white/5 backdrop-blur-lg rounded-2xl p-6 shadow-lg">
-                            <img src={asset("assets/images/hero.jpg")} alt="" />
+                            <img src={asset("assets/images/hero.jpg")} alt="" className="rounded-lg"/>
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 import ProfileTaskCard from "@/Components/Frontend/ProfileTaskCard";
-import { usePage } from "@inertiajs/react";
+import { Head, usePage } from "@inertiajs/react";
 import React, { useEffect } from "react";
 import { toast } from "react-toastify";
 import ProfileLayout from "@/Layouts/ProfileLayout";
@@ -16,6 +16,9 @@ export default function ProfileMyTasks({ tasks }) {
 
     return (
         <ProfileLayout>
+            <Head>
+                <title>My Tasks</title>
+            </Head>
             <div className="md:w-3/4 p-8">
                 <section className="w-full">
                     <div className="space-y-4">

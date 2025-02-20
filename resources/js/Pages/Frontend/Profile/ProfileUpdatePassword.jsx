@@ -2,7 +2,7 @@ import FormInputError from "@/Components/Frontend/Form/FormInputError";
 import FormLabel from "@/Components/Frontend/Form/FormLabel";
 import FormSubmitButton from "@/Components/Frontend/Form/FormSubmitButton";
 import FormTextInput from "@/Components/Frontend/Form/FormTextInput";
-import { useForm } from "@inertiajs/react";
+import { Head, useForm } from "@inertiajs/react";
 import { toast } from "react-toastify";
 import ProfileLayout from "@/Layouts/ProfileLayout";
 
@@ -43,6 +43,9 @@ export default function ProfileUpdatePassword() {
     };
     return (
         <ProfileLayout>
+            <Head>
+                <title>Change Password</title>
+            </Head>
             <div className="md:w-3/4 p-8">
                 <form
                     className="space-y-6"
