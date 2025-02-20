@@ -3,6 +3,7 @@ import FormLabel from "@/Components/Frontend/Form/FormLabel";
 import FormSubmitButton from "@/Components/Frontend/Form/FormSubmitButton";
 import FormTextInput from "@/Components/Frontend/Form/FormTextInput";
 import AppLayout from "@/Layouts/AppLayout";
+import { asset } from "@/utils/helpers";
 import { Head, Link, useForm } from "@inertiajs/react";
 import { useState } from "react";
 
@@ -134,7 +135,7 @@ export default function Register() {
                             )}
                             <div className="flex items-center space-x-4">
                                 <img
-                                    src={profilePicture || `/assets/images/user-avatar.webp`}
+                                    src={profilePicture || asset(`storage/users_profile_picture/user-avatar.webp`)}
                                     alt={`KajKi.com`}
                                     style={{
                                         height: "120px",

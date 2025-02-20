@@ -22,10 +22,7 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): Response
     {
-        return Inertia::render('Frontend/Profile/Index', [
-            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
-            'status' => session('status')
-        ]);
+        return Inertia::render('Frontend/Profile/Index');
     }
 
     /**
@@ -42,7 +39,7 @@ class ProfileController extends Controller
             $manager = new ImageManager(new Driver());
             $image = $manager->read($request->file('profile_picture'));
             $image->resize(512, 512)->save(storage_path('app/public/users_profile_picture/' . $filename));
-            $user->profile_picture = 'storage/users_profile_picture/'. $filename;
+            $user->profile_picture = $filename;
         }
         $user->save();
         return Redirect::back();

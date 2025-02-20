@@ -6,7 +6,8 @@ export default function FormInputTextArea({
     rows = "4",
     placeholder,
     handleChange,
-    className=""
+    className = "",
+    value = ""
 }) {
     return (
         <textarea
@@ -16,6 +17,8 @@ export default function FormInputTextArea({
             placeholder={placeholder}
             className={`mt-2 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-gray-300 focus:border-gray-300 ${className}`}
             onChange={(e) => handleChange(e)}
-        ></textarea>
+            value={value}
+        >
+        </textarea>
     );
 }

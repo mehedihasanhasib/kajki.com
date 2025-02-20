@@ -2,11 +2,9 @@ import FormInputError from "@/Components/Frontend/Form/FormInputError";
 import FormLabel from "@/Components/Frontend/Form/FormLabel";
 import FormSubmitButton from "@/Components/Frontend/Form/FormSubmitButton";
 import FormTextInput from "@/Components/Frontend/Form/FormTextInput";
-import ProfileContent from "@/Layouts/ProfileContent";
-import ProfileSideBar from "@/Components/Frontend/ProfileSideBar";
-import AppLayout from "@/Layouts/AppLayout";
-import { Head, useForm } from "@inertiajs/react";
+import { useForm } from "@inertiajs/react";
 import { toast } from "react-toastify";
+import ProfileLayout from "@/Layouts/ProfileLayout";
 
 export default function ProfileUpdatePassword() {
     const { data, setData, errors, put, reset, processing } = useForm({
@@ -44,84 +42,77 @@ export default function ProfileUpdatePassword() {
         });
     };
     return (
-        <AppLayout>
-            <Head>
-                <title>Update Password</title>
-            </Head>
-            <section className="flex flex-col gap-3 p-2 xl:gap-0 xl:p-0 xl:flex-row w-full">
-                <ProfileSideBar />
+        <ProfileLayout>
+            <div className="md:w-3/4 p-8">
+                <form
+                    className="space-y-6"
+                    onSubmit={updatePassword}
+                    encType="multipart/form-data"
+                >
+                    {/* <!-- Current Password --> */}
+                    <div className="space-y-2">
+                        <FormLabel htmlFor="current_password" required={true}>
+                            Current Password
+                        </FormLabel>
+                        <FormTextInput
+                            id="current_password"
+                            name="current_password"
+                            type="password"
+                            placeholder="Enter current password"
+                            value={data.current_password}
+                            handleChange={handleChange}
+                            required={true}
+                        />
+                        <FormInputError>
+                            {errors.current_password}
+                        </FormInputError>
+                    </div>
+                    {/* <!-- New Password --> */}
+                    <div className="space-y-2">
+                        <FormLabel htmlFor="password" required={true}>
+                            New Password
+                        </FormLabel>
+                        <FormTextInput
+                            id="password"
+                            name="password"
+                            type="password"
+                            placeholder="Enter new password"
+                            value={data.password}
+                            handleChange={handleChange}
+                            required={true}
+                        />
+                        <FormInputError>{errors.password}</FormInputError>
+                    </div>
+                    {/* <!-- Confirm New Password --> */}
+                    <div className="space-y-2">
+                        <FormLabel htmlFor="password_confirmation" required={true}>
+                            Confirm New Password
+                        </FormLabel>
+                        <FormTextInput
+                            id="password_confirmation"
+                            name="password_confirmation"
+                            type="password"
+                            placeholder="Confirm new password"
+                            value={data.password_confirmation}
+                            handleChange={handleChange}
+                            required={true}
+                        />
+                        <FormInputError>
+                            {errors.password_confirmation}
+                        </FormInputError>
+                    </div>
 
-                <ProfileContent>
-                    <form
-                        className="space-y-6"
-                        onSubmit={updatePassword}
-                        encType="multipart/form-data"
-                    >
-                        {/* <!-- Current Password --> */}
-                        <div className="space-y-2">
-                            <FormLabel htmlFor="current_password" required={true}>
-                                Current Password
-                            </FormLabel>
-                            <FormTextInput
-                                id="current_password"
-                                name="current_password"
-                                type="password"
-                                placeholder="Enter current password"
-                                value={data.current_password}
-                                handleChange={handleChange}
-                                required={true}
-                            />
-                            <FormInputError>
-                                {errors.current_password}
-                            </FormInputError>
-                        </div>
-                        {/* <!-- New Password --> */}
-                        <div className="space-y-2">
-                            <FormLabel htmlFor="password" required={true}>
-                                New Password
-                            </FormLabel>
-                            <FormTextInput
-                                id="password"
-                                name="password"
-                                type="password"
-                                placeholder="Enter new password"
-                                value={data.password}
-                                handleChange={handleChange}
-                                required={true}
-                            />
-                            <FormInputError>{errors.password}</FormInputError>
-                        </div>
-                        {/* <!-- Confirm New Password --> */}
-                        <div className="space-y-2">
-                            <FormLabel htmlFor="password_confirmation" required={true}>
-                                Confirm New Password
-                            </FormLabel>
-                            <FormTextInput
-                                id="password_confirmation"
-                                name="password_confirmation"
-                                type="password"
-                                placeholder="Confirm new password"
-                                value={data.password_confirmation}
-                                handleChange={handleChange}
-                                required={true}
-                            />
-                            <FormInputError>
-                                {errors.password_confirmation}
-                            </FormInputError>
-                        </div>
-
-                        {/* <!-- Save Button --> */}
-                        <div className="pt-4">
-                            <FormSubmitButton
-                                processing={processing}
-                                processingText="Updating"
-                            >
-                                Update
-                            </FormSubmitButton>
-                        </div>
-                    </form>
-                </ProfileContent>
-            </section>
-        </AppLayout>
+                    {/* <!-- Save Button --> */}
+                    <div className="pt-4">
+                        <FormSubmitButton
+                            processing={processing}
+                            processingText="Updating"
+                        >
+                            Update
+                        </FormSubmitButton>
+                    </div>
+                </form>
+            </div>
+        </ProfileLayout>
     );
 }

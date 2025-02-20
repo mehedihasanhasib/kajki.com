@@ -1,32 +1,23 @@
-import ProfileContent from "@/Layouts/ProfileContent";
-import ProfileSideBar from "@/Components/Frontend/ProfileSideBar";
 import ProfileTaskCard from "@/Components/Frontend/ProfileTaskCard";
-import AppLayout from "@/Layouts/AppLayout";
-import { Head, usePage } from "@inertiajs/react";
+import { usePage } from "@inertiajs/react";
 import React, { useEffect } from "react";
 import { toast } from "react-toastify";
+import ProfileLayout from "@/Layouts/ProfileLayout";
 
 export default function ProfileMyTasks({ tasks }) {
-    const { flash } = usePage().props; // Assuming tasks are passed from the server
-
+    const { flash } = usePage().props;
     useEffect(() => {
         if (flash.message) {
             toast.success(flash.message);
+        } else if (flash.error) {
+            toast.error(flash.error);
         }
-    }, [flash.message]);
+    }, [flash.message, flash.error]);
 
     return (
-        <AppLayout>
-            <Head>
-                <title>My Tasks</title>
-            </Head>
-            <section className="flex flex-col gap-3 p-2 xl:gap-0 xl:p-0 xl:flex-row w-full">
-                <ProfileSideBar />
-
-                <ProfileContent>
-                    <h1 className="text-xl font-bold mb-4">My Posted Tasks</h1>
-
-                    {/* <!-- Task List --> */}
+        <ProfileLayout>
+            <div className="md:w-3/4 p-8">
+                <section className="w-full">
                     <div className="space-y-4">
                         {tasks?.length > 0 ? (
                             tasks?.map((task, index) => {
@@ -34,6 +25,7 @@ export default function ProfileMyTasks({ tasks }) {
                                 return (
                                     <ProfileTaskCard
                                         key={id}
+                                        id={id}
                                         title={title}
                                         details={details}
                                     />
@@ -45,8 +37,8 @@ export default function ProfileMyTasks({ tasks }) {
                             </div>
                         )}
                     </div>
-                </ProfileContent>
-            </section>
-        </AppLayout>
+                </section>
+            </div>
+        </ProfileLayout>
     );
 }
