@@ -4,10 +4,10 @@ export default function Hero() {
 
     return (
         <section className="relative overflow-hidden bg-gradient-to-b from-indigo-950 to-blue-900 h-[55vh] flex items-center">
-            {/* Content */}
+
             <div className="relative max-w-[75vw] mx-auto md:px-6 py-6 md:py-12 lg:py-18 flex items-center z-20">
                 <div className="grid xl:grid-cols-2 gap-12 items-center">
-                    {/* Left Content */}
+
                     <div className="space-y-8">
                         <span className="inline-block px-5 py-2 rounded-full bg-blue-500/10 text-blue-300 text-sm font-medium backdrop-blur-md">
                             🚀 Find the Best Professional for Your Task
@@ -19,10 +19,8 @@ export default function Hero() {
                             Find verified professionals for your tasks in just a few clicks. Let’s get things done efficiently!
                         </p>
 
-                        
                     </div>
 
-                    {/* Right - Animation Card */}
                     <div className="flex justify-center xl:justify-end">
                         <div className="w-full max-w-lg bg-white/5 backdrop-blur-lg rounded-2xl p-6 shadow-lg">
                             <img src={asset("assets/images/hero.jpg")} alt="" />
