@@ -5,17 +5,24 @@ namespace App\Http\Controllers\Frontend;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Frontend\Task;
-use App\Models\Frontend\Category;
-use App\Models\Frontend\Division;
 use App\Models\Frontend\TaskImage;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cache;
-use App\Http\Requests\Frontend\TaskStoreRequest;
+use App\Http\Requests\Frontend\TaskRequest;
+use App\Traits\TasksControllerHelperTrait;
+use Illuminate\Support\Facades\Storage;
 
 class TasksController extends Controller
 {
+    use TasksControllerHelperTrait;
+
+    public $userId;
+
+    public function __construct()
+    {
+        $this->userId = Auth::user()->id ?? null;
+    }
     /**
      * Display a listing of the resource.
      */
@@ -37,13 +44,13 @@ class TasksController extends Controller
             ->when($request->has('categories'), function ($q) use ($request) {
                 return $q->whereIn('category_id', explode("_", $request->query('categories')));
             })
-            ->when($request->input('sort') === "default" || $request->input('sort') === null, function ($q) use ($request) {
+            ->when($request->input('sort') === "default" || $request->input('sort') === null, function ($q) {
                 return $q->orderBy('id', 'desc');
             })
-            ->when($request->input('sort') === "budget_asc", function ($q) use ($request) {
+            ->when($request->input('sort') === "budget_asc", function ($q) {
                 return $q->orderBy('budget', 'asc');
             })
-            ->when($request->input('sort') === "budget_desc", function ($q) use ($request) {
+            ->when($request->input('sort') === "budget_desc", function ($q) {
                 return $q->orderBy('budget', 'desc');
             })
             ->paginate(24);
@@ -55,11 +62,13 @@ class TasksController extends Controller
         ]);
     }
 
+    /**
+     * Show listed tasks to authenticated users.
+     */
     public function profile_index()
     {
-        $tasks = Task::where('user_id', Auth::user()->id)->get();
         return inertia('Frontend/Profile/ProfileMyTasks', [
-            'tasks' => $tasks,
+            'tasks' => Task::where('user_id', Auth::user()->id)->get(),
         ]);
     }
 
@@ -77,28 +86,19 @@ class TasksController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(TaskStoreRequest $request)
+    public function store(TaskRequest $request)
     {
-        
+        // dd($request->all());
         try {
             DB::beginTransaction();
-            // $validated_data = $request->except('images');
-            $validated_data = collect($request->validated())->except('images');
+            $validated_data = collect($request->validated())->except('images')->toArray();
             $validated_data['slug'] = Str::slug($request->title) . '-' . Str::random(6);
 
-            $task = $request->user()->task()->create($validated_data->toArray());
-
+            $task = $request->user()->task()->create($validated_data);
             $images = $request->images;
-            $path = [];
-            foreach ($images as $image) {
-                $path[] = [
-                    'task_id' => $task->id,
-                    'image_path' => 'storage/' . $image->store('task_images', 'public'),
-                    'created_at' => now(),
-                    'updated_at' => now()
-                ];
-            }
-            TaskImage::insert($path);
+            $paths = $this->image_upload($images, $task->id);
+
+            TaskImage::insert($paths);
 
             session()->flash('message', 'Task created successfully!');
 
@@ -136,22 +136,64 @@ class TasksController extends Controller
     public function edit(string $id)
     {
         try {
+            $task = Task::with(['images:id,task_id,image_path'])
+                ->where('id', $id)
+                ->where('user_id', $this->userId)
+                ->firstOrFail();
+
             return inertia("Frontend/Profile/ProfileMyTasksEdit", [
-                'task' => Task::with(['images:id,task_id,image_path'])->findOrFail($id),
+                'task' => $task,
                 'categories' => $this->categories(),
                 'divisions' => $this->divisions(),
             ]);
         } catch (\Throwable $th) {
-            dd($th->getMessage());
+            session()->flash('error', 'Something went worng! Try Again');
+            return redirect()->back();
         }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(TaskRequest $request, string $id)
     {
-        dd($request->all(), $id);
+        try {
+            DB::beginTransaction();
+
+            $validated_data = collect($request->validated())->except('images')->toArray();
+            $images_to_delete = collect($request->images_to_delete)->filter(fn($value) => !is_null($value))->toArray();
+
+            $task = Task::with('images')
+                ->where('id', $id)
+                ->where('user_id', $this->userId)
+                ->firstOrFail();
+            $task->update($validated_data);
+
+            if (!empty($images_to_delete)) {
+                $old_images = $task->images;
+                foreach ($images_to_delete as $key => $id) {
+                    $old_images->each(function ($image) use ($id, $task) {
+                        if ($image->id == $id) {
+                            if (Storage::disk('public')->exists("task_images/" . $image->image_path)) {
+                                Storage::disk('public')->delete("task_images/" . $image->image_path);
+                            }
+                        }
+                    });
+                }
+                $task->images()->whereIn('id', $images_to_delete)->delete();
+            }
+
+            $images = $request->images;
+            $paths = $this->image_upload($images, $task->id);
+            TaskImage::insert($paths);
+
+            session()->flash('message', 'Task Updated successfully!');
+            DB::commit();
+            return redirect()->route('profile.mytasks');
+        } catch (\Throwable $th) {
+            session()->flash('error', 'Something went worng! Try Again');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -159,21 +201,28 @@ class TasksController extends Controller
      */
     public function destroy(string $id)
     {
-        //
-    }
+        try {
+            $task = Task::with('images')
+                ->where('id', $id)
+                ->where('user_id', $this->userId)
+                ->firstOrFail();
 
+            $images = $task->images;
 
-    public function categories()
-    {
-        return Cache::remember('categories', now()->addMinutes(10), function () {
-            return Category::select('id', 'name')->get();
-        });
-    }
+            $images->each(function ($image) {
+                if (Storage::disk('public')->exists("task_images/" . $image->image_path)) {
+                    Storage::disk('public')->delete("task_images/" . $image->image_path);
+                }
+            });
 
-    public function divisions()
-    {
-        return Cache::remember('divisions', now()->addMinutes(10), function () {
-            return Division::with(['district:id,division_id,district'])->select('id', 'division')->get();
-        });
+            $task->delete();
+
+            session()->flash('message', 'Task Deleted successfully!');
+            DB::commit();
+            return redirect()->route('profile.mytasks');
+        } catch (\Throwable $th) {
+            session()->flash('error', 'Something went worng! Try Again');
+            return redirect()->back();
+        }
     }
 }

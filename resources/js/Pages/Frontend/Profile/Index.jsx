@@ -9,9 +9,7 @@ import ProfileLayout from "@/Layouts/ProfileLayout";
 import { asset } from "@/utils/helpers";
 
 export default function Profile({ auth }) {
-    const [profilePicture, setProfilePicture] = useState(
-        auth.user.profile_picture
-    );
+    const [profilePicture, setProfilePicture] = useState(false);
     const { data, setData, processing } = useForm({
         _method: "PATCH",
         name: auth.user.name,
@@ -22,9 +20,9 @@ export default function Profile({ auth }) {
         event.preventDefault();
         router.post(route("profile.update"), data, {
             forceFormData: true,
+            preserveScroll: true,
             onSuccess: ({ props }) => {
                 toast.success("Profile Updated Successfully");
-                setProfilePicture(props.auth.user.profile_picture);
             },
             onError: (validationErrors) => {
                 toast.error("Error Updating Profile");
@@ -87,7 +85,7 @@ export default function Profile({ auth }) {
                             <div className="mt-3 flex items-center space-x-6">
                                 <div className="relative group">
                                     <img
-                                        src={profilePicture ?? asset(`assets/images/user-avatar.webp`)}
+                                        src={profilePicture ? profilePicture : asset(`storage/users_profile_picture/${auth.user.profile_picture ?? 'user-avatar.webp'}`)}
                                         alt={`Profile picture preview`}
                                         className="h-28 w-28 rounded-full object-cover border-4 border-white shadow-md"
                                     />

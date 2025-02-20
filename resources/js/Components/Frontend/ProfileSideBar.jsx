@@ -8,7 +8,7 @@ export default function ProfileSideBar() {
         <div className="md:w-1/4 bg-gray-50 p-6 border-r border-gray-200">
             <div className="flex flex-col items-center mb-8">
                 <img
-                    src={asset(auth.user.profile_picture ?? 'assets/images/user-avatar.webp')}
+                    src={asset("storage/users_profile_picture/"+auth.user.profile_picture ?? 'assets/images/user-avatar.webp')}
                     alt={`${auth.user.name}'s avatar`}
                     className="h-28 w-28 rounded-full object-cover border-4 border-white shadow-md"
                 />

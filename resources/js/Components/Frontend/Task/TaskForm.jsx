@@ -10,6 +10,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 
 function TaskForm({ categories, divisions, task = {}, submitRoute, method }) {
+
     const [districts, setDistricts] = useState(() => {
         if (Object.keys(task).length === 0) {
             return []
@@ -33,54 +34,94 @@ function TaskForm({ categories, divisions, task = {}, submitRoute, method }) {
         address: task.address ?? "",
         budget: task.budget ?? "",
         contact_number: task.contact_number ?? "",
-        images: images,
+        images: [],
+        images_to_delete: []
     });
 
     const handleChange = (event) => {
         const { name, value } = event.target;
-        setData(name, value);
-    };
 
-    const handleSelectChange = (event) => {
-        const { name, value } = event.target;
-        divisions.forEach((division) => {
-            if (value == division.id) {
-                setDistricts(division.district);
+        if (name === "division_id" || name === "district_id" || name === "category_id") {
+            divisions.forEach((division) => {
+                if (value == division.id) {
+                    setDistricts(division.district);
+                }
+            });
+            setData(name, value);
+        } else if (name === "images") {
+            const files = Array.from(event.target.files);
+
+            if (images.length + files.length > 5) {
+                toast.error("You can only select 5 images");
+                return;
             }
-        });
-        setData(name, value);
-    };
 
-    const handleImageChange = (event) => {
-        const files = Array.from(event.target.files);
+            const updatedImages = files.map((file) => ({
+                file,
+                preview: URL.createObjectURL(file),
+            }));
 
-        if (images.length + files.length > 5) {
-            toast.error("You can only select 5 images");
-            return;
+            setImages((prevImages) => [...prevImages, ...updatedImages]);
+            setData("images", [...images, ...updatedImages].filter((image) => image.file).map(img => img.file));
+        } else {
+            setData(name, value)
         }
 
-        const updatedImages = files.map((file) => ({
-            file,
-            preview: URL.createObjectURL(file),
-        }));
-
-        setImages((prevImages) => [...prevImages, ...updatedImages]);
-        setData("images", [...images, ...updatedImages].filter((image) => image.file).map(img => img.file));
     };
+
+    // const handleSelectChange = (event) => {
+    //     const { name, value } = event.target;
+    //     divisions.forEach((division) => {
+    //         if (value == division.id) {
+    //             setDistricts(division.district);
+    //         }
+    //     });
+    //     setData(name, value);
+    // };
+
+    // const handleImageChange = (event) => {
+    //     const files = Array.from(event.target.files);
+
+    //     if (images.length + files.length > 5) {
+    //         toast.error("You can only select 5 images");
+    //         return;
+    //     }
+
+    //     const updatedImages = files.map((file) => ({
+    //         file,
+    //         preview: URL.createObjectURL(file),
+    //     }));
+
+    //     setImages((prevImages) => [...prevImages, ...updatedImages]);
+    //     setData("images", [...images, ...updatedImages].filter((image) => image.file).map(img => img.file));
+    // };
 
     const removeImage = (index) => {
         const updatedImages = images.filter((_, i) => i !== index);
+
         setImages(updatedImages);
-        setData(
-            "images",
-            updatedImages.map((image) => image.file)
-        );
+
+
+        setData(prevData => ({
+            ...prevData,
+            images: updatedImages.filter(image => image.file).map(img => img.file),
+            images_to_delete: [...prevData.images_to_delete, images[index]?.id]
+        }));
+
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        post(submitRoute);
+        post(submitRoute, {
+            preserveScroll: true,
+            onError: (err) => {
+                if (err) {
+                    toast.error("Validation Error!")
+                }
+            }
+        });
     };
+
     return (
         <form onSubmit={handleSubmit}>
             {/* <!-- Task Title --> */}
@@ -113,7 +154,7 @@ function TaskForm({ categories, divisions, task = {}, submitRoute, method }) {
                     id="category"
                     name="category_id"
                     options={categories}
-                    handleChange={handleSelectChange}
+                    handleChange={(e) => handleChange(e)}
                     required={true}
                     value={data.category_id}
                 />
@@ -131,7 +172,7 @@ function TaskForm({ categories, divisions, task = {}, submitRoute, method }) {
                     id="division"
                     name="division_id"
                     className="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:ring-gray-300 focus:border-gray-300"
-                    onChange={(e) => handleSelectChange(e)}
+                    onChange={(e) => handleChange(e)}
                     required={true}
                     defaultValue={data.division_id}
                 >
@@ -167,7 +208,7 @@ function TaskForm({ categories, divisions, task = {}, submitRoute, method }) {
                     id="district"
                     name="district_id"
                     className="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:ring-gray-300 focus:border-gray-300"
-                    onChange={(e) => handleSelectChange(e)}
+                    onChange={(e) => handleChange(e)}
                     required={true}
                     defaultValue={data.category_id}
                 >
@@ -282,7 +323,7 @@ function TaskForm({ categories, divisions, task = {}, submitRoute, method }) {
                     id="images"
                     className="hidden"
                     multiple={true}
-                    onChange={(e) => handleImageChange(e)}
+                    onChange={(e) => handleChange(e)}
                 />
                 <FormLabel
                     htmlFor="images"
@@ -305,14 +346,14 @@ function TaskForm({ categories, divisions, task = {}, submitRoute, method }) {
                             style={{ padding: "10px" }}
                         >
                             <img
-                                src={image.preview ?? asset(image.image_path)}
+                                src={image.preview ?? asset("storage/task_images/" + image.image_path)}
                                 alt={`Preview ${index + 1}`}
                                 className="w-full h-32 object-cover rounded-lg"
                             />
                             <button
                                 onClick={(e) => {
                                     e.preventDefault();
-                                    removeImage(index);
+                                    removeImage(index, image);
                                 }}
                                 className="absolute top-2 right-2 w-6 h-6 text-white bg-red-600 rounded-full hover:bg-red-700 flex items-center justify-center"
                                 aria-label={`Remove image ${index + 1

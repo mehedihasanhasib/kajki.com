@@ -32,10 +32,10 @@ class DatabaseSeeder extends Seeder
             User::factory()->count(10)->create();
 
             // Image Seeding
-            Task::factory()
-                ->count(500)
-                ->hasImages(3) // Each task will have 3 images
-                ->create();
+            // Task::factory()
+            //     ->count(500)
+            //     ->hasImages(3) // Each task will have 3 images
+            //     ->create();
 
             DB::commit();
 

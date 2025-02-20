@@ -135,7 +135,7 @@ export default function Register() {
                             )}
                             <div className="flex items-center space-x-4">
                                 <img
-                                    src={profilePicture || asset(`assets/images/user-avatar.webp`)}
+                                    src={profilePicture || asset(`storage/users_profile_picture/user-avatar.webp`)}
                                     alt={`KajKi.com`}
                                     style={{
                                         height: "120px",
