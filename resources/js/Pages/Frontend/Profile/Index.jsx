@@ -2,7 +2,7 @@ import FormInputError from "@/Components/Frontend/Form/FormInputError";
 import FormLabel from "@/Components/Frontend/Form/FormLabel";
 import FormSubmitButton from "@/Components/Frontend/Form/FormSubmitButton";
 import FormTextInput from "@/Components/Frontend/Form/FormTextInput";
-import { router, useForm } from "@inertiajs/react";
+import { Head, router, useForm } from "@inertiajs/react";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import ProfileLayout from "@/Layouts/ProfileLayout";
@@ -46,6 +46,9 @@ export default function Profile({ auth }) {
     };
     return (
         <ProfileLayout>
+            <Head>
+                <title>Profile</title>
+            </Head>
             <div className="md:w-3/4 p-8">
                 <form
                     onSubmit={handleSubmit}
