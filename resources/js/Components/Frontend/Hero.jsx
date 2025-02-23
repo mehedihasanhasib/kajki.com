@@ -3,7 +3,7 @@ import { asset } from "@/utils/helpers";
 export default function Hero() {
 
     return (
-        <section className="relative overflow-hidden bg-gradient-to-b from-indigo-950 to-blue-900 h-[55vh] flex items-center">
+        <section className="relative overflow-hidden bg-gradient-to-b from-indigo-950 to-blue-900 h-[80vh] md:h-[55vh] flex items-center">
 
             <div className="relative max-w-[75vw] mx-auto md:px-6 py-6 md:py-12 lg:py-18 flex items-center z-20">
                 <div className="grid xl:grid-cols-2 gap-12 items-center">
