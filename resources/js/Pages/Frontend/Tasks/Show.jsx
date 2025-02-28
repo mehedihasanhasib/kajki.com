@@ -246,7 +246,7 @@ export default function TaskDetails({ task }) {
                                     </p>
                                 </div>
 
-                                <div>
+                                {/* <div>
                                     <h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">
                                         Requirements
                                     </h2>
@@ -261,7 +261,7 @@ export default function TaskDetails({ task }) {
                                             Experienced
                                         </span>
                                     </div>
-                                </div>
+                                </div> */}
 
                                 <div className="flex flex-col sm:flex-row gap-3 pt-2">
                                     <a

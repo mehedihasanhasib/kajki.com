@@ -81,14 +81,14 @@ export default function Login({ status, canResetPassword }) {
                             <span className="mx-4 text-gray-500">Or</span>
                             <div className="flex-grow border-t border-gray-300"></div>
                         </div>
-                        <button className="w-full py-3 bg-gray-100 text-gray-700 font-bold rounded-lg shadow-md flex items-center justify-center hover:bg-gray-200 transition">
+                        {/* <button className="w-full py-3 bg-gray-100 text-gray-700 font-bold rounded-lg shadow-md flex items-center justify-center hover:bg-gray-200 transition">
                             <img
                                 src="https://lh3.googleusercontent.com/COxitqgJr1sJnIDe8-jiKhxDx1FrYbtRHKJ9z_hELisAlapwE9LUPh6fcXIfb5vwpbMl4xl9H9TRFPc5NOO8Sb3VSgIBrfRYvW6cUA"
                                 alt="Google Logo"
                                 className="h-6 mr-3"
                             />
                             Continue With Google
-                        </button>
+                        </button> */}
                         <div className="mt-6 text-center">
                             <span className="text-gray-600">
                                 Don't Have an account?{" "}

@@ -47,7 +47,7 @@ export default function TaskCard({ task = [], className = "" }) {
             </p>
 
             {/* Requirements */}
-            <div className="mb-6">
+            {/* <div className="mb-6">
                 <h2 className="text-lg font-semibold text-gray-900 mb-3">Requirements</h2>
                 <div className="flex flex-wrap gap-2">
                     <span className="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-sm font-medium">
@@ -60,7 +60,7 @@ export default function TaskCard({ task = [], className = "" }) {
                         Experienced
                     </span>
                 </div>
-            </div>
+            </div> */}
 
             {/* Details Link */}
             <div className="mt-auto flex justify-end">

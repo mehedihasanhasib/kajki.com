@@ -38,7 +38,7 @@ class TaskRequest extends FormRequest
             'budget' => ['required', 'numeric', 'min:0'],
             'contact_number' => ['required', 'numeric', 'digits:11'],
             'images' => $method == "POST" ? ['required', 'array', 'min:1', 'max:5'] : [new MaxTaskImageRule(taskId: $this->id, images_to_delete: $this->images_to_delete)],
-            'images.*' => ['bail', $method == "POST" ? 'image' : '', 'max:2048', 'mimes:jpg,jpeg,png,webp,svg'],
+            'images.*' => ['bail', $method == "POST" ? 'image' : '', 'max:5120', 'mimes:jpg,jpeg,png,webp,svg'],
         ];
     }
 
@@ -46,7 +46,7 @@ class TaskRequest extends FormRequest
     {
         $validator->after(function ($validator) {
             if ($validator->errors()->hasAny(['images.*'])) {
-                $validator->errors()->add('images', "Images should be less than 2MB and .jpg, .jpeg, .webp, .svg or .png files are allowed");
+                $validator->errors()->add('images', "Images should be less than 5MB and .jpg, .jpeg, .webp, .svg or .png files are allowed");
             }
         });
     }
