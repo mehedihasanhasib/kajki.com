@@ -3,9 +3,8 @@ import AppLayout from "@/Layouts/AppLayout";
 import { Head } from "@inertiajs/react";
 
 export default function TaskPost({ categories, divisions }) {
-
     return (
-        <AppLayout>
+        <>
             <Head>
                 <title>Create Task</title>
             </Head>
@@ -22,6 +21,6 @@ export default function TaskPost({ categories, divisions }) {
                     />
                 </div>
             </section>
-        </AppLayout>
+        </>
     );
 }

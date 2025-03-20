@@ -43,7 +43,7 @@ export default function Tasks({ tasks, categories, divisions }) {
             <Head>
                 <title>Tasks</title>
             </Head>
-            <AppLayout>
+            {/* <AppLayout> */}
                 <div className="2xl:max-w-[1536px] 2xl:mx-auto px-4 pt-4">
                     <div className="flex justify-between md:justify-end items-center sticky top-0 z-20 bg-white p-3 rounded-lg shadow-sm">
                         {/* Filter Button - New Design */}
@@ -181,7 +181,7 @@ export default function Tasks({ tasks, categories, divisions }) {
                         </div>
                     </section>
                 </div>
-            </AppLayout>
+            {/* </AppLayout> */}
         </>
     );
 }

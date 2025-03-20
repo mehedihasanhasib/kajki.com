@@ -39,7 +39,7 @@ export default function Register() {
     };
 
     return (
-        <AppLayout>
+        <>
             <Head>
                 <title>Register</title>
             </Head>
@@ -51,7 +51,9 @@ export default function Register() {
                     <form onSubmit={submit} className="space-y-6">
                         {/* Name */}
                         <div>
-                            <FormLabel htmlFor="name" required={true}>Name:</FormLabel>
+                            <FormLabel htmlFor="name" required={true}>
+                                Name:
+                            </FormLabel>
                             <FormTextInput
                                 type="text"
                                 name="name"
@@ -68,7 +70,9 @@ export default function Register() {
 
                         {/* Email */}
                         <div>
-                            <FormLabel htmlFor="email" required={true}>Email:</FormLabel>
+                            <FormLabel htmlFor="email" required={true}>
+                                Email:
+                            </FormLabel>
                             <FormTextInput
                                 type="email"
                                 name="email"
@@ -85,7 +89,9 @@ export default function Register() {
 
                         {/* Password */}
                         <div>
-                            <FormLabel htmlFor="password" required={true}>Password:</FormLabel>
+                            <FormLabel htmlFor="password" required={true}>
+                                Password:
+                            </FormLabel>
                             <FormTextInput
                                 type="password"
                                 name="password"
@@ -104,7 +110,10 @@ export default function Register() {
 
                         {/* Confirm Password */}
                         <div>
-                            <FormLabel htmlFor="password_confirmation" required={true}>
+                            <FormLabel
+                                htmlFor="password_confirmation"
+                                required={true}
+                            >
                                 Confirm Password:
                             </FormLabel>
                             <FormTextInput
@@ -135,7 +144,12 @@ export default function Register() {
                             )}
                             <div className="flex items-center space-x-4">
                                 <img
-                                    src={profilePicture || asset(`storage/users_profile_picture/user-avatar.webp`)}
+                                    src={
+                                        profilePicture ||
+                                        asset(
+                                            `storage/users_profile_picture/user-avatar.webp`
+                                        )
+                                    }
                                     alt={`KajKi.com`}
                                     style={{
                                         height: "120px",
@@ -175,7 +189,9 @@ export default function Register() {
                         <div className="flex-grow border-t border-gray-300"></div>
                     </div>
                     <div className="text-center">
-                        <span className="text-gray-600">Already Have an Account? </span>
+                        <span className="text-gray-600">
+                            Already Have an Account?{" "}
+                        </span>
                         <Link
                             href={route("login")}
                             className="text-blue-600 font-semibold hover:underline"
@@ -185,6 +201,6 @@ export default function Register() {
                     </div>
                 </div>
             </section>
-        </AppLayout>
+        </>
     );
 }

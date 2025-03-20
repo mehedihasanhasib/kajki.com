@@ -11,7 +11,7 @@ export default function Home({ recent_tasks, popular_categories }) {
             <Head>
                 <title>Home</title>
             </Head>
-            <AppLayout>
+            {/* <AppLayout> */}
                 <Hero />
                 <section className="2xl:max-w-[1536px] 2xl:mx-auto px-6 py-12">
                     {/* Recent Tasks */}
@@ -38,7 +38,7 @@ export default function Home({ recent_tasks, popular_categories }) {
                         </div>
                     </div>
                 </section>
-            </AppLayout>
+            {/* </AppLayout> */}
         </>
     );
 }
