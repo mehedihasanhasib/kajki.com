@@ -28,21 +28,25 @@ class ProfileController extends Controller
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(ProfileUpdateRequest $request)
     {
-        $validated_data = $request->validated();
-        $user = User::find(Auth::id());
-        $user->name = $validated_data['name'];
-        if ($request->hasFile('profile_picture')) {
-            $file = $request->file('profile_picture');
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-            $manager = new ImageManager(new Driver());
-            $image = $manager->read($request->file('profile_picture'));
-            $image->resize(512, 512)->save(storage_path('app/public/users_profile_picture/' . $filename));
-            $user->profile_picture = $filename;
+        try {
+            $validated_data = $request->validated();
+            $user = User::find(Auth::id());
+            $user->name = $validated_data['name'];
+            if ($request->hasFile('profile_picture')) {
+                $file = $request->file('profile_picture');
+                $filename = time() . '.' . $file->getClientOriginalExtension();
+                $manager = new ImageManager(new Driver());
+                $image = $manager->read($request->file('profile_picture'));
+                $image->resize(512, 512)->save(storage_path('app/public/users_profile_picture/' . $filename));
+                $user->profile_picture = $filename;
+            }
+            $user->save();
+            return Redirect::back();
+        } catch (\Throwable $th) {
+            return back()->with('error', $th->getMessage());
         }
-        $user->save();
-        return Redirect::back();
     }
 
     /**

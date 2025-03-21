@@ -12,7 +12,8 @@ use App\Http\Controllers\Frontend\ProfileController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\Frontend\TasksProfileController;
 use Illuminate\Support\Facades\Artisan;
-use Spatie\LaravelImageOptimizer\Middlewares\OptimizeImages;
+use Symfony\Component\Process\Process;
+
 
 /* ======= Home =======*/
 
@@ -21,6 +22,13 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/storage-link', function () {
     Artisan::call('storage:link');
     return 'Storage link created successfully!';
+});
+
+Route::get('/ssr', function () {
+    $process = Process::fromShellCommandline('php artisan inertia:start-ssr > /dev/null 2>&1 &');
+    $process->run();
+
+    return 'Inertia SSR server starting...';
 });
 
 
@@ -38,7 +46,7 @@ Route::middleware('auth')->group(function () {
 
         /* ======= Update Password =======*/
         Route::get('/update-password', [PasswordController::class, 'edit'])->name('profile.update.password');
-        Route::put('password', [PasswordController::class, 'update'])->name('password.update');
+        Route::put('/password', [PasswordController::class, 'update'])->name('password.update');
 
         /* ======= User Tasks List =======*/
         Route::get('/my-tasks', [TasksController::class, 'profile_index'])->name('profile.mytasks');
@@ -48,8 +56,8 @@ Route::middleware('auth')->group(function () {
     });
 
     /* ======= Tasks =======*/
-    Route::get('task/create', [TasksController::class, 'create'])->name('task.create');
-    Route::post('task/store', [TasksController::class, 'store'])->name('task.store');
+    Route::get('/task/create', [TasksController::class, 'create'])->name('task.create');
+    Route::post('/task/store', [TasksController::class, 'store'])->name('task.store');
 });
 
 
