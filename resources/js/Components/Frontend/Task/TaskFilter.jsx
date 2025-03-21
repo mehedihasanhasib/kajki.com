@@ -1,8 +1,10 @@
-import { Link, router } from "@inertiajs/react";
+import { Link, router, usePage } from "@inertiajs/react";
 import React, { useEffect, useState } from "react";
 
 export default function TaskFilter({ categories, divisions, getFilterData }) {
-    const url = new URL(window.location.href);
+    // const url = new URL(window.location.href);
+    const {ziggy} = usePage().props
+    const url = new URL(ziggy.url + usePage().url);
     const queryParams = Object.fromEntries(url.searchParams.entries());
 
     const [data, setData] = useState({});
@@ -46,7 +48,7 @@ export default function TaskFilter({ categories, divisions, getFilterData }) {
             })));
         }
         getFilterData(updatedData);
-        router.get(route("tasks"), updatedData, {
+        router.get('/tasks', updatedData, {
             preserveState: true,
             preserveScroll: true,
         });

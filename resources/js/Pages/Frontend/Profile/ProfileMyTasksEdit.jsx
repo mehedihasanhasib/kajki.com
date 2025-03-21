@@ -9,19 +9,19 @@ function ProfileMyTasksEdit({ task, categories, divisions }) {
             <Head>
                 <title>Edit Task</title>
             </Head>
-            <section className="lg:py-4">
-                <div className="mx-auto max-w-4xl bg-white p-4 lg:p-6 xl:p-8 shadow-md rounded-lg">
-                    <TaskForm
-                        method="PUT"
-                        submitRoute={route("profile.mytask.update", {
-                            id: task.id,
-                        })}
-                        categories={categories}
-                        divisions={divisions}
-                        task={task}
-                    />
-                </div>
-            </section>
+            <AppLayout>
+                <section className="lg:py-4">
+                    <div className="mx-auto max-w-4xl bg-white p-4 lg:p-6 xl:p-8 shadow-md rounded-lg">
+                        <TaskForm
+                            method="PUT"
+                            submitRoute={`/profile/my-task/${task.id}/update`}
+                            categories={categories}
+                            divisions={divisions}
+                            task={task}
+                        />
+                    </div>
+                </section>
+            </AppLayout>
         </>
     );
 }

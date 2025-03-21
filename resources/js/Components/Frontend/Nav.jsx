@@ -9,16 +9,16 @@ export default function Nav() {
     const isAuthenticated = auth.user !== null;
 
     // Close menu when resizing to desktop width
-    useEffect(() => {
-        const handleResize = () => {
-            if (window.innerWidth >= 768) {
-                setIsMenuOpen(false);
-            }
-        };
+    // useEffect(() => {
+    //     const handleResize = () => {
+    //         if (window.innerWidth >= 768) {
+    //             setIsMenuOpen(false);
+    //         }
+    //     };
 
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    //     window.addEventListener('resize', handleResize);
+    //     return () => window.removeEventListener('resize', handleResize);
+    // }, []);
 
     return (
         <nav className="max-w-[1536px] bg-white mx-auto w-full z-30 relative">
@@ -26,7 +26,7 @@ export default function Nav() {
                 {/* Logo */}
                 <div className="flex items-center">
                     <Link
-                        href={route("home")}
+                        href="/"
                         className="text-3xl font-extrabold text-blue-600 hover:text-blue-500 transition duration-200"
                     >
                         KajKi.com
@@ -66,13 +66,13 @@ export default function Nav() {
                         } flex-col md:flex-row w-full md:w-auto md:space-x-8 mt-4 md:mt-0 transition-all duration-300 ease-in-out`}
                 >
                     <NavLink
-                        route={route("home")}
+                        route="/"
                         activePath="/"
                     >
                         Home
                     </NavLink>
                     <NavLink
-                        route={route("tasks")}
+                        route="/tasks"
                         activePath="/tasks"
                     >
                         Tasks
@@ -80,20 +80,20 @@ export default function Nav() {
                     {isAuthenticated ? (
                         <>
                             <NavLink
-                                route={route("profile")}
+                                route="/profile"
                                 activePath="/profile"
                             >
                                 My Account
                             </NavLink>
                             <div className="py-2 md:py-0">
-                                <NavLinkButton route={route("task.create")}>
+                                <NavLinkButton route="/task/create">
                                     Post Task
                                 </NavLinkButton>
                             </div>
                         </>
                     ) : (
                         <div className="py-2 md:py-0">
-                            <NavLinkButton route={route("login")}>
+                            <NavLinkButton route="/login">
                                 Sign in
                             </NavLinkButton>
                         </div>

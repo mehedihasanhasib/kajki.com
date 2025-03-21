@@ -1,3 +1,6 @@
+import { usePage } from "@inertiajs/react";
+
 export function asset(path) {
-    return window.location.origin + "/" + path
+    const {ziggy} = usePage().props
+    return ziggy.url + "/" + path;
 }

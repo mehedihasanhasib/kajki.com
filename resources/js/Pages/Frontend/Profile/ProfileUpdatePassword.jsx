@@ -22,7 +22,7 @@ export default function ProfileUpdatePassword() {
     const updatePassword = (e) => {
         e.preventDefault();
 
-        put(route("password.update"), {
+        put("/profile/password", {
             preserveScroll: true,
             onSuccess: () => {
                 reset();

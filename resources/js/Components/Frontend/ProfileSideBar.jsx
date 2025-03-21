@@ -18,16 +18,16 @@ export default function ProfileSideBar() {
 
             <nav>
                 <ul>
-                    <ProfileSideBarLink route={route("profile")} activePath="/profile">
+                    <ProfileSideBarLink route="/profile" activePath="/profile">
                         Profile
                     </ProfileSideBarLink>
-                    <ProfileSideBarLink route={route("profile.mytasks")} activePath="/profile/my-tasks">
+                    <ProfileSideBarLink route="/profile/my-tasks" activePath="/profile/my-tasks">
                         My Tasks
                     </ProfileSideBarLink>
-                    <ProfileSideBarLink route={route("profile.update.password")} activePath="/profile/update-password">
+                    <ProfileSideBarLink route="/profile/update-password" activePath="/profile/update-password">
                         Change Password
                     </ProfileSideBarLink>
-                    <ProfileSideBarLink route={route("logout")} method="post" asButton={true}>
+                    <ProfileSideBarLink route="/logout" method="post" asButton={true}>
                         Sign out
                     </ProfileSideBarLink>
                 </ul>

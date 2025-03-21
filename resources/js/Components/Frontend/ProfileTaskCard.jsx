@@ -1,40 +1,59 @@
 import { Link } from "@inertiajs/react";
 import React, { useState } from "react";
 import ConfirmDialog from "../ConfirmDialog";
+import { router } from "@inertiajs/react";
 
 export default function ProfileTaskCard({ id, title, details }) {
+    const [showConfirmation, setShowConfirmation] = useState(false);
 
-    const [showConfirmation, setShowConfirmation] = useState(false)
-
-    const deleteConfirm = () => {
-        setShowConfirmation(true)
-    }
+    const deleteConfirm = (id) => {
+        // setShowConfirmation(true);
+        if (confirm("Are you sure?")) {
+            router.delete(`/profile/my-task/${id}/delete`);
+        }
+    };
 
     return (
         <>
             <div className="border border-gray-200 shadow-sm rounded-lg p-4 hover:shadow-md transition-shadow w-full">
-                <h2 className="text-lg font-semibold text-gray-800">
-                    {title}
-                </h2>
+                <h2 className="text-lg font-semibold text-gray-800">{title}</h2>
                 <p className="text-sm text-gray-600 mt-2">
-                    {details.length > 120 ? details.substring(0, 120) + "..." : details}
+                    {details.length > 120
+                        ? details.substring(0, 120) + "..."
+                        : details}
                 </p>
                 <div className="mt-4 flex justify-between items-center">
                     <span className="text-sm text-gray-500">
                         Posted on: Dec 20, 2024
                     </span>
                     <div className="flex gap-3">
-                        <Link href={route("profile.mytask.edit", { id })} className="text-blue-600 text-sm font-medium hover:underline">
+                        {/* <Link
+                            href={route("profile.mytask.edit", { id })}
+                            className="text-blue-600 text-sm font-medium hover:underline"
+                        > */}
+                        <Link
+                            href={`/profile/my-tasks/${id}`}
+                            className="text-blue-600 text-sm font-medium hover:underline"
+                        >
                             Edit
                         </Link>
-                        <button onClick={deleteConfirm} className="text-red-600 text-sm font-medium hover:underline">
+                        <button
+                            onClick={() => deleteConfirm(id)}
+                            className="text-red-600 text-sm font-medium hover:underline"
+                        >
                             Delete
                         </button>
                     </div>
                 </div>
             </div>
 
-            {showConfirmation && <ConfirmDialog deleteRoute={route('profile.mytask.delete', { id })} setShowConfirmation={setShowConfirmation} />}
+            {/* {showConfirmation && <ConfirmDialog deleteRoute={route('profile.mytask.delete', { id })} setShowConfirmation={setShowConfirmation} />} */}
+            {/* {showConfirmation && (
+                <ConfirmDialog
+                    deleteRoute={`/profile/my-task/${id}/delete`}
+                    setShowConfirmation={setShowConfirmation}
+                />
+            )} */}
         </>
     );
 }

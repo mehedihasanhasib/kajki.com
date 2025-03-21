@@ -11,7 +11,9 @@ export default function TaskCard({ task = [], className = "" }) {
             <div className="flex justify-between items-start mb-4">
                 <div>
                     <h3 className="text-xl font-bold text-gray-900 mb-2">
-                        {title.length > 30 ? title.substring(0, 30) + "..." : title}
+                        {title.length > 30
+                            ? title.substring(0, 30) + "..."
+                            : title}
                     </h3>
                     <div className="flex items-center text-gray-600">
                         <svg
@@ -33,7 +35,11 @@ export default function TaskCard({ task = [], className = "" }) {
                                 d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                             />
                         </svg>
-                        <span>{address.length > 25 ? address.substring(0, 25) + "..." : address}</span>
+                        <span>
+                            {address.length > 25
+                                ? address.substring(0, 25) + "..."
+                                : address}
+                        </span>
                     </div>
                 </div>
                 <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">
@@ -43,7 +49,9 @@ export default function TaskCard({ task = [], className = "" }) {
 
             {/* Description */}
             <p className="text-gray-600 mb-6">
-                {details.length > 120 ? details.substring(0, 120) + "..." : details}
+                {details.length > 120
+                    ? details.substring(0, 120) + "..."
+                    : details}
             </p>
 
             {/* Requirements */}
@@ -65,7 +73,8 @@ export default function TaskCard({ task = [], className = "" }) {
             {/* Details Link */}
             <div className="mt-auto flex justify-end">
                 <Link
-                    href={route("task.show", { slug })}
+                    // href={route("task.show", { slug })}
+                    href={`/tasks/${slug}`}
                     className="inline-flex items-center text-blue-600 hover:text-blue-700 font-semibold"
                 >
                     <span>View Details</span>

@@ -1,14 +1,16 @@
 import TaskCard from "@/Components/Frontend/Task/TaskCard";
 import TaskFilter from "@/Components/Frontend/Task/TaskFilter";
 import AppLayout from "@/Layouts/AppLayout";
-import { Head, router } from "@inertiajs/react";
+import { Head, router, usePage } from "@inertiajs/react";
 import { useState } from "react";
 
 export default function Tasks({ tasks, categories, divisions }) {
     const [filterData, setFilterData] = useState({});
     const [isFilterOpen, setIsFilterOpen] = useState(false);
+    const { ziggy } = usePage().props;
     const [sortBy, setSortBy] = useState(() => {
-        const url = new URL(window.location.href);
+        // const url = new URL(window.location.href);
+        const url = new URL(ziggy.url + usePage().url);
         const queryParams = Object.fromEntries(url.searchParams.entries());
         return queryParams.sort || "default";
     });
@@ -20,9 +22,9 @@ export default function Tasks({ tasks, categories, divisions }) {
 
     const handlePageChange = (page) => {
         const updatedData = { ...filterData, page };
-        router.get(route("tasks"), updatedData, {
+        router.get("/tasks", updatedData, {
             preserveState: true,
-            preserveScroll: true
+            preserveScroll: true,
         });
     };
 
@@ -31,9 +33,9 @@ export default function Tasks({ tasks, categories, divisions }) {
         setSortBy(value);
         const updatedData = { ...filterData, sort: value };
 
-        console.log(updatedData)
+        console.log(updatedData);
 
-        router.get(route("tasks"), updatedData, {
+        router.get("/tasks", updatedData, {
             preserveState: true,
         });
     };
@@ -43,7 +45,7 @@ export default function Tasks({ tasks, categories, divisions }) {
             <Head>
                 <title>Tasks</title>
             </Head>
-            {/* <AppLayout> */}
+            <AppLayout>
                 <div className="2xl:max-w-[1536px] 2xl:mx-auto px-4 pt-4">
                     <div className="flex justify-between md:justify-end items-center sticky top-0 z-20 bg-white p-3 rounded-lg shadow-sm">
                         {/* Filter Button - New Design */}
@@ -74,35 +76,56 @@ export default function Tasks({ tasks, categories, divisions }) {
                             className="text-sm rounded-lg border-gray-300 shadow-sm focus:gray-300 focus:ring-gray-300 py-2"
                         >
                             <option value="default">Default</option>
-                            <option value="budget_asc">Budget (Low &gt; High)</option>
-                            <option value="budget_desc">Budget (High &gt; Low)</option>
+                            <option value="budget_asc">
+                                Budget (Low &gt; High)
+                            </option>
+                            <option value="budget_desc">
+                                Budget (High &gt; Low)
+                            </option>
                         </select>
                     </div>
                 </div>
                 <div className="flex flex-col md:flex-row gap-2 p-4 2xl:max-w-[1536px] 2xl:mx-auto">
-
                     {/* Filter Sidebar */}
-                    <div className={`fixed md:relative inset-0 z-40 transform ${isFilterOpen ? "translate-x-0" : "-translate-x-full"
-                        } md:translate-x-0 transition-transform duration-300 ease-in-out bg-white md:bg-transparent w-3/4 sm:w-2/3 md:w-72 h-full md:h-auto overflow-y-auto md:overflow-visible shadow-xl md:shadow-none`}>
+                    <div
+                        className={`fixed md:relative inset-0 z-40 transform ${
+                            isFilterOpen ? "translate-x-0" : "-translate-x-full"
+                        } md:translate-x-0 transition-transform duration-300 ease-in-out bg-white md:bg-transparent w-3/4 sm:w-2/3 md:w-72 h-full md:h-auto overflow-y-auto md:overflow-visible shadow-xl md:shadow-none`}
+                    >
                         {/* Mobile Filter Header */}
                         <div className="md:hidden sticky top-0 bg-white p-4 border-b z-10">
                             <div className="flex justify-between items-center">
-                                <h2 className="text-lg font-semibold">Filters</h2>
+                                <h2 className="text-lg font-semibold">
+                                    Filters
+                                </h2>
                                 <button
                                     onClick={() => setIsFilterOpen(false)}
                                     className="text-gray-500 hover:text-gray-700"
                                 >
-                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                                    <svg
+                                        className="w-6 h-6"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth="2"
+                                            d="M6 18L18 6M6 6l12 12"
+                                        />
                                     </svg>
                                 </button>
                             </div>
                             {Object.keys(filterData).length > 0 && (
                                 <div className="mt-2 flex justify-between items-center">
                                     <span className="text-sm text-gray-600">
-                                        {Object.keys(filterData).length} filter{Object.keys(filterData).length > 1 ? 's' : ''} applied
+                                        {Object.keys(filterData).length} filter
+                                        {Object.keys(filterData).length > 1
+                                            ? "s"
+                                            : ""}{" "}
+                                        applied
                                     </span>
-
                                 </div>
                             )}
                         </div>
@@ -158,12 +181,13 @@ export default function Tasks({ tasks, categories, divisions }) {
                                                         min-w-[36px] h-[36px] px-2 sm:px-3 py-1 sm:py-2
                                                         rounded-md text-sm font-medium
                                                         transition-colors duration-200
-                                                        ${link.url
-                                                ? link.active
-                                                    ? "bg-blue-600 text-white"
-                                                    : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-300"
-                                                : "bg-gray-100 text-gray-400 cursor-not-allowed"
-                                            }
+                                                        ${
+                                                            link.url
+                                                                ? link.active
+                                                                    ? "bg-blue-600 text-white"
+                                                                    : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-300"
+                                                                : "bg-gray-100 text-gray-400 cursor-not-allowed"
+                                                        }
                                                     `}
                                     >
                                         {typeof label === "object" ? (
@@ -181,7 +205,7 @@ export default function Tasks({ tasks, categories, divisions }) {
                         </div>
                     </section>
                 </div>
-            {/* </AppLayout> */}
+            </AppLayout>
         </>
     );
 }

@@ -1,5 +1,6 @@
 import Footer from "@/Components/Frontend/Footer";
 import Nav from "@/Components/Frontend/Nav";
+import { usePage } from "@inertiajs/react";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 //import 'react-toastify/dist/ReactToastify.min.css';

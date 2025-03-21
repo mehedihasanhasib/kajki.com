@@ -18,7 +18,7 @@ export default function Profile({ auth }) {
     const [errors, setErrors] = useState({});
     const handleSubmit = (event) => {
         event.preventDefault();
-        router.post(route("profile.update"), data, {
+        router.post("/profile", data, {
             forceFormData: true,
             preserveScroll: true,
             onSuccess: ({ props }) => {
